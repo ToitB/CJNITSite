@@ -28,8 +28,7 @@ export const Manifesto: React.FC = () => {
       className="min-h-[60vh] flex items-center justify-center bg-slate-50/72 px-6 md:px-12 lg:px-24 py-24 border-y border-slate-200"
     >
       <div className="max-w-5xl mx-auto">
-        <div className="mb-12 flex items-center gap-4">
-          <div className="w-12 h-[2px] bg-brand-orange" />
+        <div className="mb-12">
           <span className="section-kicker">
             <mark className="hx hx-spark !mr-0">Our Philosophy</mark>
           </span>
