@@ -33,6 +33,45 @@ const TEAMS_ORG_ID = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_ORG_ID?.trim() ?? '
 const TEAMS_ORG_URL = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_ORG_URL?.trim() ?? '';
 const TEAMS_FALLBACK_URL = process.env.NEXT_PUBLIC_TEAMS_CHAT_FALLBACK_URL?.trim() ?? '';
 
+type ContactApiResponse = {
+  submissionId?: string;
+  queued?: boolean;
+  message?: string;
+};
+
+const createSubmissionId = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+
+  return `cjn-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+};
+
+const parseContactApiResponse = (body: string): ContactApiResponse => {
+  if (!body) return {};
+
+  try {
+    const parsed = JSON.parse(body) as Partial<Record<'submissionId' | 'queued' | 'message', unknown>>;
+    const response: ContactApiResponse = {};
+
+    if (typeof parsed.submissionId === 'string' && parsed.submissionId.trim()) {
+      response.submissionId = parsed.submissionId.trim();
+    }
+
+    if (typeof parsed.queued === 'boolean') {
+      response.queued = parsed.queued;
+    }
+
+    if (typeof parsed.message === 'string' && parsed.message.trim()) {
+      response.message = parsed.message.trim();
+    }
+
+    return response;
+  } catch {
+    return {};
+  }
+};
+
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -41,6 +80,7 @@ export const Contact: React.FC = () => {
   });
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
+  const [submitReference, setSubmitReference] = useState<string | null>(null);
   const [chatFeedback, setChatFeedback] = useState<string | null>(null);
 
   const canLoadTeamsWidget = Boolean(
@@ -75,6 +115,7 @@ export const Contact: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitFeedback(null);
+    setSubmitReference(null);
 
     if (!CONTACT_API_URL) {
       setSubmitState('error');
@@ -82,12 +123,18 @@ export const Contact: React.FC = () => {
       return;
     }
 
+    const clientSubmissionId = createSubmissionId();
     setSubmitState('sending');
+
+    const abortController = new AbortController();
+    const requestTimeout = window.setTimeout(() => abortController.abort(), 15000);
+
     try {
       const payload = {
         name: formData.name.trim(),
         email: formData.email.trim(),
         message: formData.message.trim(),
+        submissionId: clientSubmissionId,
         source: 'cjn-website-contact-form',
         submittedAt: new Date().toISOString(),
       };
@@ -96,25 +143,43 @@ export const Contact: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'X-Submission-Id': clientSubmissionId,
         },
+        signal: abortController.signal,
         body: JSON.stringify(payload),
       });
+      window.clearTimeout(requestTimeout);
+
+      const responseBody = await response.text();
+      const parsedResponse = parseContactApiResponse(responseBody);
+      const responseSubmissionId = parsedResponse.submissionId ?? clientSubmissionId;
+      setSubmitReference(responseSubmissionId);
 
       if (!response.ok) {
-        const details = await response.text();
-        throw new Error(details || 'Failed to send message.');
+        throw new Error(parsedResponse.message || 'Failed to send message.');
       }
 
+      const deliveryFeedback = parsedResponse.queued
+        ? 'Message received and queued for delivery.'
+        : 'Message sent successfully.';
+
       setSubmitState('success');
-      setSubmitFeedback('Message sent successfully. We will contact you shortly.');
+      setSubmitFeedback(`${deliveryFeedback} We will contact you shortly.`);
       setFormData({
         name: '',
         email: '',
         message: '',
       });
-    } catch {
+    } catch (error) {
+      window.clearTimeout(requestTimeout);
+      setSubmitReference(clientSubmissionId);
       setSubmitState('error');
-      setSubmitFeedback('Message failed to send. Please try again or email sales@cjn.co.za.');
+      const isTimeout = error instanceof DOMException && error.name === 'AbortError';
+      const failureReason = isTimeout
+        ? 'Message timed out before delivery confirmation.'
+        : 'Message failed to send.';
+      setSubmitFeedback(`${failureReason} Please try again or email sales@cjn.co.za.`);
     }
   };
 
@@ -316,6 +381,11 @@ export const Contact: React.FC = () => {
                     {submitFeedback && (
                       <p className={`text-sm ${submitState === 'success' ? 'text-emerald-700' : 'text-rose-600'}`}>
                         {submitFeedback}
+                      </p>
+                    )}
+                    {submitReference && (
+                      <p className="text-xs text-slate-500">
+                        Reference ID: <span className="font-semibold">{submitReference}</span>
                       </p>
                     )}
                 </form>

@@ -43,6 +43,17 @@ Expected payload:
 }
 ```
 
+Recommended response:
+
+```json
+{
+  "submissionId": "uuid-or-trace-id",
+  "queued": true
+}
+```
+
+If delivery fails, still return a `submissionId` where possible so support can trace and reprocess.
+
 ### Recommended backend architecture
 
 Use an Azure Function (or similar) with:

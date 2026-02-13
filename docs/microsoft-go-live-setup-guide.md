@@ -245,7 +245,22 @@ Before production launch, verify:
 7. Teams fallback link behavior is tested for allowed and blocked users.
 8. All secrets are server-side only (never in `NEXT_PUBLIC_*`).
 
-## 9) Go-live validation script (manual)
+## 9) Delivery observability and purge policy
+
+For contact submissions, do not rely only on mailbox delivery visibility.
+
+1. Use queue-first processing in backend.
+2. Return and log `submissionId` for every request.
+3. Trigger immediate alerting on repeated Graph/API failures.
+4. Send weekly reliability summary to operations mailbox.
+5. Purge detailed message payloads after short retention window.
+6. Keep metadata-only audit logs for trend/incident analysis.
+
+Detailed runbook:
+
+1. `docs/contact-delivery-reliability-guide.md`
+
+## 10) Go-live validation script (manual)
 
 1. Contact form success path:
    - Submit valid form, confirm mailbox receives message.
@@ -258,7 +273,7 @@ Before production launch, verify:
 5. Failure fallback:
    - Temporarily disable widget/repository API and confirm graceful fallback messages.
 
-## 10) Rollback plan
+## 11) Rollback plan
 
 If any integration fails at launch:
 

@@ -69,6 +69,11 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
    - Restrict CORS to production domain(s) only.
    - Log link issuance/access events for auditability.
 
+6. Prevent silent contact-message loss:
+   - Adopt queue-first contact API flow with server-issued `submissionId`.
+   - Implement retry policy + dead-letter handling for Graph send failures.
+   - Return trace reference IDs to frontend for support follow-up.
+
 ## P1 (high-value hardening/usability)
 
 1. Accessibility hardening:
@@ -87,6 +92,11 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
    - Prefer Graph `Sites.Selected` with site-level grants over broad tenant-wide scopes.
    - Review and prune admin-consented Graph permissions quarterly.
 
+5. Contact observability and reporting:
+   - Add immediate alerts for repeated send failures.
+   - Add weekly reliability summary mail (counts + failure codes + unresolved IDs).
+   - Keep weekly summary free from unnecessary PII.
+
 ## P2 (recommended polish/ops)
 
 1. Technical SEO scaffolding:
@@ -97,6 +107,10 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
 
 3. Dependency hygiene:
    - Patch-update `lucide-react`; evaluate `eslint` major separately.
+
+4. Retention and purge automation:
+   - Purge raw contact payload data after short TTL (for example 14 days).
+   - Retain metadata-only delivery audit for longer operational window (for example 90 days).
 
 ## Deployment guardrails checklist
 
