@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0, scaleY: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -18, scaleY: 0.5, filter: 'blur(9px)' }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-0 left-0 right-0 h-[92px] md:h-[110px] z-30 bg-white/94 backdrop-blur-lg border-b border-slate-300/85 shadow-md shadow-slate-300/55 pointer-events-none origin-top"
+            className="fixed top-0 left-0 right-0 h-[92px] md:h-[110px] z-30 bg-[#e8f4ff]/42 backdrop-blur-2xl border-b border-white/65 shadow-[0_10px_30px_rgba(148,184,216,0.22)] pointer-events-none origin-top"
           />
         )}
       </AnimatePresence>
