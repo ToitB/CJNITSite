@@ -1,21 +1,19 @@
 import type { Metadata } from 'next';
-import { Lato, Montserrat, Open_Sans } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 
-const openSans = Open_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-open-sans',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
 });
 
 const montserrat = Montserrat({
   subsets: ['latin'],
+  weight: ['500', '600', '700', '800', '900'],
   variable: '--font-montserrat',
-});
-
-const lato = Lato({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-lato',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -31,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth bg-white">
-      <body className={`${openSans.variable} ${montserrat.variable} ${lato.variable} antialiased`}>
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         {children}
       </body>
     </html>

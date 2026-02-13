@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { Cloud, Shield, Wrench, Server, HardDrive } from 'lucide-react';
+import { useSparkHighlights } from './useSparkHighlights';
 
 const services = [
   {
@@ -98,16 +99,19 @@ const Card: React.FC<{
 };
 
 export const ServiceShowcase: React.FC = () => {
-  const container = useRef(null);
+  const container = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end']
   });
+  useSparkHighlights(container);
 
   return (
     <section id="services" ref={container} className="relative bg-slate-50/72 pt-24 pb-24 border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center md:text-left">
-            <span className="inline-block font-subheading text-brand-orange text-xs tracking-widest uppercase mb-4 font-bold">Core Capabilities</span>
+            <span className="section-kicker inline-block mb-4">
+                <mark className="hx hx-spark !mr-0">Core Capabilities</mark>
+            </span>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-brand-dark">
                 Engineered for the<br/>
                 <span className="text-brand-blue">South African Enterprise</span>

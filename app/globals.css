@@ -18,7 +18,7 @@
     background-color: #ffffff;
     color: #020617;
     overflow-x: hidden;
-    font-family: var(--font-open-sans), sans-serif;
+    font-family: var(--font-inter), sans-serif;
   }
 
   h1,
@@ -30,7 +30,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-lato), sans-serif;
+    font-family: var(--font-inter), sans-serif;
   }
 
   ::selection {
@@ -77,6 +77,12 @@
 
   .btn-accent {
     @apply inline-flex items-center justify-center rounded-full bg-[#C15F00] text-white font-bold text-sm tracking-wide px-8 py-4 shadow-xl shadow-[#C15F00]/25 hover:bg-brand-orangeHighlight hover:shadow-2xl hover:shadow-brand-orange/30 transition-all duration-300;
+  }
+
+  .section-kicker {
+    @apply font-subheading text-sm md:text-base font-semibold uppercase tracking-[0.16em] text-[#0A4F8A];
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
   }
 
   .hx {
@@ -139,6 +145,11 @@
 
   .hx-spark {
     color: inherit;
+    background: none;
+    display: inline;
+    white-space: normal;
+    padding-inline: 0;
+    margin-right: 0;
   }
 
   .hx-spark .char {

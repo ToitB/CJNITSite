@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
+import { useSparkHighlights } from './useSparkHighlights';
 
 export const Hero: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
+  useSparkHighlights(containerRef);
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   
@@ -30,8 +32,8 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="mb-6"
         >
-            <span className="inline-block py-1 px-3 rounded-full bg-slate-100 border border-slate-200 text-brand-blue text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm">
-              Smart IT for South Africa
+            <span className="section-kicker inline-block py-1.5 px-4 rounded-full bg-slate-100 border border-slate-200 mb-6 shadow-sm">
+              <mark className="hx hx-spark !mr-0">Smart IT for your Business</mark>
             </span>
         </motion.div>
 
