@@ -128,4 +128,13 @@
   .hx-body {
     --after-width-final: 103%;
   }
+
+  .hx-spark {
+    color: #64748b;
+  }
+
+  .hx-spark .char {
+    display: inline-block;
+    will-change: filter;
+  }
 }

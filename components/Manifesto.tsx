@@ -34,6 +34,7 @@ export const Manifesto: React.FC = () => {
       if (!root) return;
 
       const highlights = Array.from(root.querySelectorAll<HTMLElement>('.hx-tech'));
+      const sparkHighlights = Array.from(root.querySelectorAll<HTMLElement>('.hx-spark'));
       const ctx = gsap.context(() => {
         highlights.forEach((el, index) => {
           const isHeading = el.classList.contains('hx-heading');
@@ -83,6 +84,58 @@ export const Manifesto: React.FC = () => {
             },
             0.15 + (index % 3) * 0.06
           );
+        });
+
+        const splitToChars = (el: HTMLElement) => {
+          if (el.dataset.splitChars === '1') return;
+          const text = (el.textContent || '').trim();
+          el.textContent = '';
+          for (const ch of text) {
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = ch;
+            el.appendChild(span);
+          }
+          el.dataset.splitChars = '1';
+        };
+
+        sparkHighlights.forEach((el) => {
+          splitToChars(el);
+          const chars = Array.from(el.querySelectorAll<HTMLElement>('.char'));
+
+          const animateChars = () => {
+            chars.forEach((char) => {
+              gsap
+                .timeline({
+                  defaults: {
+                    duration: 0.2,
+                    ease: 'power2.inOut',
+                  },
+                })
+                .fromTo(
+                  char,
+                  {
+                    filter: 'brightness(100%) drop-shadow(0px 0px 0px rgba(62,167,255,0))',
+                    willChange: 'filter',
+                  },
+                  {
+                    delay: gsap.utils.random(0, 0.9),
+                    repeat: 1,
+                    yoyo: true,
+                    filter: 'brightness(240%) drop-shadow(0px 0px 16px rgba(62,167,255,0.68))',
+                  }
+                );
+            });
+          };
+
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top bottom',
+            onEnter: animateChars,
+            onEnterBack: animateChars,
+            onLeave: () => gsap.killTweensOf(chars),
+            onLeaveBack: () => gsap.killTweensOf(chars),
+          });
         });
       }, root);
 
@@ -136,10 +189,12 @@ export const Manifesto: React.FC = () => {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl border border-slate-200/70 bg-white/65 p-5 shadow-sm shadow-slate-200/40"
+              className="rounded-2xl border border-slate-200/70 bg-white/65 p-6 shadow-sm shadow-slate-200/40 min-h-[180px] flex flex-col"
             >
-              <div className="font-subheading text-xs text-slate-400 uppercase tracking-widest mb-2">{stat.label}</div>
-              <div className="font-sans text-lg text-brand-dark font-medium leading-relaxed">{stat.value}</div>
+              <div className="font-subheading text-sm md:text-base text-slate-500 uppercase tracking-widest mb-3">
+                <mark className="hx hx-spark">{stat.label}</mark>
+              </div>
+              <div className="font-sans text-xl md:text-2xl text-brand-dark font-semibold leading-snug">{stat.value}</div>
             </motion.div>
           ))}
         </div>
