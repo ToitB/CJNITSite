@@ -105,7 +105,7 @@ export const ServiceShowcase: React.FC = () => {
   });
 
   return (
-    <section id="services" ref={container} className="relative bg-slate-50/88 pt-24 pb-24 border-t border-slate-200">
+    <section id="services" ref={container} className="relative bg-slate-50/72 pt-24 pb-24 border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center md:text-left">
             <span className="inline-block font-subheading text-brand-orange text-xs tracking-widest uppercase mb-4 font-bold">Core Capabilities</span>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-brand-dark">

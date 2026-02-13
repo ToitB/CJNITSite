@@ -22,7 +22,7 @@ export const BackgroundCanvas: React.FC = () => {
       antialias: true,
       powerPreference: 'high-performance',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
@@ -31,9 +31,9 @@ export const BackgroundCanvas: React.FC = () => {
     scene.add(cluster);
 
     const palette = [
-      new THREE.Color('#7ed8ff'),
-      new THREE.Color('#61beff'),
-      new THREE.Color('#a9e8ff'),
+      new THREE.Color('#6dc7ff'),
+      new THREE.Color('#3ea7ff'),
+      new THREE.Color('#8fdcff'),
     ];
 
     let frameId = 0;
@@ -42,6 +42,7 @@ export const BackgroundCanvas: React.FC = () => {
 
     let points: THREE.Points | null = null;
     let lines: THREE.LineSegments | null = null;
+    let glowSprite: THREE.Sprite | null = null;
 
     let pointPositions: Float32Array = new Float32Array();
     let pointColors: Float32Array = new Float32Array();
@@ -72,14 +73,21 @@ export const BackgroundCanvas: React.FC = () => {
         (lines.material as THREE.Material).dispose();
         lines = null;
       }
+      if (glowSprite) {
+        cluster.remove(glowSprite);
+        const glowMat = glowSprite.material as THREE.SpriteMaterial;
+        glowMat.map?.dispose();
+        glowMat.dispose();
+        glowSprite = null;
+      }
     };
 
     const buildNetwork = () => {
       clearObjects();
 
-      const count = Math.max(540, Math.min(980, Math.floor((width * height) / 2300)));
-      const radius = Math.max(width, height) * 0.42;
-      const maxLinkDistance = radius * 0.22;
+      const count = Math.max(760, Math.min(1400, Math.floor((width * height) / 1700)));
+      const radius = Math.max(width, height) * 0.62;
+      const maxLinkDistance = radius * 0.24;
       const maxLinkDistanceSq = maxLinkDistance * maxLinkDistance;
 
       pointMeta = [];
@@ -115,7 +123,7 @@ export const BackgroundCanvas: React.FC = () => {
         pointColors[i * 3 + 1] = c.g;
         pointColors[i * 3 + 2] = c.b;
 
-        pointSizes[i] = 3 + Math.random() * 3.8;
+        pointSizes[i] = 4.2 + Math.random() * 5.2;
         pointPhases[i] = phase;
       }
 
@@ -123,7 +131,7 @@ export const BackgroundCanvas: React.FC = () => {
       for (let i = 0; i < count; i++) {
         let linked = 0;
         let attempts = 0;
-        while (linked < 3 && attempts < 28) {
+        while (linked < 5 && attempts < 44) {
           attempts++;
           const j = (i + Math.floor(Math.random() * count)) % count;
           if (i === j) continue;
@@ -175,7 +183,7 @@ export const BackgroundCanvas: React.FC = () => {
       const pointMaterial = new THREE.ShaderMaterial({
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending,
         vertexColors: true,
         uniforms: {
           uTime: { value: 0 },
@@ -202,7 +210,7 @@ export const BackgroundCanvas: React.FC = () => {
             float d = length(uv);
             if (d > 0.5) discard;
             float alpha = smoothstep(0.5, 0.0, d);
-            gl_FragColor = vec4(vColor, alpha * 0.55);
+            gl_FragColor = vec4(vColor, alpha * 0.78);
           }
         `,
       });
@@ -217,16 +225,43 @@ export const BackgroundCanvas: React.FC = () => {
 
       const lineMaterial = new THREE.LineBasicMaterial({
         transparent: true,
-        opacity: 0.13,
+        opacity: 0.23,
         vertexColors: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending,
       });
 
       lines = new THREE.LineSegments(lineGeometry, lineMaterial);
       cluster.add(lines);
 
-      camera.position.set(0, 0, Math.max(width, height) * 0.95);
+      const glowCanvas = document.createElement('canvas');
+      glowCanvas.width = 1024;
+      glowCanvas.height = 1024;
+      const glowCtx = glowCanvas.getContext('2d');
+      if (glowCtx) {
+        const gradient = glowCtx.createRadialGradient(512, 512, 0, 512, 512, 512);
+        gradient.addColorStop(0, 'rgba(59, 164, 255, 0.34)');
+        gradient.addColorStop(0.45, 'rgba(96, 193, 255, 0.16)');
+        gradient.addColorStop(1, 'rgba(96, 193, 255, 0)');
+        glowCtx.fillStyle = gradient;
+        glowCtx.fillRect(0, 0, 1024, 1024);
+      }
+      const glowTexture = new THREE.CanvasTexture(glowCanvas);
+      const glowMaterial = new THREE.SpriteMaterial({
+        map: glowTexture,
+        transparent: true,
+        opacity: 0.72,
+        depthWrite: false,
+        blending: THREE.NormalBlending,
+      });
+      glowSprite = new THREE.Sprite(glowMaterial);
+      glowSprite.position.set(0, 0, -350);
+      const glowSize = radius * 3.2;
+      glowSprite.scale.set(glowSize, glowSize, 1);
+      cluster.add(glowSprite);
+
+      cluster.scale.set(1.18, 1.18, 1.18);
+      camera.position.set(0, 0, Math.max(width, height) * 0.9);
     };
 
     const resize = () => {
@@ -283,10 +318,10 @@ export const BackgroundCanvas: React.FC = () => {
         mat.uniforms.uTime.value = t;
       }
 
-      cluster.rotation.y += 0.00055;
-      cluster.rotation.x = Math.sin(t * 0.22) * 0.05 + mouseCurrent.y * 0.08;
-      camera.position.x = mouseCurrent.x * 24;
-      camera.position.y = mouseCurrent.y * 16;
+      cluster.rotation.y += 0.00062;
+      cluster.rotation.x = Math.sin(t * 0.22) * 0.06 + mouseCurrent.y * 0.1;
+      camera.position.x = mouseCurrent.x * 30;
+      camera.position.y = mouseCurrent.y * 22;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);

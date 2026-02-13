@@ -12,7 +12,7 @@ export const Hero: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   
   return (
-    <section ref={containerRef} className="min-h-screen w-full flex flex-col items-center justify-center pt-28 pb-24 md:pt-32 md:pb-28 relative overflow-hidden bg-white/90">
+    <section ref={containerRef} className="min-h-screen w-full flex flex-col items-center justify-center pt-28 pb-24 md:pt-32 md:pb-28 relative overflow-hidden bg-white/78">
       
       {/* Background Gradient Mesh */}
       <div className="absolute inset-0 z-0 opacity-30">

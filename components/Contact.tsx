@@ -5,7 +5,7 @@ import AnimatedGlobe from './AnimatedGlobe';
 
 export const Contact: React.FC = () => {
   return (
-    <section id="contact" className="min-h-screen bg-white/90 relative flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 border-t border-slate-200">
+    <section id="contact" className="min-h-screen bg-white/82 relative flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 border-t border-slate-200">
       
       <div className="relative z-10 max-w-7xl w-full mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-32">
