@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -12,10 +12,46 @@ import { BackgroundCanvas } from './components/BackgroundCanvas';
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [lineDone, setLineDone] = useState(false);
+  const [lineMetrics, setLineMetrics] = useState({ top: 0, stopWidth: 0, dotX: 0 });
+  const loaderTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 1400);
-    return () => clearTimeout(timer);
+    const updateMetrics = () => {
+      const el = loaderTextRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      setLineMetrics({
+        top: rect.bottom + 12,
+        stopWidth: Math.max(180, rect.right - 16),
+        dotX: rect.right - 2,
+      });
+    };
+
+    const frame = requestAnimationFrame(updateMetrics);
+    window.addEventListener('resize', updateMetrics);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', updateMetrics);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!lineDone) return;
+    const hold = setTimeout(() => setIsLoaded(true), 120);
+    return () => clearTimeout(hold);
+  }, [lineDone]);
+
+  useEffect(() => {
+    const safety = setTimeout(() => {
+      setLineDone(true);
+    }, 2500);
+
+    return () => {
+      clearTimeout(safety);
+    }
   }, []);
 
   return (
@@ -41,7 +77,7 @@ const App: React.FC = () => {
 
       {/* Loading Overlay */}
       <div className={`fixed inset-0 z-50 bg-white flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] pointer-events-none ${isLoaded ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div className="relative inline-flex items-end pr-5">
+        <div ref={loaderTextRef} className="relative inline-flex items-end pr-5">
           <div className="text-6xl font-display font-bold text-brand-blue tracking-tighter">
             CJN IT
           </div>
@@ -50,26 +86,30 @@ const App: React.FC = () => {
             className="absolute right-0 text-6xl font-display font-bold text-[#C15F00] leading-none"
             initial={{ opacity: 0, scale: 0.2, y: 0 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.26, delay: 0.86, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.26, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
             .
           </motion.span>
+        </div>
 
+        {lineMetrics.stopWidth > 0 && (
           <motion.div
-            className="absolute left-0 top-full mt-3 h-[4px] rounded-full bg-[#C15F00]"
-            initial={{ x: -380, width: 360, opacity: 1 }}
+            className="fixed left-0 h-[4px] rounded-full bg-[#C15F00]"
+            style={{ top: `${lineMetrics.top}px` }}
+            initial={{ x: 0, width: 0, opacity: 1 }}
             animate={{
-              x: [-380, -48, 210],
-              width: [360, 240, 12],
-              opacity: [1, 1, 0],
+              x: [0, 0, 0, lineMetrics.dotX],
+              width: [0, lineMetrics.stopWidth, lineMetrics.stopWidth, 12],
+              opacity: [1, 1, 1, 0],
             }}
             transition={{
-              duration: 0.95,
-              times: [0, 0.7, 1],
+              duration: 1.42,
+              times: [0, 0.54, 0.82, 1],
               ease: [0.22, 1, 0.36, 1],
             }}
+            onAnimationComplete={() => setLineDone(true)}
           />
-        </div>
+        )}
       </div>
     </div>
   );
