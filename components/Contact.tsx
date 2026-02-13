@@ -1,7 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, MapPin, Mail, Phone } from 'lucide-react';
+import { ArrowUpRight, MapPin, Mail, Phone, Linkedin, Clock3 } from 'lucide-react';
 import AnimatedGlobe from './AnimatedGlobe';
+
+const XLogo: React.FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+    <path d="M18.244 2H21l-6.55 7.49L22.5 22h-6.3l-4.94-6.45L5.6 22H2.84l7-8L1.5 2h6.46l4.47 5.9L18.24 2Zm-1.1 18h1.74L6.4 3.9H4.53L17.14 20Z" />
+  </svg>
+);
 
 export const Contact: React.FC = () => {
   return (
@@ -59,6 +65,54 @@ export const Contact: React.FC = () => {
                             <a href="tel:0878093516" className="text-slate-500 hover:text-brand-orange transition-colors">087 809 3516</a>
                         </div>
                     </div>
+
+                    <div className="flex gap-6 items-start group">
+                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                            <Linkedin size={20} />
+                        </div>
+                        <div>
+                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">LinkedIn</h4>
+                            <a
+                              href="https://www.linkedin.com/company/cjnitsolutions"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-slate-500 hover:text-brand-orange transition-colors"
+                            >
+                              linkedin.com/company/cjnitsolutions
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6 items-start group">
+                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                            <XLogo className="w-5 h-5" />
+                        </div>
+                        <div>
+                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">X.com</h4>
+                            <a
+                              href="https://x.com/cjnit"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-slate-500 hover:text-brand-orange transition-colors"
+                            >
+                              x.com/cjnit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-6 items-start group">
+                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                            <Clock3 size={20} />
+                        </div>
+                        <div>
+                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">Working hours</h4>
+                            <p className="text-slate-500 leading-relaxed">
+                              Mondays - Fridays: 08:00 - 17:00
+                              <br />
+                              Weekends / Public Holidays: Closed
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -94,11 +148,11 @@ export const Contact: React.FC = () => {
         <div className="relative">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[92%] h-7 w-56 -translate-x-1/2 rounded-[999px] bg-slate-700/28 blur-[10px]"
+            className="pointer-events-none absolute left-1/2 top-[104%] h-5 w-40 -translate-x-1/2 rounded-[999px] bg-slate-700/26 blur-[9px]"
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[90%] h-5 w-44 -translate-x-1/2 rounded-[999px] bg-sky-500/16 blur-[8px]"
+            className="pointer-events-none absolute left-1/2 top-[102%] h-3 w-30 -translate-x-1/2 rounded-[999px] bg-sky-500/14 blur-[7px]"
           />
           <AnimatedGlobe size={200} className="relative z-10 scale-90 md:scale-100" />
         </div>
