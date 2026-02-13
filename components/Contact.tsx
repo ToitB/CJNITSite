@@ -91,7 +91,17 @@ export const Contact: React.FC = () => {
       </div>
 
       <div className="relative z-10 mt-20 flex justify-center">
-        <AnimatedGlobe size={200} className="scale-90 md:scale-100" />
+        <div className="relative">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-[92%] h-7 w-56 -translate-x-1/2 rounded-[999px] bg-slate-700/28 blur-[10px]"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-[90%] h-5 w-44 -translate-x-1/2 rounded-[999px] bg-sky-500/16 blur-[8px]"
+          />
+          <AnimatedGlobe size={200} className="relative z-10 scale-90 md:scale-100" />
+        </div>
       </div>
 
       <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-400">

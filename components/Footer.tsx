@@ -11,10 +11,6 @@ export const Footer: React.FC = () => {
       <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 md:py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <a href="/" className="flex items-center gap-3 group cursor-hover">
           <div className="relative">
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-[78%] h-3.5 w-10 -translate-x-1/2 rounded-full bg-slate-500/28 blur-[6px]"
-            />
             <AnimatedGlobe
               size={34}
               className="relative z-10 -translate-y-px"
