@@ -138,7 +138,7 @@
   }
 
   .hx-spark {
-    color: #64748b;
+    color: inherit;
   }
 
   .hx-spark .char {
