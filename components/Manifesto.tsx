@@ -35,9 +35,11 @@ export const Manifesto: React.FC = () => {
         </div>
 
         <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#0A4F8A] italic">
-          At CJN, we believe technology isn&apos;t just a utility. It is the heartbeat of your enterprise. Since 2003,
-          we have moved beyond the break-fix mentality. Our approach favors proactive architecture over reactive
-          repairs, ensuring your systems remain invisible in their reliability so you can focus on growth.
+          <mark className="hx hx-spark hx-body-copy !mr-0">
+            At CJN, we believe technology isn&apos;t just a utility. It is the heartbeat of your enterprise. Since
+            2003, we have moved beyond the break-fix mentality. Our approach favors proactive architecture over
+            reactive repairs, ensuring your systems remain invisible in their reliability so you can focus on growth.
+          </mark>
         </p>
 
         <div className="mt-16 grid md:grid-cols-2 gap-8 pt-8 border-t border-slate-200">
