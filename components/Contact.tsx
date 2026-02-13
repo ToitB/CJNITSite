@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, MapPin, Mail, Phone, Linkedin, Clock3 } from 'lucide-react';
+import { ArrowUpRight, MapPin, Mail, Phone, Linkedin, Clock3, MessageCircle } from 'lucide-react';
 import AnimatedGlobe from './AnimatedGlobe';
 
 const XLogo: React.FC<{ className?: string }> = ({ className }) => (
@@ -9,7 +9,137 @@ const XLogo: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+type TeamsLiveChatSDK = {
+  startChat?: () => void | Promise<void>;
+  openChat?: () => void | Promise<void>;
+};
+
+declare global {
+  interface Window {
+    Microsoft?: {
+      Omnichannel?: {
+        LiveChatWidget?: {
+          SDK?: TeamsLiveChatSDK;
+        };
+      };
+    };
+  }
+}
+
+const CONTACT_API_URL = process.env.NEXT_PUBLIC_CONTACT_API_URL?.trim() ?? '';
+const TEAMS_SCRIPT_URL = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_SCRIPT_URL?.trim() ?? '';
+const TEAMS_APP_ID = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_APP_ID?.trim() ?? '';
+const TEAMS_ORG_ID = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_ORG_ID?.trim() ?? '';
+const TEAMS_ORG_URL = process.env.NEXT_PUBLIC_TEAMS_LIVE_CHAT_ORG_URL?.trim() ?? '';
+const TEAMS_FALLBACK_URL = process.env.NEXT_PUBLIC_TEAMS_CHAT_FALLBACK_URL?.trim() ?? '';
+
 export const Contact: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
+  const [chatFeedback, setChatFeedback] = useState<string | null>(null);
+
+  const canLoadTeamsWidget = Boolean(
+    TEAMS_SCRIPT_URL && TEAMS_APP_ID && TEAMS_ORG_ID && TEAMS_ORG_URL
+  );
+
+  useEffect(() => {
+    if (!canLoadTeamsWidget) return;
+
+    const existingScript = document.getElementById('Microsoft_Omnichannel_LCWidget');
+    if (existingScript) return;
+
+    const script = document.createElement('script');
+    script.id = 'Microsoft_Omnichannel_LCWidget';
+    script.src = TEAMS_SCRIPT_URL;
+    script.async = true;
+    script.defer = true;
+    script.setAttribute('data-app-id', TEAMS_APP_ID);
+    script.setAttribute('data-org-id', TEAMS_ORG_ID);
+    script.setAttribute('data-org-url', TEAMS_ORG_URL);
+    script.setAttribute('data-hide-chat-button', 'true');
+    document.body.appendChild(script);
+  }, [canLoadTeamsWidget]);
+
+  const onFieldChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitFeedback(null);
+
+    if (!CONTACT_API_URL) {
+      setSubmitState('error');
+      setSubmitFeedback('Contact service is not configured yet. Please email sales@cjn.co.za.');
+      return;
+    }
+
+    setSubmitState('sending');
+    try {
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+        source: 'cjn-website-contact-form',
+        submittedAt: new Date().toISOString(),
+      };
+
+      const response = await fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const details = await response.text();
+        throw new Error(details || 'Failed to send message.');
+      }
+
+      setSubmitState('success');
+      setSubmitFeedback('Message sent successfully. We will contact you shortly.');
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+    } catch {
+      setSubmitState('error');
+      setSubmitFeedback('Message failed to send. Please try again or email sales@cjn.co.za.');
+    }
+  };
+
+  const onChatClick = async () => {
+    setChatFeedback(null);
+
+    const sdk = window.Microsoft?.Omnichannel?.LiveChatWidget?.SDK;
+    if (sdk?.startChat) {
+      await sdk.startChat();
+      return;
+    }
+
+    if (sdk?.openChat) {
+      await sdk.openChat();
+      return;
+    }
+
+    if (TEAMS_FALLBACK_URL) {
+      window.open(TEAMS_FALLBACK_URL, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    setChatFeedback('Chat is not configured yet. Please contact us by email in the meantime.');
+  };
+
   return (
     <section id="contact" className="min-h-screen bg-white/82 relative flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 border-t border-slate-200">
       
@@ -113,32 +243,81 @@ export const Contact: React.FC = () => {
                             </p>
                         </div>
                     </div>
+
+                    <div className="pt-1">
+                      <button
+                        type="button"
+                        onClick={onChatClick}
+                        className="cursor-hover inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/50 px-5 py-2.5 text-sm font-semibold tracking-wide text-brand-blue backdrop-blur-sm transition-colors hover:border-brand-blue/50 hover:text-brand-dark"
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        Chat with us
+                      </button>
+                      {chatFeedback && (
+                        <p className="mt-2 text-sm text-slate-500 max-w-sm">
+                          {chatFeedback}
+                        </p>
+                      )}
+                    </div>
                 </div>
             </div>
 
             {/* Form Column */}
             <div className="glass-card-strong rounded-[2rem] p-7 md:p-9">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={onSubmit}>
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Name</label>
-                        <input type="text" className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all" placeholder="Enter your name" />
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={onFieldChange}
+                          required
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                          placeholder="Enter your name"
+                        />
                     </div>
                     
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Email</label>
-                        <input type="email" className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all" placeholder="your@email.com" />
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={onFieldChange}
+                          required
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                          placeholder="your@email.com"
+                        />
                     </div>
                     
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Message</label>
-                        <textarea rows={3} className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all resize-none" placeholder="Tell us about your IT needs..." />
+                        <textarea
+                          rows={3}
+                          name="message"
+                          value={formData.message}
+                          onChange={onFieldChange}
+                          required
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all resize-none"
+                          placeholder="Tell us about your IT needs..."
+                        />
                     </div>
 
-                    <button className="cursor-hover w-full btn-accent font-display text-lg py-5 rounded-xl">
+                    <button
+                      type="submit"
+                      disabled={submitState === 'sending'}
+                      className="cursor-hover w-full btn-accent font-display text-lg py-5 rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
                         <span className="relative z-10 flex items-center justify-center gap-2">
-                            Start the Conversation <ArrowUpRight className="w-5 h-5" />
+                            {submitState === 'sending' ? 'Sending...' : 'Start the Conversation'} <ArrowUpRight className="w-5 h-5" />
                         </span>
                     </button>
+                    {submitFeedback && (
+                      <p className={`text-sm ${submitState === 'success' ? 'text-emerald-700' : 'text-rose-600'}`}>
+                        {submitFeedback}
+                      </p>
+                    )}
                 </form>
 
                 <div className="mt-10">
@@ -167,7 +346,7 @@ export const Contact: React.FC = () => {
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[102%] h-3 w-30 -translate-x-1/2 rounded-[999px] bg-sky-500/14 blur-[7px]"
+            className="pointer-events-none absolute left-1/2 top-[102%] h-3 w-32 -translate-x-1/2 rounded-[999px] bg-sky-500/14 blur-[7px]"
           />
           <AnimatedGlobe size={200} className="relative z-10 scale-90 md:scale-100" />
         </div>

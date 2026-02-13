@@ -25,3 +25,14 @@ This generates a fully static site in `out/`.
 3. Ensure `index.html` from `out/` is at the root of `public_html`
 
 No Node.js runtime is required for this deployment mode.
+
+## Microsoft integration notes
+
+This frontend is static-exported. For contact mail delivery through Microsoft Graph:
+
+- Use a secure external backend endpoint (Azure Function / API) and set `NEXT_PUBLIC_CONTACT_API_URL`.
+- Configure Teams Live Chat widget values in public env vars for the `Chat with us` button.
+
+Use `.env.example` as the template and see:
+
+- `docs/microsoft-integrations.md`

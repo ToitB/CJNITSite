@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, MessageCircle } from 'lucide-react';
 import { useSparkHighlights } from './useSparkHighlights';
 
 export const Hero: React.FC = () => {
@@ -12,6 +12,39 @@ export const Hero: React.FC = () => {
   useSparkHighlights(containerRef);
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const teamsFallbackUrl = process.env.NEXT_PUBLIC_TEAMS_CHAT_FALLBACK_URL?.trim() ?? '';
+
+  const onChatClick = async () => {
+    const sdk = (window as Window & {
+      Microsoft?: {
+        Omnichannel?: {
+          LiveChatWidget?: {
+            SDK?: {
+              startChat?: () => void | Promise<void>;
+              openChat?: () => void | Promise<void>;
+            };
+          };
+        };
+      };
+    }).Microsoft?.Omnichannel?.LiveChatWidget?.SDK;
+
+    if (sdk?.startChat) {
+      await sdk.startChat();
+      return;
+    }
+
+    if (sdk?.openChat) {
+      await sdk.openChat();
+      return;
+    }
+
+    if (teamsFallbackUrl) {
+      window.open(teamsFallbackUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   
   return (
     <section ref={containerRef} className="min-h-screen w-full flex flex-col items-center justify-center pt-28 pb-24 md:pt-32 md:pb-28 relative overflow-hidden bg-white/78">
@@ -92,6 +125,17 @@ export const Hero: React.FC = () => {
                 >
                     Get In Touch
                 </motion.a>
+
+                <motion.button
+                    type="button"
+                    onClick={onChatClick}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="cursor-hover btn-primary inline-flex items-center gap-2"
+                >
+                    <MessageCircle className="w-4 h-4" />
+                    Chat with us
+                </motion.button>
             </div>
         </motion.div>
       </motion.div>
