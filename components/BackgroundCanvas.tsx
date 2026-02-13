@@ -210,7 +210,7 @@ export const BackgroundCanvas: React.FC = () => {
             float d = length(uv);
             if (d > 0.5) discard;
             float alpha = smoothstep(0.5, 0.0, d);
-            gl_FragColor = vec4(vColor, alpha * 0.78);
+            gl_FragColor = vec4(vColor, alpha * 0.86);
           }
         `,
       });
@@ -225,7 +225,7 @@ export const BackgroundCanvas: React.FC = () => {
 
       const lineMaterial = new THREE.LineBasicMaterial({
         transparent: true,
-        opacity: 0.23,
+        opacity: 0.27,
         vertexColors: true,
         depthWrite: false,
         blending: THREE.NormalBlending,
@@ -240,8 +240,8 @@ export const BackgroundCanvas: React.FC = () => {
       const glowCtx = glowCanvas.getContext('2d');
       if (glowCtx) {
         const gradient = glowCtx.createRadialGradient(512, 512, 0, 512, 512, 512);
-        gradient.addColorStop(0, 'rgba(59, 164, 255, 0.34)');
-        gradient.addColorStop(0.45, 'rgba(96, 193, 255, 0.16)');
+        gradient.addColorStop(0, 'rgba(59, 164, 255, 0.40)');
+        gradient.addColorStop(0.45, 'rgba(96, 193, 255, 0.19)');
         gradient.addColorStop(1, 'rgba(96, 193, 255, 0)');
         glowCtx.fillStyle = gradient;
         glowCtx.fillRect(0, 0, 1024, 1024);
@@ -250,7 +250,7 @@ export const BackgroundCanvas: React.FC = () => {
       const glowMaterial = new THREE.SpriteMaterial({
         map: glowTexture,
         transparent: true,
-        opacity: 0.72,
+        opacity: 0.79,
         depthWrite: false,
         blending: THREE.NormalBlending,
       });
