@@ -1,0 +1,36 @@
+2026 SEO and AEO Technical Requirements Document
+This document outlines the technical specifications and optimizations required to align our website with 2026 search standards, prioritizing high-fidelity user signals, Interaction to Next Paint (INP) compliance, and Answer Engine Optimization (AEO).
+
+--------------------------------------------------------------------------------
+1. Core Web Vitals (CWV) 2.0 & Performance Benchmarks
+The site must meet "Good" thresholds based on real-user field data rather than just lab testing.
+• Interaction to Next Paint (INP): Must be ≤ 200 milliseconds. Optimize event listeners and prioritize critical user interactions to minimize the delay between a user action and the next visual update.
+• Largest Contentful Paint (LCP): Main content must load within 2.5 seconds. Implement server-side rendering (SSR) for dynamic content and use fetchpriority=high for hero images.
+• Cumulative Layout Shift (CLS): Maintain a score below 0.1. Set explicit width/height attributes for all media and pre-allocate space for dynamic elements like ads or embeds.
+• Mobile-First Indexing: Evaluate all performance primarily on mobile rendering. Ensure a touch-friendly UI and fast loading on cellular connections.
+2. HTML & Metadata Optimization Standards
+• Title Tags: Write unique titles under 60 characters to avoid truncation. Place the primary keyword at the beginning of the tag.
+• Meta Descriptions: Target 150–160 characters. Include a benefit-driven Call-to-Action (CTA) and integrate secondary keywords, which will be bolded in SERPs when matching user queries.
+• Header Hierarchy: Use exactly one H1 tag per page containing the primary keyword. Structure H2 and H3 tags logically as an internal navigation system for both bots and AI agents.
+• URL Structure: Keep slugs short, descriptive, and keyword-rich. Use hyphens (-) to separate words; do not use underscores (_).
+3. Advanced Structured Data (JSON-LD) & Entity Alignment
+Implement advanced schema markup to feed machine-readable context into AI knowledge graphs.
+• Core Schemas: Deploy Article, Product, Review, Organization, and LocalBusiness schema as the foundational layer.
+• AEO-Specific Schemas: Use FAQ, HowTo, and Person schema to explicitly define entity relationships and authority.
+• Entity Consistency: Ensure the Name, Address, and Phone (NAP) and brand descriptors are identical across the site and third-party directories to maintain a high "entity trust score".
+• Clean Codebase: Remove deprecated schema types (e.g., Course Info, Vehicle Listing, Estimated Salary) phased out in 2025.
+4. Answer Engine Optimization (AEO) Structural Requirements
+To be cited by AI assistants (Gemini, ChatGPT, SGE), content must be "chunkable" for LLM extraction.
+• The 50-Word Rule: Place a concise 40–60 word answer block answering a specific question at the top of relevant sections.
+• Semantic Data Structure: Organize content using "Subject-Predicate-Object" (semantic triples) formats that AI agents can easily parse.
+• Question-Answer Pairs: Transform FAQ pages into direct Question-Answer pairs to match the average 23-word conversational search query.
+• Comprehensive Topical Journeys: Structure pages to resolve primary queries and anticipate follow-up questions within the same URL.
+5. Image and Multimedia Engineering
+• Image Compression: All images must be under 100kb using next-gen formats like WebP or AVIF.
+• Descriptive Alt Text: Use Alt text to genuinely describe the image for accessibility while naturally incorporating secondary LSI keywords.
+• Video Optimization: Short-form videos (6–15 seconds) should include chapter markers with answer-oriented titles and accurate transcripts to facilitate playback at the exact moment of an answer.
+6. Site Integrity and Indexing Management
+• Crawlability: Maintain a valid robots.txt and a clean XML sitemap submitted via Google Search Console.
+• Duplicate Content: Use canonical tags to specify preferred URL versions and 301 redirects for permanent URL changes.
+• Security: Enforce HTTPS across the entire site as a verified trust signal.
+• Internal Linking: Build a "silo" structure to distribute page authority, using descriptive anchor text that matches the destination page's primary keyword

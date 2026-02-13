@@ -1,0 +1,131 @@
+@config "../tailwind.config.ts";
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-blue: #005596;
+    --brand-cyan: #00aeef;
+    --brand-dark: #020617;
+    --brand-orange: #ffaa40;
+    --brand-orange-highlight: #ff8c00;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #020617;
+    overflow-x: hidden;
+    font-family: var(--font-open-sans), sans-serif;
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-montserrat), sans-serif;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-lato), sans-serif;
+  }
+
+  ::selection {
+    background: #00aeef;
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-brand-dark text-white font-bold text-sm tracking-wide px-8 py-4 shadow-xl shadow-brand-dark/20 hover:bg-brand-blue hover:shadow-2xl hover:shadow-brand-blue/20 transition-all duration-300;
+  }
+
+  .btn-primary-compact {
+    @apply inline-flex items-center justify-center rounded-full bg-brand-dark text-white font-bold text-sm tracking-wide px-6 py-3 shadow-lg shadow-brand-dark/15 hover:bg-brand-blue hover:shadow-xl hover:shadow-brand-blue/20 transition-all duration-300;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-full bg-[#C15F00] text-white font-bold text-sm tracking-wide px-8 py-4 shadow-xl shadow-[#C15F00]/25 hover:bg-brand-orangeHighlight hover:shadow-2xl hover:shadow-brand-orange/30 transition-all duration-300;
+  }
+
+  .hx {
+    background: none;
+    color: inherit;
+    display: inline-flex;
+    position: relative;
+    white-space: nowrap;
+    font-weight: inherit;
+    padding-inline: 0.015em;
+    margin-right: 0.12em;
+  }
+
+  .hx-tech {
+    --after-width: 0%;
+    --after-width-final: 104%;
+  }
+
+  .hx-tech::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    top: 62%;
+    width: var(--after-width);
+    height: 0.38em;
+    border-radius: 4px;
+    background: linear-gradient(
+      90deg,
+      rgb(255 170 64 / 0.38) 0%,
+      rgb(255 140 0 / 0.54) 100%
+    );
+    z-index: -1;
+  }
+
+  .hx-heading {
+    --after-width-final: 106%;
+  }
+
+  .hx-heading::after {
+    top: 68%;
+    height: 0.3em;
+    background: linear-gradient(
+      90deg,
+      rgb(255 170 64 / 0.28) 0%,
+      rgb(255 140 0 / 0.42) 100%
+    );
+  }
+
+  .hx-body {
+    --after-width-final: 103%;
+  }
+}

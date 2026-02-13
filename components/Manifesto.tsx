@@ -1,0 +1,149 @@
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+
+const tileItems = [
+  { label: 'Established', value: '20+ years of local expertise.' },
+  {
+    label: 'Presence',
+    value: 'On-the-ground support in Pretoria, Centurion, and Johannesburg.',
+  },
+  {
+    label: 'Specialization',
+    value: 'Tailored solutions for Legal, Engineering, Finance, and NPPs.',
+  },
+  { label: 'Performance', value: 'Average response time under 60 minutes.' },
+];
+
+export const Manifesto: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let cleanup = () => {};
+
+    const init = async () => {
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const root = sectionRef.current;
+      if (!root) return;
+
+      const highlights = Array.from(root.querySelectorAll<HTMLElement>('.hx-tech'));
+      const ctx = gsap.context(() => {
+        highlights.forEach((el, index) => {
+          const isHeading = el.classList.contains('hx-heading');
+
+          gsap.set(el, {
+            '--after-width': '0%',
+            color: isHeading ? '#94a3b8' : '#f2d3b5',
+            filter: 'drop-shadow(0px 0px 0px rgba(255,140,0,0))',
+            y: 10,
+          });
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 92%',
+              end: 'bottom 38%',
+              scrub: 0.8,
+            },
+          })
+          .to(
+            el,
+            {
+              duration: 1,
+              '--after-width': 'var(--after-width-final)',
+              color: isHeading ? '#0f172a' : '#C15F00',
+              y: 0,
+              filter: 'drop-shadow(0px 0px 11px rgba(255,140,0,0.32))',
+              ease: 'none',
+            },
+            0
+          )
+          .to(
+            el,
+            {
+              duration: 0.55,
+              filter: 'drop-shadow(0px 0px 0px rgba(255,140,0,0))',
+              ease: 'none',
+            },
+            0.45
+          )
+          .to(
+            el,
+            {
+              duration: 0.85,
+              '--after-width': '0%',
+              ease: 'none',
+            },
+            0.15 + (index % 3) * 0.06
+          );
+        });
+      }, root);
+
+      cleanup = () => {
+        ctx.revert();
+        ScrollTrigger.getAll().forEach((t) => {
+          if (root.contains(t.trigger as Node)) t.kill();
+        });
+      };
+    };
+
+    init();
+    return () => cleanup();
+  }, []);
+
+  return (
+    <section
+      id="manifesto"
+      ref={sectionRef}
+      className="min-h-[60vh] flex items-center justify-center bg-slate-50/88 px-6 md:px-12 lg:px-24 py-24 border-y border-slate-200"
+    >
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-12 flex items-center gap-4">
+          <div className="w-12 h-[2px] bg-brand-orange" />
+          <span className="font-subheading text-brand-blue text-xs tracking-widest uppercase font-bold">
+            Our Philosophy
+          </span>
+        </div>
+
+        <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.04] tracking-tight text-brand-dark">
+          <mark className="hx hx-tech hx-heading">Proactive</mark> Architecture.
+          <mark className="hx hx-tech hx-heading">Invisible</mark> Reliability.
+        </h2>
+
+        <p className="mt-8 font-sans text-xl md:text-2xl leading-relaxed max-w-4xl text-[#D08A4E]">
+          At CJN, we believe <mark className="hx hx-tech hx-body">technology</mark> isn&apos;t just a utility. It
+          is the <mark className="hx hx-tech hx-body">heartbeat</mark> of your{' '}
+          <mark className="hx hx-tech hx-body">enterprise</mark>. Since 2003, we have moved beyond the break-fix
+          mentality. Our approach favors <mark className="hx hx-tech hx-body">proactive architecture</mark> over{' '}
+          <mark className="hx hx-tech hx-body">reactive repairs</mark>, ensuring your systems remain{' '}
+          <mark className="hx hx-tech hx-body">invisible</mark> in their{' '}
+          <mark className="hx hx-tech hx-body">reliability</mark> so you can focus on{' '}
+          <mark className="hx hx-tech hx-body">growth</mark>.
+        </p>
+
+        <div className="mt-16 grid md:grid-cols-2 gap-8 pt-8 border-t border-slate-200">
+          {tileItems.map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-2xl border border-slate-200/70 bg-white/65 p-5 shadow-sm shadow-slate-200/40"
+            >
+              <div className="font-subheading text-xs text-slate-400 uppercase tracking-widest mb-2">{stat.label}</div>
+              <div className="font-sans text-lg text-brand-dark font-medium leading-relaxed">{stat.value}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
