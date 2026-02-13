@@ -96,8 +96,8 @@ export const Contact: React.FC = () => {
 
       <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-400">
         <div className="flex gap-8">
-          <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
-          <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>
+          <a href="/privacy" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
+          <a href="/terms" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>
         </div>
       </div>
 
