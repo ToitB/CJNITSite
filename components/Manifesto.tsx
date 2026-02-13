@@ -89,13 +89,24 @@ export const Manifesto: React.FC = () => {
         const splitToChars = (el: HTMLElement) => {
           if (el.dataset.splitChars === '1') return;
           const text = (el.textContent || '').trim();
+          const words = text.split(/\s+/).filter(Boolean);
           el.textContent = '';
-          for (const ch of text) {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.textContent = ch === ' ' ? '\u00A0' : ch;
-            el.appendChild(span);
-          }
+          words.forEach((word, wordIndex) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'spark-word';
+
+            for (const ch of word) {
+              const span = document.createElement('span');
+              span.className = 'char';
+              span.textContent = ch;
+              wordSpan.appendChild(span);
+            }
+
+            el.appendChild(wordSpan);
+            if (wordIndex < words.length - 1) {
+              el.appendChild(document.createTextNode(' '));
+            }
+          });
           el.dataset.splitChars = '1';
         };
 
