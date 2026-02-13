@@ -126,14 +126,14 @@ export const Manifesto: React.FC = () => {
                 .fromTo(
                   char,
                   {
-                    filter: 'brightness(100%) drop-shadow(0px 0px 0px rgba(62,167,255,0))',
+                    filter: 'brightness(100%) drop-shadow(0px 0px 0px rgba(0,174,239,0))',
                     willChange: 'filter',
                   },
                   {
                     delay: gsap.utils.random(0, 0.9),
                     repeat: 1,
                     yoyo: true,
-                    filter: 'brightness(240%) drop-shadow(0px 0px 16px rgba(62,167,255,0.68))',
+                    filter: 'brightness(175%) drop-shadow(0px 0px 14px rgba(0,174,239,0.72))',
                   }
                 );
             });
@@ -176,7 +176,7 @@ export const Manifesto: React.FC = () => {
           </span>
         </div>
 
-        <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#D08A4E] italic hx-spark">
+        <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#0A4F8A] italic hx-spark">
           At CJN, we believe technology isn&apos;t just a utility. It is the heartbeat of your enterprise. Since 2003,
           we have moved beyond the break-fix mentality. Our approach favors proactive architecture over reactive
           repairs, ensuring your systems remain invisible in their reliability so you can focus on growth.
