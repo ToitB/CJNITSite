@@ -56,6 +56,12 @@ export const Navbar: React.FC = () => {
 
         <div className="flex items-center gap-2 md:gap-3">
           <a
+            href="/"
+            className="hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-600 px-4 py-2 rounded-full border border-slate-200 bg-white/50 backdrop-blur-sm hover:text-brand-blue hover:border-brand-blue/50 transition-colors"
+          >
+            Home
+          </a>
+          <a
             href="/resources"
             className="hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-600 px-4 py-2 rounded-full border border-slate-200 bg-white/50 backdrop-blur-sm hover:text-brand-blue hover:border-brand-blue/50 transition-colors"
           >

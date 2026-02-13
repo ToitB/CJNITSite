@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-slate-200/80 bg-white/70 backdrop-blur-xl">
+    <footer className="relative z-10 glass-card-strong rounded-none border-x-0 border-b-0">
       <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 md:py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <a href="/" className="flex items-center gap-3 group cursor-hover">
           <AnimatedGlobe size={34} className="-translate-y-px" ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
