@@ -14,7 +14,7 @@ export function PrivacyPageContent() {
         <Navbar />
 
         <main className="pt-40 pb-20 px-6 md:px-12 lg:px-24">
-          <section className="max-w-4xl mx-auto rounded-3xl border border-slate-200 bg-white/86 backdrop-blur-sm shadow-sm p-8 md:p-12">
+          <section className="glass-card-strong max-w-4xl mx-auto rounded-3xl p-8 md:p-12">
             <span className="section-kicker inline-block mb-5">Legal</span>
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-brand-dark mb-6">
               Privacy Policy &amp; POPIA Notice

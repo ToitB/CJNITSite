@@ -66,10 +66,10 @@ const Card: React.FC<{
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0 px-6">
       <motion.div 
         style={{ scale, top: `calc(-5% + ${index * 25}px)` }}
-        className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-2xl origin-top"
+        className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden glass-card-strong origin-top"
       >
         {/* Content Side */}
-        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-white">
+        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-white/42 backdrop-blur-xl">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg" style={{ backgroundColor: item.color }}>
                 <item.icon className="w-8 h-8" />
             </div>

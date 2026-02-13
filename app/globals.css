@@ -79,6 +79,16 @@
     @apply inline-flex items-center justify-center rounded-full bg-[#C15F00] text-white font-bold text-sm tracking-wide px-8 py-4 shadow-xl shadow-[#C15F00]/25 hover:bg-brand-orangeHighlight hover:shadow-2xl hover:shadow-brand-orange/30 transition-all duration-300;
   }
 
+  .glass-card {
+    @apply border border-white/70 bg-white/44 backdrop-blur-xl;
+    box-shadow: 0 16px 42px rgba(148, 184, 216, 0.2);
+  }
+
+  .glass-card-strong {
+    @apply border border-white/75 bg-white/52 backdrop-blur-2xl;
+    box-shadow: 0 18px 46px rgba(148, 184, 216, 0.22);
+  }
+
   .section-kicker {
     @apply font-subheading text-sm md:text-base font-semibold uppercase tracking-[0.16em] text-[#0A4F8A];
     text-rendering: geometricPrecision;

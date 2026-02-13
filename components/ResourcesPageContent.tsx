@@ -6,7 +6,7 @@ import { BackgroundCanvas } from './BackgroundCanvas';
 export function ResourcesPageContent() {
   return (
     <div className="relative min-h-screen bg-white text-brand-dark selection:bg-brand-orange selection:text-white">
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-70" style={{ filter: 'blur(1.8px)' }}>
         <BackgroundCanvas />
       </div>
 
@@ -28,7 +28,7 @@ export function ResourcesPageContent() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <article className="bg-white/90 border border-slate-200 rounded-2xl p-7 shadow-sm">
+              <article className="glass-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   IT Self-Assessment Tool
                 </h2>
@@ -43,7 +43,7 @@ export function ResourcesPageContent() {
                 </a>
               </article>
 
-              <article className="bg-white/90 border border-slate-200 rounded-2xl p-7 shadow-sm">
+              <article className="glass-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   Client Referral Form
                 </h2>
@@ -58,7 +58,7 @@ export function ResourcesPageContent() {
                 </a>
               </article>
 
-              <article className="bg-white/90 border border-slate-200 rounded-2xl p-7 shadow-sm">
+              <article className="glass-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   General Repository
                 </h2>

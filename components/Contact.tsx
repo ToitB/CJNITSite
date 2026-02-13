@@ -63,7 +63,7 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Form Column */}
-            <div className="bg-slate-50 rounded-[2rem] p-8 md:p-12 shadow-inner border border-slate-100">
+            <div className="glass-card-strong rounded-[2rem] p-8 md:p-12">
                 <form className="space-y-8">
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Name</label>

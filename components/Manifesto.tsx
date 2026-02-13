@@ -48,7 +48,7 @@ export const Manifesto: React.FC = () => {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl border border-slate-200/70 bg-white/65 p-6 shadow-sm shadow-slate-200/40 min-h-[180px] flex flex-col"
+              className="glass-card rounded-2xl p-6 min-h-[180px] flex flex-col"
             >
               <div className="section-kicker mb-3">
                 <mark className="hx hx-spark !mr-0">{stat.label}</mark>
