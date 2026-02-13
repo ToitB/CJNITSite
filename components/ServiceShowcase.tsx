@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
-import { Cloud, Shield, Wrench, Server, HardDrive } from 'lucide-react';
+import { Cloud, Shield, Wrench, Server, HardDrive, ChevronUp, ChevronDown } from 'lucide-react';
 import { useSparkHighlights } from './useSparkHighlights';
 
 const services = [
@@ -100,14 +100,55 @@ const Card: React.FC<{
 
 export const ServiceShowcase: React.FC = () => {
   const container = useRef<HTMLElement>(null);
+  const [showQuickNav, setShowQuickNav] = useState(false);
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end']
   });
   useSparkHighlights(container);
 
+  useEffect(() => {
+    const section = container.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowQuickNav(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: 'services' | 'contact') => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <section id="services" ref={container} className="relative bg-slate-50/72 pt-24 pb-24 border-t border-slate-200">
+        {showQuickNav && (
+          <div className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={() => scrollToSection('services')}
+              aria-label="Scroll to start of core capabilities"
+              className="group cursor-hover inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/80 bg-white/55 backdrop-blur-md text-slate-600 shadow-sm shadow-slate-300/45 hover:text-brand-blue hover:border-brand-blue/50 hover:bg-white/75 transition-colors"
+            >
+              <ChevronUp className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('contact')}
+              aria-label="Skip core capabilities and go to contact section"
+              className="group cursor-hover inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/80 bg-white/55 backdrop-blur-md text-slate-600 shadow-sm shadow-slate-300/45 hover:text-brand-blue hover:border-brand-blue/50 hover:bg-white/75 transition-colors"
+            >
+              <ChevronDown className="h-5 w-5" />
+            </button>
+          </div>
+        )}
+
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center md:text-left">
             <span className="section-kicker inline-block mb-4">
                 <mark className="hx hx-spark !mr-0">Core Capabilities</mark>
