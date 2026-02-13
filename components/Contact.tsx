@@ -94,13 +94,10 @@ export const Contact: React.FC = () => {
         <AnimatedGlobe size={200} className="scale-90 md:scale-100" />
       </div>
 
-      <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-400">
-        <div className="font-subheading text-xs uppercase tracking-widest">
-            CJN IT Solutions © {new Date().getFullYear()}
-        </div>
-        <div className="flex gap-8 mt-4 md:mt-0">
-             <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
-             <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>
+      <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-400">
+        <div className="flex gap-8">
+          <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
+          <a href="#" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>
         </div>
       </div>
 
