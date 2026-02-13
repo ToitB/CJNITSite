@@ -80,38 +80,44 @@ export const Navbar: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0%)" }}
-            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-50 bg-slate-950 text-slate-100 flex flex-col"
+            initial={{ opacity: 0, x: 120, scale: 0.985, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: 120, scale: 0.99, filter: 'blur(6px)' }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-50 text-slate-900 flex flex-col overflow-hidden bg-[#dff1ff]/70 backdrop-blur-2xl"
           >
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute -top-24 -left-20 h-80 w-80 rounded-full bg-cyan-200/45 blur-3xl" />
+              <div className="absolute bottom-[-20%] right-[-10%] h-[28rem] w-[28rem] rounded-full bg-sky-300/30 blur-3xl" />
+              <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.35)_0%,rgba(224,242,254,0.22)_42%,rgba(186,230,253,0.3)_100%)]" />
+            </div>
+
             {/* Header inside Menu */}
-            <div className="px-6 py-6 md:px-12 md:py-8 flex justify-between items-center border-b border-slate-700/40 bg-gradient-to-r from-slate-950 to-slate-800">
+            <div className="relative px-6 py-6 md:px-12 md:py-8 flex justify-between items-center border-b border-white/60 bg-white/35 backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <AnimatedGlobe size={34} ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
                 <div className="leading-tight">
-                  <div className="font-display font-bold text-xl tracking-tight text-white">
-                    CJN IT <span className="text-slate-400">|</span>{' '}
+                  <div className="font-display font-bold text-xl tracking-tight text-brand-dark">
+                    CJN IT <span className="text-slate-500">|</span>{' '}
                     <span className="text-[#C15F00]">Solutions</span>
                   </div>
-                  <div className="font-subheading text-xs tracking-wide text-slate-400">
+                  <div className="font-subheading text-xs tracking-wide text-slate-600">
                     Structured IT, Seamless Business
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="group p-2 cursor-hover bg-slate-700/60 rounded-full hover:bg-slate-600/80 transition-colors"
+                className="group p-2 cursor-hover bg-white/55 border border-white/65 rounded-full hover:bg-white/80 transition-colors"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6 text-brand-dark" />
               </button>
             </div>
 
             {/* Menu Grid */}
-            <div className="flex-1 grid md:grid-cols-2 lg:grid-cols-3">
+            <div className="relative flex-1 grid md:grid-cols-2 lg:grid-cols-3">
               {/* Navigation Links */}
-              <div className="lg:col-span-2 p-6 md:p-12 flex flex-col justify-center gap-4">
+              <div className="lg:col-span-2 p-6 md:p-12 flex flex-col justify-center gap-4 border-b md:border-b-0 md:border-r border-white/55">
                 {menuItems.map((item, index) => (
                   <motion.a
                     key={item.title}
@@ -122,19 +128,19 @@ export const Navbar: React.FC = () => {
                     transition={{ delay: 0.2 + (index * 0.1), duration: 0.5 }}
                     className="group flex items-center gap-6 cursor-hover"
                   >
-                    <span className="font-display text-4xl md:text-6xl font-bold text-slate-400 group-hover:text-white transition-colors duration-300">
+                    <span className="font-display text-4xl md:text-6xl font-bold text-[#3f6a8f] group-hover:text-brand-blue transition-colors duration-300">
                       {item.title}
                     </span>
-                    <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-brand-orange" />
+                    <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-brand-cyan" />
                   </motion.a>
                 ))}
               </div>
 
               {/* Contact/Info Panel */}
-              <div className="bg-slate-300/90 text-slate-900 p-6 md:p-12 flex flex-col justify-between backdrop-blur-sm">
+              <div className="m-4 md:m-6 lg:m-8 rounded-2xl border border-white/70 bg-white/45 text-slate-900 p-6 md:p-10 flex flex-col justify-start backdrop-blur-xl shadow-xl shadow-sky-200/45">
                 <div className="space-y-8">
                   <div>
-                    <h3 className="font-subheading text-xs text-slate-700 uppercase tracking-widest mb-4">Headquarters</h3>
+                    <h3 className="font-subheading text-xs text-slate-600 uppercase tracking-widest mb-4">Headquarters</h3>
                     <p className="font-sans text-lg leading-relaxed text-slate-800">
                       Office 3, Building 5<br/>
                       Glen Manor Office Park<br/>
@@ -142,15 +148,10 @@ export const Navbar: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-subheading text-xs text-slate-700 uppercase tracking-widest mb-4">Support</h3>
+                    <h3 className="font-subheading text-xs text-slate-600 uppercase tracking-widest mb-4">Support</h3>
                     <p className="font-sans text-lg text-slate-800">087 809 3516</p>
                     <p className="font-sans text-lg text-slate-800">sales@cjn.co.za</p>
                   </div>
-                </div>
-
-                <div className="mt-12 p-6 bg-brand-orange rounded-xl text-brand-dark">
-                   <p className="font-bold mb-2">Need immediate assistance?</p>
-                   <p className="text-sm opacity-90">Our team is available for emergency support.</p>
                 </div>
               </div>
             </div>
