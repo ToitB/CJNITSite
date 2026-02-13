@@ -38,6 +38,10 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
 8. Embedded third-party content:
    - Google Maps iframe is present; sandbox/referrer tightening can be improved further.
 
+9. OneDrive repository integration:
+   - Resources Hub now supports env/API-driven repository URL resolution.
+   - Backend requirements must enforce trusted URLs and read-only link policy.
+
 ## Prioritized TODO (before production launch)
 
 ## P0 (must do before public launch)
@@ -59,6 +63,12 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
 4. Add anti-abuse to form submit path:
    - Honeypot field and/or Turnstile/reCAPTCHA token validation via backend.
 
+5. Lock down OneDrive repository API (if used):
+   - Return only HTTPS URLs from trusted Microsoft domains (`onedrive.live.com`, `1drv.ms`, `*.sharepoint.com`).
+   - Enforce read-only links by policy (no edit scopes/links by default).
+   - Restrict CORS to production domain(s) only.
+   - Log link issuance/access events for auditability.
+
 ## P1 (high-value hardening/usability)
 
 1. Accessibility hardening:
@@ -72,6 +82,10 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
 
 3. Embed hardening:
    - Tighten iframe attributes (`referrerPolicy`, `allow` scope, sandbox if compatible with map UX).
+
+4. OneDrive permission minimization:
+   - Prefer Graph `Sites.Selected` with site-level grants over broad tenant-wide scopes.
+   - Review and prune admin-consented Graph permissions quarterly.
 
 ## P2 (recommended polish/ops)
 
@@ -91,3 +105,4 @@ Scope: Current Next.js static-export site (`output: 'export'`) targeting Hosting
 3. Verify Teams and Graph endpoints are reachable only over HTTPS.
 4. Verify CSP does not block required scripts and blocks unknown origins.
 5. Verify contact API rejects malformed payloads and high-frequency abuse.
+6. Verify repository endpoint never returns non-Microsoft/untrusted URLs.

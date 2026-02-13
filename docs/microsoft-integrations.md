@@ -64,9 +64,53 @@ Validate input -> get app token -> call Graph sendMail -> return 200/400/500
 - <https://learn.microsoft.com/en-us/graph/api/user-sendmail?view=graph-rest-1.0>
 - <https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow>
 
+## 3) OneDrive repository in Resources Hub
+
+The `General Repository` card supports two modes:
+
+1. Direct link mode:
+   - Set `NEXT_PUBLIC_ONEDRIVE_REPOSITORY_URL` to a read-only share link.
+   - Use an HTTPS URL from trusted hosts (`onedrive.live.com`, `1drv.ms`, `*.sharepoint.com`).
+
+2. API-backed mode (recommended):
+   - Set `NEXT_PUBLIC_ONEDRIVE_REPOSITORY_API_URL` to your secure backend endpoint.
+   - Endpoint returns JSON:
+
+```json
+{
+  "url": "https://contoso.sharepoint.com/.../Shared%20Documents/..."
+}
+```
+
+### Why API-backed mode is better
+
+- You can rotate links without redeploying frontend.
+- You can keep repository access policy centralized.
+- You can enforce tenant/site restrictions server-side.
+
+### Suggested Graph backend behavior
+
+1. Authenticate with app credentials in Entra ID.
+2. Resolve target drive/folder via Graph (if needed).
+3. Return only view-safe URL to the frontend.
+4. Never return write/edit links unless explicitly required.
+
+### Permissions guidance (least privilege)
+
+- Prefer `Sites.Selected` + site-level grants for SharePoint-backed repositories.
+- Avoid broad write scopes unless operationally required.
+- Audit all grants and admin consents periodically.
+
+### Relevant docs
+
+- <https://learn.microsoft.com/en-us/graph/api/resources/drive?view=graph-rest-1.0>
+- <https://learn.microsoft.com/en-us/graph/api/driveitem-createLink?view=graph-rest-1.0>
+- <https://learn.microsoft.com/en-us/graph/permissions-reference>
+
 ## Security notes
 
 - Never expose tenant secrets in the browser.
 - Restrict CORS to your production site origin.
 - Add bot/spam protection (honeypot, rate limiting, CAPTCHA if needed).
 - Log errors server-side; do not leak Graph responses to clients.
+- For repository links, return and store read-only URLs whenever possible.

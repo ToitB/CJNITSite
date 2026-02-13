@@ -1,9 +1,88 @@
 'use client';
 
+import { useEffect, useMemo, useState } from 'react';
 import { Navbar } from './Navbar';
 import { BackgroundCanvas } from './BackgroundCanvas';
 
+const STATIC_ONEDRIVE_REPOSITORY_URL = process.env.NEXT_PUBLIC_ONEDRIVE_REPOSITORY_URL?.trim() ?? '';
+const ONEDRIVE_REPOSITORY_API_URL = process.env.NEXT_PUBLIC_ONEDRIVE_REPOSITORY_API_URL?.trim() ?? '';
+
+const isTrustedRepositoryUrl = (value: string) => {
+  try {
+    const parsed = new URL(value);
+    if (parsed.protocol !== 'https:') return false;
+
+    const host = parsed.hostname.toLowerCase();
+    return (
+      host === '1drv.ms' ||
+      host.endsWith('.1drv.ms') ||
+      host === 'onedrive.live.com' ||
+      host.endsWith('.onedrive.live.com') ||
+      host.endsWith('.sharepoint.com')
+    );
+  } catch {
+    return false;
+  }
+};
+
+type RepositoryState = 'ready' | 'loading' | 'unavailable';
+
 export function ResourcesPageContent() {
+  const fallbackRepositoryUrl = useMemo(() => {
+    return isTrustedRepositoryUrl(STATIC_ONEDRIVE_REPOSITORY_URL)
+      ? STATIC_ONEDRIVE_REPOSITORY_URL
+      : '';
+  }, []);
+
+  const [repositoryUrl, setRepositoryUrl] = useState<string>(fallbackRepositoryUrl);
+  const [repositoryState, setRepositoryState] = useState<RepositoryState>(
+    fallbackRepositoryUrl ? 'ready' : ONEDRIVE_REPOSITORY_API_URL ? 'loading' : 'unavailable'
+  );
+
+  useEffect(() => {
+    if (!ONEDRIVE_REPOSITORY_API_URL) return;
+
+    let cancelled = false;
+    const resolveRepository = async () => {
+      setRepositoryState('loading');
+      try {
+        const response = await fetch(ONEDRIVE_REPOSITORY_API_URL, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        });
+
+        if (!response.ok) throw new Error('Repository endpoint unavailable');
+        const data = (await response.json()) as { url?: unknown };
+        const candidate = typeof data.url === 'string' ? data.url.trim() : '';
+
+        if (!isTrustedRepositoryUrl(candidate)) {
+          throw new Error('Repository URL is invalid or untrusted');
+        }
+
+        if (cancelled) return;
+        setRepositoryUrl(candidate);
+        setRepositoryState('ready');
+      } catch {
+        if (cancelled) return;
+
+        if (fallbackRepositoryUrl) {
+          setRepositoryUrl(fallbackRepositoryUrl);
+          setRepositoryState('ready');
+          return;
+        }
+
+        setRepositoryState('unavailable');
+      }
+    };
+
+    void resolveRepository();
+    return () => {
+      cancelled = true;
+    };
+  }, [fallbackRepositoryUrl]);
+
   return (
     <div className="relative min-h-screen bg-white text-brand-dark selection:bg-brand-orange selection:text-white">
       <div className="fixed inset-0 z-0 pointer-events-none opacity-70" style={{ filter: 'blur(1.8px)' }}>
@@ -66,13 +145,24 @@ export function ResourcesPageContent() {
                   Open the OneDrive resource repository for templates, guides, and shared files.
                 </p>
                 <a
-                  href="#"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-accent w-full rounded-xl px-6 py-3"
+                  href={repositoryUrl || '#'}
+                  target={repositoryState === 'ready' ? '_blank' : undefined}
+                  rel={repositoryState === 'ready' ? 'noopener noreferrer' : undefined}
+                  aria-disabled={repositoryState !== 'ready'}
+                  onClick={(event) => {
+                    if (repositoryState !== 'ready') event.preventDefault();
+                  }}
+                  className={`btn-accent w-full rounded-xl px-6 py-3 ${
+                    repositoryState !== 'ready' ? 'opacity-60 pointer-events-none' : ''
+                  }`}
                 >
-                  Open Repository
+                  {repositoryState === 'loading' ? 'Loading Repository...' : 'Open Repository'}
                 </a>
+                {repositoryState === 'unavailable' && (
+                  <p className="mt-3 text-xs text-slate-500">
+                    Repository link is not configured yet. Please contact support for access.
+                  </p>
+                )}
               </article>
             </div>
           </section>
