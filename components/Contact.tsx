@@ -117,8 +117,8 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Form Column */}
-            <div className="glass-card-strong rounded-[2rem] p-8 md:p-12">
-                <form className="space-y-8">
+            <div className="glass-card-strong rounded-[2rem] p-7 md:p-9">
+                <form className="space-y-6">
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Name</label>
                         <input type="text" className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all" placeholder="Enter your name" />
@@ -131,7 +131,7 @@ export const Contact: React.FC = () => {
                     
                     <div className="space-y-2">
                         <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Message</label>
-                        <textarea rows={4} className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all resize-none" placeholder="Tell us about your IT needs..." />
+                        <textarea rows={3} className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all resize-none" placeholder="Tell us about your IT needs..." />
                     </div>
 
                     <button className="cursor-hover w-full btn-accent font-display text-lg py-5 rounded-xl">
@@ -140,6 +140,21 @@ export const Contact: React.FC = () => {
                         </span>
                     </button>
                 </form>
+
+                <div className="mt-10">
+                    <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-500 font-bold">Find Us</div>
+                    <div className="relative w-full max-w-[430px] aspect-square overflow-hidden rounded-2xl border border-slate-200/75 shadow-sm shadow-slate-300/35 bg-white/40 mx-auto lg:mx-0">
+                        <iframe
+                          title="CJN IT Solutions Location"
+                          src="https://www.google.com/maps?q=Office+3,+Building+5,+Glen+Manor+Office+Park,+Pretoria,+0084&output=embed"
+                          className="h-full w-full border-0"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          style={{ filter: 'saturate(0.42) hue-rotate(168deg) brightness(1.03) contrast(0.92)' }}
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-sky-100/16 via-transparent to-blue-100/26" />
+                    </div>
+                </div>
             </div>
         </div>
       </div>
