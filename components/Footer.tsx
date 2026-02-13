@@ -10,7 +10,17 @@ export const Footer: React.FC = () => {
     <footer className="relative z-10 glass-card-strong rounded-none border-x-0 border-b-0">
       <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 md:py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <a href="/" className="flex items-center gap-3 group cursor-hover">
-          <AnimatedGlobe size={34} className="-translate-y-px" ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
+          <div className="relative">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-[78%] h-3.5 w-10 -translate-x-1/2 rounded-full bg-slate-500/28 blur-[6px]"
+            />
+            <AnimatedGlobe
+              size={34}
+              className="relative z-10 -translate-y-px"
+              ariaLabel="Animated globe symbolizing resilient IT infrastructure"
+            />
+          </div>
           <div className="leading-tight">
             <div className="font-display font-bold text-lg tracking-tight text-brand-dark">
               CJN IT <span className="text-slate-400">|</span>{' '}
