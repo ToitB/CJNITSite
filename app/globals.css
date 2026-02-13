@@ -129,6 +129,14 @@
     --after-width-final: 103%;
   }
 
+  .hx-body-copy {
+    display: block;
+    white-space: normal;
+    margin-right: 0;
+    padding-inline: 0;
+    line-height: inherit;
+  }
+
   .hx-spark {
     color: #64748b;
   }

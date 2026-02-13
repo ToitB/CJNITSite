@@ -165,20 +165,17 @@ export const Manifesto: React.FC = () => {
           </span>
         </div>
 
-        <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.04] tracking-tight text-brand-dark">
-          <mark className="hx hx-tech hx-heading">Proactive</mark> Architecture.
-          <mark className="hx hx-tech hx-heading">Invisible</mark> Reliability.
+        <h2 className="font-display text-6xl md:text-7xl lg:text-8xl leading-[1.03] tracking-tight text-brand-dark">
+          <mark className="hx hx-tech hx-heading">Proactive Architecture.</mark>{' '}
+          <mark className="hx hx-tech hx-heading">Invisible Reliability.</mark>
         </h2>
 
-        <p className="mt-8 font-sans text-xl md:text-2xl leading-relaxed max-w-4xl text-[#D08A4E]">
-          At CJN, we believe <mark className="hx hx-tech hx-body">technology</mark> isn&apos;t just a utility. It
-          is the <mark className="hx hx-tech hx-body">heartbeat</mark> of your{' '}
-          <mark className="hx hx-tech hx-body">enterprise</mark>. Since 2003, we have moved beyond the break-fix
-          mentality. Our approach favors <mark className="hx hx-tech hx-body">proactive architecture</mark> over{' '}
-          <mark className="hx hx-tech hx-body">reactive repairs</mark>, ensuring your systems remain{' '}
-          <mark className="hx hx-tech hx-body">invisible</mark> in their{' '}
-          <mark className="hx hx-tech hx-body">reliability</mark> so you can focus on{' '}
-          <mark className="hx hx-tech hx-body">growth</mark>.
+        <p className="mt-8 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#D08A4E]">
+          <mark className="hx hx-tech hx-body hx-body-copy">
+            At CJN, we believe technology isn&apos;t just a utility. It is the heartbeat of your enterprise. Since
+            2003, we have moved beyond the break-fix mentality. Our approach favors proactive architecture over
+            reactive repairs, ensuring your systems remain invisible in their reliability so you can focus on growth.
+          </mark>
         </p>
 
         <div className="mt-16 grid md:grid-cols-2 gap-8 pt-8 border-t border-slate-200">
