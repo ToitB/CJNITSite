@@ -10,7 +10,7 @@ const services = [
     description: "The Backbone of Your Operations. Eliminate the unpredictability of IT maintenance. We provide structured, Managed IT Services under a fixed-cost contractual framework. By implementing a fast-response resolution environment, we ensure maximum uptime and a stable digital landscape for your team.",
     icon: Server,
     color: "#005596", 
-    image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=2000"
+    image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1400"
   },
   {
     id: "05",
@@ -18,7 +18,7 @@ const services = [
     description: "Data Resilience You Can Trust. Your data is your most valuable asset. We offer hybrid backup solutions integrating local and cloud-based redundancy using enterprise-grade software like Acronis. Whether you're a boutique firm or a large-scale enterprise, our recovery protocols ensure your business stays online, no matter what.",
     icon: HardDrive,
     color: "#166534",
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=2000&q=80"
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1400&q=72"
   },
   {
     id: "02",
@@ -26,7 +26,7 @@ const services = [
     description: "Hardening Your Digital Perimeter. In an era of evolving threats, we deploy multi-layered defense strategies. Leveraging industry-leading platforms like Trend Micro (Worry-Free & XDR) and Microsoft Defender, we provide centrally managed protection that anticipates and neutralizes vulnerabilities before they impact your business.",
     icon: Shield,
     color: "#00AEEF", 
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
   },
   {
     id: "03",
@@ -34,7 +34,7 @@ const services = [
     description: "Seamless Transitions to a Modern Workspace. Scale with confidence. We specialize in migrating legacy systems to high-performance cloud environments, including Microsoft 365, SharePoint, Teams, and Exchange Online. From initial planning to post-migration support, we help you leverage the world’s most robust cloud infrastructure.",
     icon: Cloud,
     color: "#ffaa40", 
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
   },
   {
     id: "04",
@@ -42,7 +42,7 @@ const services = [
     description: "Optimized Assets for Peak Performance. Hardware should not be an afterthought. We facilitate the strategic sourcing of high-performance laptops, servers, and networking equipment. By partnering with South Africa's premier importers, we deliver enterprise-grade hardware tailored to your technical requirements and budget.",
     icon: Wrench,
     color: "#020617", 
-    image: "https://images.unsplash.com/photo-1591405351990-4726e331f141?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+    image: "https://images.unsplash.com/photo-1591405351990-4726e331f141?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
   }
 ];
 
@@ -74,7 +74,7 @@ const Card: React.FC<{
                 <item.icon className="w-8 h-8" />
             </div>
             
-            <div className="font-subheading text-xs uppercase tracking-widest text-slate-400 mb-4">Capability {item.id}</div>
+            <div className="font-subheading text-xs uppercase tracking-widest text-slate-600 mb-4">Capability {item.id}</div>
             <h3 className="font-display text-3xl md:text-4xl font-bold mb-6 leading-tight text-brand-dark">
                 {item.title}
             </h3>
@@ -88,6 +88,10 @@ const Card: React.FC<{
             <img 
                 src={item.image} 
                 alt={item.title} 
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
             />
             {/* Overlay Gradient */}

@@ -16,6 +16,25 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen]);
+
   const menuItems = [
     { title: "Home", href: "/" },
     { title: "Philosophy", href: "/#manifesto" },
@@ -48,7 +67,7 @@ export const Navbar: React.FC = () => {
               CJN IT <span className="text-slate-400">|</span>{' '}
               <span className="text-[#C15F00]">Solutions</span>
             </div>
-            <div className="font-subheading text-xs tracking-wide text-slate-500">
+            <div className="font-subheading text-xs tracking-wide text-slate-600">
               Structured IT, Seamless Business
             </div>
           </div>
@@ -75,9 +94,12 @@ export const Navbar: React.FC = () => {
           </a>
           <button 
             onClick={() => setIsOpen(true)} 
+            aria-label="Open site navigation menu"
+            aria-expanded={isOpen}
+            aria-controls="site-navigation-overlay"
             className="flex items-center gap-3 group cursor-hover bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-slate-200 hover:border-brand-blue/50 transition-colors"
           >
-            <span className="hidden md:block font-subheading text-xs uppercase tracking-widest text-slate-500 group-hover:text-brand-blue transition-colors">Menu</span>
+            <span className="hidden md:block font-subheading text-xs uppercase tracking-widest text-slate-600 group-hover:text-brand-blue transition-colors">Menu</span>
             <Menu className="w-5 h-5 text-brand-dark group-hover:text-brand-blue transition-colors" />
           </button>
         </div>
@@ -90,6 +112,10 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, x: 120, scale: 0.99, filter: 'blur(6px)' }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            id="site-navigation-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             className="fixed inset-0 z-50 text-slate-900 flex flex-col overflow-hidden bg-[#dff1ff]/70 backdrop-blur-2xl"
           >
             <div className="pointer-events-none absolute inset-0">
@@ -107,13 +133,14 @@ export const Navbar: React.FC = () => {
                     CJN IT <span className="text-slate-500">|</span>{' '}
                     <span className="text-[#C15F00]">Solutions</span>
                   </div>
-                  <div className="font-subheading text-xs tracking-wide text-slate-600">
+                  <div className="font-subheading text-xs tracking-wide text-slate-700">
                     Structured IT, Seamless Business
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
+                aria-label="Close site navigation menu"
                 className="group p-2 cursor-hover bg-white/55 border border-white/65 rounded-full hover:bg-white/80 transition-colors"
               >
                 <X className="w-6 h-6 text-brand-dark" />

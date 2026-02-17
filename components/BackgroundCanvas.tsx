@@ -16,13 +16,25 @@ export const BackgroundCanvas: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const lowMemoryDevice = typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
+    const lowPowerMode = prefersReducedMotion || lowMemoryDevice;
+    const densityDivisor = lowPowerMode ? 6200 : hasCoarsePointer ? 3600 : 2600;
+    const minPointCount = lowPowerMode ? 160 : hasCoarsePointer ? 280 : 360;
+    const maxPointCount = lowPowerMode ? 260 : hasCoarsePointer ? 560 : 760;
+    const linksPerNode = lowPowerMode ? 2 : hasCoarsePointer ? 3 : 4;
+    const maxLinkAttempts = lowPowerMode ? 20 : 32;
+    const frameIntervalMs = lowPowerMode ? 1000 / 24 : hasCoarsePointer ? 1000 / 36 : 1000 / 48;
+
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
       antialias: true,
       powerPreference: 'high-performance',
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowPowerMode ? 1.2 : 1.8));
     renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
@@ -85,7 +97,7 @@ export const BackgroundCanvas: React.FC = () => {
     const buildNetwork = () => {
       clearObjects();
 
-      const count = Math.max(760, Math.min(1400, Math.floor((width * height) / 1700)));
+      const count = Math.max(minPointCount, Math.min(maxPointCount, Math.floor((width * height) / densityDivisor)));
       const radius = Math.max(width, height) * 0.62;
       const maxLinkDistance = radius * 0.24;
       const maxLinkDistanceSq = maxLinkDistance * maxLinkDistance;
@@ -131,7 +143,7 @@ export const BackgroundCanvas: React.FC = () => {
       for (let i = 0; i < count; i++) {
         let linked = 0;
         let attempts = 0;
-        while (linked < 5 && attempts < 44) {
+        while (linked < linksPerNode && attempts < maxLinkAttempts) {
           attempts++;
           const j = (i + Math.floor(Math.random() * count)) % count;
           if (i === j) continue;
@@ -274,15 +286,21 @@ export const BackgroundCanvas: React.FC = () => {
     };
 
     const onMouseMove = (e: MouseEvent) => {
+      if (lowPowerMode) return;
       mouseTarget.x = ((e.clientX / width) - 0.5) * 2;
       mouseTarget.y = ((e.clientY / height) - 0.5) * 2;
     };
 
-    const render = () => {
+    let lastFrameAt = 0;
+    const render = (now = performance.now()) => {
       frameId = requestAnimationFrame(render);
+      if (document.hidden) return;
+      if (now - lastFrameAt < frameIntervalMs) return;
+      lastFrameAt = now;
+
       const t = clock.getElapsedTime();
 
-      mouseCurrent.lerp(mouseTarget, 0.06);
+      mouseCurrent.lerp(mouseTarget, lowPowerMode ? 0.03 : 0.06);
 
       for (let i = 0; i < pointMeta.length; i++) {
         const meta = pointMeta[i];
@@ -318,10 +336,10 @@ export const BackgroundCanvas: React.FC = () => {
         mat.uniforms.uTime.value = t;
       }
 
-      cluster.rotation.y += 0.00062;
-      cluster.rotation.x = Math.sin(t * 0.22) * 0.06 + mouseCurrent.y * 0.1;
-      camera.position.x = mouseCurrent.x * 30;
-      camera.position.y = mouseCurrent.y * 22;
+      cluster.rotation.y += lowPowerMode ? 0.00032 : 0.00062;
+      cluster.rotation.x = Math.sin(t * 0.22) * 0.05 + mouseCurrent.y * (lowPowerMode ? 0.06 : 0.1);
+      camera.position.x = mouseCurrent.x * (lowPowerMode ? 18 : 30);
+      camera.position.y = mouseCurrent.y * (lowPowerMode ? 14 : 22);
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);

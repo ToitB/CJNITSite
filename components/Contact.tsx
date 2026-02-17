@@ -233,8 +233,8 @@ export const Contact: React.FC = () => {
                             <MapPin size={20} />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">Visit HQ</h4>
-                            <p className="text-slate-500 leading-relaxed">
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Visit HQ</h3>
+                            <p className="text-slate-600 leading-relaxed">
                                 Office 3, Building 5, Glen Manor Office Park<br/>
                                 138 Frikkie De Beer St, Pretoria, 0084
                             </p>
@@ -246,8 +246,8 @@ export const Contact: React.FC = () => {
                             <Mail size={20} />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">Email Us</h4>
-                            <a href="mailto:sales@cjn.co.za" className="text-slate-500 hover:text-brand-orange transition-colors">sales@cjn.co.za</a>
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Email Us</h3>
+                            <a href="mailto:sales@cjn.co.za" className="text-slate-600 hover:text-brand-orange transition-colors">sales@cjn.co.za</a>
                         </div>
                     </div>
 
@@ -256,8 +256,8 @@ export const Contact: React.FC = () => {
                             <Phone size={20} />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">Call Us</h4>
-                            <a href="tel:0878093516" className="text-slate-500 hover:text-brand-orange transition-colors">087 809 3516</a>
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Call Us</h3>
+                            <a href="tel:0878093516" className="text-slate-600 hover:text-brand-orange transition-colors">087 809 3516</a>
                         </div>
                     </div>
 
@@ -266,12 +266,12 @@ export const Contact: React.FC = () => {
                             <Linkedin size={20} />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">LinkedIn</h4>
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">LinkedIn</h3>
                             <a
                               href="https://www.linkedin.com/company/cjnitsolutions"
                               target="_blank"
                               rel="noreferrer"
-                              className="text-slate-500 hover:text-brand-orange transition-colors"
+                              className="text-slate-600 hover:text-brand-orange transition-colors"
                             >
                               linkedin.com/company/cjnitsolutions
                             </a>
@@ -283,12 +283,12 @@ export const Contact: React.FC = () => {
                             <XLogo className="w-5 h-5" />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">X.com</h4>
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">X.com</h3>
                             <a
                               href="https://x.com/cjnit"
                               target="_blank"
                               rel="noreferrer"
-                              className="text-slate-500 hover:text-brand-orange transition-colors"
+                              className="text-slate-600 hover:text-brand-orange transition-colors"
                             >
                               x.com/cjnit
                             </a>
@@ -300,8 +300,8 @@ export const Contact: React.FC = () => {
                             <Clock3 size={20} />
                         </div>
                         <div>
-                            <h4 className="font-subheading font-bold text-brand-dark text-lg mb-1">Working hours</h4>
-                            <p className="text-slate-500 leading-relaxed">
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Working hours</h3>
+                            <p className="text-slate-600 leading-relaxed">
                               Mondays - Fridays: 08:00 - 17:00
                               <br />
                               Weekends / Public Holidays: Closed
@@ -319,7 +319,7 @@ export const Contact: React.FC = () => {
                         Chat with us
                       </button>
                       {chatFeedback && (
-                        <p className="mt-2 text-sm text-slate-500 max-w-sm">
+                        <p className="mt-2 text-sm text-slate-600 max-w-sm">
                           {chatFeedback}
                         </p>
                       )}
@@ -331,7 +331,7 @@ export const Contact: React.FC = () => {
             <div className="glass-card-strong rounded-[2rem] p-7 md:p-9">
                 <form className="space-y-6" onSubmit={onSubmit}>
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Name</label>
+                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Name</label>
                         <input
                           type="text"
                           name="name"
@@ -344,7 +344,7 @@ export const Contact: React.FC = () => {
                     </div>
                     
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Email</label>
+                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Email</label>
                         <input
                           type="email"
                           name="email"
@@ -357,7 +357,7 @@ export const Contact: React.FC = () => {
                     </div>
                     
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-400 font-bold">Message</label>
+                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Message</label>
                         <textarea
                           rows={3}
                           name="message"
@@ -384,14 +384,14 @@ export const Contact: React.FC = () => {
                       </p>
                     )}
                     {submitReference && (
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs text-slate-600">
                         Reference ID: <span className="font-semibold">{submitReference}</span>
                       </p>
                     )}
                 </form>
 
                 <div className="mt-10">
-                    <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-500 font-bold">Find Us</div>
+                    <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Find Us</div>
                     <div className="relative w-full max-w-[430px] aspect-square overflow-hidden rounded-2xl border border-slate-200/75 shadow-sm shadow-slate-300/35 bg-white/40 mx-auto lg:mx-0">
                         <iframe
                           title="CJN IT Solutions Location"
@@ -422,7 +422,7 @@ export const Contact: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-400">
+      <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-600">
         <div className="flex gap-8">
           <a href="/privacy" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
           <a href="/terms" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>

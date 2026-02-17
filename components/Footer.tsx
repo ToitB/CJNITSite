@@ -22,13 +22,13 @@ export const Footer: React.FC = () => {
               CJN IT <span className="text-slate-400">|</span>{' '}
               <span className="text-[#C15F00]">Solutions</span>
             </div>
-            <div className="font-subheading text-xs tracking-wide text-slate-500">
+            <div className="font-subheading text-xs tracking-wide text-slate-600">
               Structured IT, Seamless Business
             </div>
           </div>
         </a>
 
-        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-[0.14em] text-slate-500">
+        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-[0.14em] text-slate-600">
           © {year} CJN IT Solutions. All rights reserved.
         </div>
       </div>
