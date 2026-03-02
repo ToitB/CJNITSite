@@ -44,7 +44,7 @@ export function BlogPageContent() {
                 Blog
               </h1>
               <p className="font-sans text-lg text-slate-600 max-w-2xl">
-                Practical guidance, updates, and strategic IT insights for business leaders.
+                Practical guidance, updates, and strategic IT insights for South African business leaders.
               </p>
             </div>
 

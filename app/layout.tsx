@@ -17,9 +17,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'CJN IT Solutions | The Digital Backbone',
+  title: 'Managed IT Services & Cyber Security | CJN IT Solutions',
   description:
-    "We engineer the digital backbone of South Africa's most resilient businesses.",
+    "Managed IT services, cyber security, cloud support, and business continuity for South African small businesses.",
 };
 
 export default function RootLayout({

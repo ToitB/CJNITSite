@@ -223,8 +223,8 @@ export const Contact: React.FC = () => {
                 </motion.h2>
                 
                 <p className="text-lg text-slate-600 mb-12 max-w-md">
-                    Our engineering team is ready to analyze your current environment, plan your evolution,
-                    and execute with precision. Let&apos;s build a system that works as hard as you do.
+                    Our capable team is ready to analyze your current environment, plan your evolution, and execute a
+                    modernisation plan with precision. Let&apos;s build a system that works as hard as you do.
                 </p>
 
                 <div className="space-y-10">

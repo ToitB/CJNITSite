@@ -5,16 +5,16 @@ import { motion } from 'framer-motion';
 import { useSparkHighlights } from './useSparkHighlights';
 
 const tileItems = [
-  { label: 'Established', value: '20+ years of local expertise.' },
+  { label: 'Established', value: '20+ years of local industry experience.' },
   {
     label: 'Presence',
-    value: 'On-the-ground support in Pretoria, Centurion, and Johannesburg.',
+    value: 'Dedicated support across Pretoria, Centurion, and Johannesburg.',
   },
   {
-    label: 'Specialization',
-    value: 'Tailored solutions for Legal, Engineering, Finance, and NPPs.',
+    label: 'Security and Architecture',
+    value: 'Multi-layered security and infrastructure solutions for every sector.',
   },
-  { label: 'Performance', value: 'Average response time under 60 minutes.' },
+  { label: 'Performance', value: 'Service levels with sub-60-minute average response times.' },
 ];
 
 export const Manifesto: React.FC = () => {
@@ -30,15 +30,15 @@ export const Manifesto: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
           <span className="section-kicker">
-            <mark className="hx hx-spark !mr-0">Our Philosophy</mark>
+            <mark className="hx hx-spark !mr-0">The CJN IT Solutions Advantage</mark>
           </span>
         </div>
 
         <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#0A4F8A] italic">
           <mark className="hx hx-spark hx-body-copy !mr-0">
-            At CJN, we believe technology isn&apos;t just a utility. It is the heartbeat of your enterprise. Since
-            2003, we have moved beyond the break-fix mentality. Our approach favors proactive architecture over
-            reactive repairs, ensuring your systems remain invisible in their reliability so you can focus on growth.
+            Technology is your core operational asset. Relying on reactive repairs means accepting downtime and lost
+            revenue. Since 2003, we have deployed structured, proactive IT management that neutralizes threats and
+            hardware failures before they impact your workday.
           </mark>
         </p>
 

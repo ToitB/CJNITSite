@@ -6,8 +6,8 @@ import { useSparkHighlights } from './useSparkHighlights';
 const services = [
   {
     id: "01",
-    title: "Managed Infrastructure",
-    description: "The Backbone of Your Operations. Eliminate the unpredictability of IT maintenance. We provide structured, Managed IT Services under a fixed-cost contractual framework. By implementing a fast-response resolution environment, we ensure maximum uptime and a stable digital landscape for your team.",
+    title: "Fully Managed IT Support",
+    description: "The Backbone of Your Operations. Eliminate unpredictable IT costs. We provide comprehensive, fixed-rate managed services that act as your dedicated off-site IT department. From rapid helpdesk support to routine system patching, we ensure your team stays productive without the overhead of internal IT staff.",
     icon: Server,
     color: "#005596", 
     image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1400"
@@ -155,11 +155,11 @@ export const ServiceShowcase: React.FC = () => {
 
         <div className="max-w-6xl mx-auto px-6 mb-24 text-center md:text-left">
             <span className="section-kicker inline-block mb-4">
-                <mark className="hx hx-spark !mr-0">Core Capabilities</mark>
+                <mark className="hx hx-spark !mr-0">Core Services</mark>
             </span>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-brand-dark">
-                Engineered for the<br/>
-                <span className="text-brand-blue">South African Enterprise</span>
+                Tailored for the<br/>
+                <span className="text-brand-blue">South African Small Business</span>
             </h2>
         </div>
 
