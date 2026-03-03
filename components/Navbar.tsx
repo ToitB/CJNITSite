@@ -126,7 +126,7 @@ export const Navbar: React.FC = () => {
             href="https://898.tv/cjnit"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-2 font-subheading text-xs uppercase tracking-widest text-white bg-brand-orange hover:bg-brand-orangeHighlight px-4 py-2.5 rounded-full transition-colors shadow-sm cursor-hover"
+            className="glass-dock-item liquid-surface hidden sm:inline-flex items-center gap-2 font-subheading text-xs uppercase tracking-widest text-brand-blue hover:text-brand-dark px-4 py-2.5 transition-colors cursor-hover"
           >
             <Headset className="w-4 h-4" />
             Get Support

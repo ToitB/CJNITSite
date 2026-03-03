@@ -98,19 +98,10 @@ export const Hero: React.FC = () => {
                 </motion.a>
 
                 <motion.a
-                    href="https://898.tv/cjnit"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cursor-hover btn-accent inline-flex items-center gap-2"
-                >
-                    Get Support Now
-                </motion.a>
-
-                <motion.a
                     href="#contact"
-                    className="cursor-hover font-subheading text-sm text-brand-blue hover:text-brand-dark underline underline-offset-4 decoration-brand-blue/30 hover:decoration-brand-dark/50 transition-colors"
+                    className="cursor-hover btn-accent"
                 >
-                    or Get In Touch
+                    Get In Touch
                 </motion.a>
             </div>
         </motion.div>
