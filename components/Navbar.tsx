@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Headset } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
@@ -121,6 +121,15 @@ export const Navbar: React.FC = () => {
             className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
           >
             Blog
+          </a>
+          <a
+            href="https://898.tv/cjnit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 font-subheading text-xs uppercase tracking-widest text-white bg-brand-orange hover:bg-brand-orangeHighlight px-4 py-2.5 rounded-full transition-colors shadow-sm cursor-hover"
+          >
+            <Headset className="w-4 h-4" />
+            Get Support
           </a>
           <button 
             ref={menuButtonRef}
