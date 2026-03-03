@@ -10,39 +10,39 @@ const services = [
     description: "The Backbone of Your Operations. Eliminate unpredictable IT costs. We provide comprehensive, fixed-rate managed services that act as your dedicated off-site IT department. From rapid helpdesk support to routine system patching, we ensure your team stays productive without the overhead of internal IT staff.",
     icon: Server,
     color: "#03318C", 
-    image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1400"
+    image: "/managed.jpg"
   },
   {
-    id: "05",
+    id: "02",
     title: "Business Continuity & Backup",
     description: "Data Resilience You Can Trust. Your data is your most valuable asset. We offer hybrid backup solutions integrating local and cloud-based redundancy using enterprise-grade software like Acronis. Whether you're a boutique firm or a large-scale enterprise, our recovery protocols ensure your business stays online, no matter what.",
     icon: HardDrive,
     color: "#445373",
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1400&q=72"
+    image: "/backup.jpg"
   },
   {
-    id: "02",
+    id: "03",
     title: "Cyber Security & Defense",
     description: "Hardening Your Digital Perimeter. In an era of evolving threats, we deploy multi-layered defense strategies. Leveraging industry-leading platforms like Trend Micro (Worry-Free & XDR) and Microsoft Defender, we provide centrally managed protection that anticipates and neutralizes vulnerabilities before they impact your business.",
     icon: Shield,
     color: "#165FF2", 
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
+    image: "/security.jpg"
   },
   {
-    id: "03",
+    id: "04",
     title: "Cloud Ecosystems",
     description: "Seamless Transitions to a Modern Workspace. Scale with confidence. We specialize in migrating legacy systems to high-performance cloud environments, including Microsoft 365, SharePoint, Teams, and Exchange Online. From initial planning to post-migration support, we help you leverage the world’s most robust cloud infrastructure.",
     icon: Cloud,
     color: "#F29216", 
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
+    image: "/cloud.jpg"
   },
   {
-    id: "04",
+    id: "05",
     title: "Strategic Hardware Procurement",
     description: "Optimized Assets for Peak Performance. Hardware should not be an afterthought. We facilitate the strategic sourcing of high-performance laptops, servers, and networking equipment. By partnering with South Africa's premier importers, we deliver enterprise-grade hardware tailored to your technical requirements and budget.",
     icon: Wrench,
     color: "#022873", 
-    image: "https://images.unsplash.com/photo-1591405351990-4726e331f141?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=72"
+    image: "/procurement.jpg"
   }
 ];
 
