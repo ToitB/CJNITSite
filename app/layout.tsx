@@ -30,7 +30,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth bg-white">
+      <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com; frame-src https://www.google.com; connect-src 'self' https://*.cjn.co.za; object-src 'none'; base-uri 'self'; form-action 'self' https://*.cjn.co.za; frame-ancestors 'none';"
+        />
+      </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+        >
+          Skip to main content
+        </a>
         <LiquidEffects />
         {children}
       </body>

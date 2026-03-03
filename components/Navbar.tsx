@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -8,6 +8,26 @@ const AnimatedGlobe = dynamic(() => import('./AnimatedGlobe'), { ssr: false });
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Focus trap for menu overlay
+  const handleOverlayKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key !== 'Tab' || !overlayRef.current) return;
+    const focusable = overlayRef.current.querySelectorAll<HTMLElement>(
+      'a[href], button, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
@@ -28,10 +48,20 @@ export const Navbar: React.FC = () => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', handleOverlayKeyDown);
+
+    // Move focus into overlay
+    requestAnimationFrame(() => {
+      const closeBtn = overlayRef.current?.querySelector<HTMLElement>('button[aria-label="Close site navigation menu"]');
+      closeBtn?.focus();
+    });
 
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keydown', handleOverlayKeyDown);
+      // Return focus to menu button
+      menuButtonRef.current?.focus();
     };
   }, [isOpen]);
 
@@ -93,6 +123,7 @@ export const Navbar: React.FC = () => {
             Blog
           </a>
           <button 
+            ref={menuButtonRef}
             onClick={() => setIsOpen(true)} 
             aria-label="Open site navigation menu"
             aria-expanded={isOpen}
@@ -113,6 +144,7 @@ export const Navbar: React.FC = () => {
             exit={{ opacity: 0, x: 120, scale: 0.99, filter: 'blur(6px)' }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             id="site-navigation-overlay"
+            ref={overlayRef}
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"

@@ -68,7 +68,7 @@ const App: React.FC = () => {
       <div className={`relative z-10 transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Navbar />
         
-        <main>
+        <main id="main-content">
           <Hero />
           <Manifesto />
           <ServiceShowcase />
