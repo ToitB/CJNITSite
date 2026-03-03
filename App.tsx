@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Manifesto } from './components/Manifesto';
@@ -56,6 +56,9 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white text-brand-dark">
+      {/* Scroll Progress Bar */}
+      <ScrollProgressBar />
+
       {/* Background Layer */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <BackgroundCanvas />
@@ -116,3 +119,18 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 50, restDelta: 0.001 });
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-[3px] z-[60] origin-left"
+      style={{
+        scaleX,
+        background: 'linear-gradient(90deg, var(--brand-blue) 0%, var(--liquid-blue-core) 50%, var(--brand-orange) 100%)',
+      }}
+    />
+  );
+}

@@ -25,8 +25,10 @@ export const Manifesto: React.FC = () => {
     <section
       id="manifesto"
       ref={sectionRef}
-      className="min-h-[60vh] flex items-center justify-center bg-white/30 px-6 md:px-12 lg:px-24 py-24 border-y border-slate-200/70"
+      className="min-h-[60vh] flex items-center justify-center bg-white/30 px-6 md:px-12 lg:px-24 py-28 md:py-32"
     >
+      {/* Gradient divider top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent" />
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
           <span className="section-kicker">
@@ -42,7 +44,8 @@ export const Manifesto: React.FC = () => {
           </mark>
         </p>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-8 pt-8 border-t border-slate-200">
+        <div className="mt-16 grid md:grid-cols-2 gap-8 pt-8">
+          <div className="col-span-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-0" />
           {tileItems.map((stat, i) => (
             <motion.div
               key={i}

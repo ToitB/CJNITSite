@@ -76,19 +76,19 @@ export const Navbar: React.FC = () => {
         <div className="glass-dock">
           <a
             href="/"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
           >
             Home
           </a>
           <a
             href="/resources"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
           >
             Resources
           </a>
           <a
             href="/blog"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
           >
             Blog
           </a>

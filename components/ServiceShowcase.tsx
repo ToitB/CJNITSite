@@ -131,7 +131,9 @@ export const ServiceShowcase: React.FC = () => {
   };
 
   return (
-    <section id="services" ref={container} className="relative bg-white/28 pt-24 pb-24 border-t border-slate-200/70">
+    <section id="services" ref={container} className="relative bg-white/28 pt-28 md:pt-32 pb-24">
+        {/* Gradient divider top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent" />
         {showQuickNav && (
           <div className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3">
             <button

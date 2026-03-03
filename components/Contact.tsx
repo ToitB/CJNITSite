@@ -206,7 +206,9 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen bg-white/36 relative flex flex-col justify-between pt-32 pb-12 px-6 md:px-12 lg:px-24 border-t border-slate-200/70">
+    <section id="contact" className="min-h-screen bg-white/36 relative flex flex-col justify-between pt-28 md:pt-32 pb-12 px-6 md:px-12 lg:px-24">
+      {/* Gradient divider top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent" />
       
       <div className="relative z-10 max-w-7xl w-full mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-32">
@@ -214,8 +216,10 @@ export const Contact: React.FC = () => {
             {/* Info Column */}
             <div>
                 <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="font-display text-6xl md:text-7xl font-bold tracking-tighter mb-8 text-brand-dark"
                 >
                     Ready to Modernize<br/>
@@ -228,86 +232,31 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <div className="space-y-10">
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <MapPin size={20} />
+                    {[
+                      { icon: <MapPin size={20} />, title: 'Visit HQ', content: <p className="text-slate-700 leading-relaxed">Office 3, Building 5, Glen Manor Office Park<br/>138 Frikkie De Beer St, Pretoria, 0084</p> },
+                      { icon: <Mail size={20} />, title: 'Email Us', content: <a href="mailto:sales@cjn.co.za" className="text-slate-700 hover:text-brand-orange transition-colors">sales@cjn.co.za</a> },
+                      { icon: <Phone size={20} />, title: 'Call Us', content: <a href="tel:0878093516" className="text-slate-700 hover:text-brand-orange transition-colors">087 809 3516</a> },
+                      { icon: <Linkedin size={20} />, title: 'LinkedIn', content: <a href="https://www.linkedin.com/company/cjnitsolutions" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">linkedin.com/company/cjnitsolutions</a> },
+                      { icon: <XLogo className="w-5 h-5" />, title: 'X.com', content: <a href="https://x.com/cjnit" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">x.com/cjnit</a> },
+                      { icon: <Clock3 size={20} />, title: 'Working hours', content: <p className="text-slate-700 leading-relaxed">Mondays - Fridays: 08:00 - 17:00<br />Weekends / Public Holidays: Closed</p> },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+                        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                        className="flex gap-6 items-start group"
+                      >
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white group-hover:scale-105 transition-all duration-300">
+                            {item.icon}
                         </div>
                         <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Visit HQ</h3>
-                            <p className="text-slate-600 leading-relaxed">
-                                Office 3, Building 5, Glen Manor Office Park<br/>
-                                138 Frikkie De Beer St, Pretoria, 0084
-                            </p>
+                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">{item.title}</h3>
+                            {item.content}
                         </div>
-                    </div>
-                    
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <Mail size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Email Us</h3>
-                            <a href="mailto:sales@cjn.co.za" className="text-slate-600 hover:text-brand-orange transition-colors">sales@cjn.co.za</a>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <Phone size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Call Us</h3>
-                            <a href="tel:0878093516" className="text-slate-600 hover:text-brand-orange transition-colors">087 809 3516</a>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <Linkedin size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">LinkedIn</h3>
-                            <a
-                              href="https://www.linkedin.com/company/cjnitsolutions"
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-slate-600 hover:text-brand-orange transition-colors"
-                            >
-                              linkedin.com/company/cjnitsolutions
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <XLogo className="w-5 h-5" />
-                        </div>
-                        <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">X.com</h3>
-                            <a
-                              href="https://x.com/cjnit"
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-slate-600 hover:text-brand-orange transition-colors"
-                            >
-                              x.com/cjnit
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-6 items-start group">
-                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
-                            <Clock3 size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-subheading font-bold text-brand-dark text-lg mb-1">Working hours</h3>
-                            <p className="text-slate-600 leading-relaxed">
-                              Mondays - Fridays: 08:00 - 17:00
-                              <br />
-                              Weekends / Public Holidays: Closed
-                            </p>
-                        </div>
-                    </div>
+                      </motion.div>
+                    ))}
 
                     <div className="pt-1">
                       <button
