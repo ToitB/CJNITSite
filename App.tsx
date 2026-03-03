@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Manifesto } from './components/Manifesto';
@@ -15,6 +15,13 @@ const App: React.FC = () => {
   const [lineDone, setLineDone] = useState(false);
   const [lineMetrics, setLineMetrics] = useState({ top: 0, stopWidth: 0, dotX: 0 });
   const loaderTextRef = useRef<HTMLDivElement>(null);
+
+  // Scroll-driven background tint: cool neutral → warm amber near bottom
+  const { scrollYProgress: pageProgress } = useScroll();
+  const bgHue = useTransform(pageProgress, [0, 0.7, 1], [220, 38, 30]);
+  const bgSat = useTransform(pageProgress, [0, 0.7, 1], [8, 14, 18]);
+  const bgLight = useTransform(pageProgress, [0, 1], [99, 98]);
+  const bgColor = useMotionTemplate`hsl(${bgHue} ${bgSat}% ${bgLight}%)`;
 
   useEffect(() => {
     const updateMetrics = () => {
@@ -55,7 +62,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-white text-brand-dark">
+    <motion.div style={{ backgroundColor: bgColor }} className="relative min-h-screen text-brand-dark">
       {/* Scroll Progress Bar */}
       <ScrollProgressBar />
 
@@ -114,7 +121,7 @@ const App: React.FC = () => {
           />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

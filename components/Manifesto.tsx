@@ -1,11 +1,46 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSparkHighlights } from './useSparkHighlights';
 
+/** Animated number counter that counts up when visible. */
+function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || hasRun.current) return;
+        hasRun.current = true;
+
+        const duration = 1200;
+        const start = performance.now();
+        const step = (now: number) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+          setCount(Math.round(eased * target));
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
 const tileItems = [
-  { label: 'Established', value: '20+ years of local industry experience.' },
+  { label: 'Established', value: <><AnimatedCounter target={20} suffix="+" /> years of local industry experience.</> },
   {
     label: 'Presence',
     value: 'Dedicated support across Pretoria, Centurion, and Johannesburg.',
@@ -14,7 +49,7 @@ const tileItems = [
     label: 'Security and Architecture',
     value: 'Multi-layered security and infrastructure solutions for every sector.',
   },
-  { label: 'Performance', value: 'Service levels with sub-60-minute average response times.' },
+  { label: 'Performance', value: <>Service levels with sub-<AnimatedCounter target={60} />-minute average response times.</> },
 ];
 
 export const Manifesto: React.FC = () => {
