@@ -138,7 +138,7 @@ export const ServiceShowcase: React.FC = () => {
               type="button"
               onClick={() => scrollToSection('services')}
               aria-label="Scroll to start of core capabilities"
-              className="group cursor-hover inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/80 bg-white/55 backdrop-blur-md text-slate-600 shadow-sm shadow-slate-300/45 hover:text-brand-blue hover:border-brand-blue/50 hover:bg-white/75 transition-colors"
+              className="glass-dock-item group cursor-hover inline-flex h-11 w-11 items-center justify-center text-slate-700 hover:text-brand-blue transition-colors"
             >
               <ChevronUp className="h-5 w-5" />
             </button>
@@ -146,7 +146,7 @@ export const ServiceShowcase: React.FC = () => {
               type="button"
               onClick={() => scrollToSection('contact')}
               aria-label="Skip core capabilities and go to contact section"
-              className="group cursor-hover inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/80 bg-white/55 backdrop-blur-md text-slate-600 shadow-sm shadow-slate-300/45 hover:text-brand-blue hover:border-brand-blue/50 hover:bg-white/75 transition-colors"
+              className="glass-dock-item group cursor-hover inline-flex h-11 w-11 items-center justify-center text-slate-700 hover:text-brand-blue transition-colors"
             >
               <ChevronDown className="h-5 w-5" />
             </button>

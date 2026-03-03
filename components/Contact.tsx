@@ -313,7 +313,7 @@ export const Contact: React.FC = () => {
                       <button
                         type="button"
                         onClick={onChatClick}
-                        className="cursor-hover inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/50 px-5 py-2.5 text-sm font-semibold tracking-wide text-brand-blue backdrop-blur-sm transition-colors hover:border-brand-blue/50 hover:text-brand-dark"
+                        className="cursor-hover btn-primary inline-flex items-center gap-2 px-5 py-2.5"
                       >
                         <MessageCircle className="h-4 w-4" />
                         Chat with us
@@ -392,7 +392,7 @@ export const Contact: React.FC = () => {
 
                 <div className="mt-10">
                     <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Find Us</div>
-                    <div className="relative w-full max-w-[430px] aspect-square overflow-hidden rounded-2xl border border-slate-200/75 shadow-sm shadow-slate-300/35 bg-white/40 mx-auto lg:mx-0">
+                    <div className="glass-card relative w-full max-w-[430px] aspect-square rounded-2xl mx-auto lg:mx-0">
                         <iframe
                           title="CJN IT Solutions Location"
                           src="https://www.google.com/maps?q=Office+3,+Building+5,+Glen+Manor+Office+Park,+Pretoria,+0084&output=embed"
