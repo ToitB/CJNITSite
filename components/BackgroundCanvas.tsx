@@ -1,363 +1,78 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import React from 'react';
 
-type PointMeta = {
-  base: THREE.Vector3;
-  phase: number;
-  drift: number;
-};
-
-type Edge = [number, number];
+const blobs = [
+  {
+    className: 'blob-one',
+    style: {
+      width: '44rem',
+      height: '44rem',
+      top: '-12rem',
+      left: '-10rem',
+      background:
+        'radial-gradient(circle at 40% 40%, rgba(59,141,191,0.14) 0%, rgba(59,141,191,0.08) 26%, rgba(59,141,191,0.03) 48%, transparent 72%)',
+    },
+  },
+  {
+    className: 'blob-two',
+    style: {
+      width: '36rem',
+      height: '36rem',
+      top: '12%',
+      right: '-8rem',
+      background:
+        'radial-gradient(circle at 45% 42%, rgba(3,49,140,0.12) 0%, rgba(3,49,140,0.07) 28%, rgba(3,49,140,0.03) 50%, transparent 72%)',
+    },
+  },
+  {
+    className: 'blob-three',
+    style: {
+      width: '40rem',
+      height: '40rem',
+      bottom: '-14rem',
+      left: '10%',
+      background:
+        'radial-gradient(circle at 50% 50%, rgba(22,95,242,0.11) 0%, rgba(22,95,242,0.06) 25%, rgba(22,95,242,0.025) 48%, transparent 72%)',
+    },
+  },
+  {
+    className: 'blob-four',
+    style: {
+      width: '30rem',
+      height: '30rem',
+      bottom: '6%',
+      right: '12%',
+      background:
+        'radial-gradient(circle at 50% 44%, rgba(68,83,115,0.10) 0%, rgba(68,83,115,0.05) 28%, rgba(68,83,115,0.02) 50%, transparent 74%)',
+    },
+  },
+  {
+    className: 'blob-five',
+    style: {
+      width: '28rem',
+      height: '28rem',
+      top: '38%',
+      left: '38%',
+      background:
+        'radial-gradient(circle at 50% 50%, rgba(2,40,115,0.08) 0%, rgba(2,40,115,0.04) 28%, rgba(2,40,115,0.015) 48%, transparent 72%)',
+    },
+  },
+];
 
 export const BackgroundCanvas: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    const nav = navigator as Navigator & { deviceMemory?: number };
-    const lowMemoryDevice = typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
-    const lowPowerMode = prefersReducedMotion || lowMemoryDevice;
-    const densityDivisor = lowPowerMode ? 6200 : hasCoarsePointer ? 3600 : 2600;
-    const minPointCount = lowPowerMode ? 160 : hasCoarsePointer ? 280 : 360;
-    const maxPointCount = lowPowerMode ? 260 : hasCoarsePointer ? 560 : 760;
-    const linksPerNode = lowPowerMode ? 2 : hasCoarsePointer ? 3 : 4;
-    const maxLinkAttempts = lowPowerMode ? 20 : 32;
-    const frameIntervalMs = lowPowerMode ? 1000 / 24 : hasCoarsePointer ? 1000 / 36 : 1000 / 48;
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, lowPowerMode ? 1.2 : 1.8));
-    renderer.setClearColor(0x000000, 0);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 3000);
-    const cluster = new THREE.Group();
-    scene.add(cluster);
-
-    const palette = [
-      new THREE.Color('#6dc7ff'),
-      new THREE.Color('#3ea7ff'),
-      new THREE.Color('#8fdcff'),
-    ];
-
-    let frameId = 0;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    let points: THREE.Points | null = null;
-    let lines: THREE.LineSegments | null = null;
-    let glowSprite: THREE.Sprite | null = null;
-
-    let pointPositions: Float32Array = new Float32Array();
-    let pointColors: Float32Array = new Float32Array();
-    let pointSizes: Float32Array = new Float32Array();
-    let pointPhases: Float32Array = new Float32Array();
-    let linePositions: Float32Array = new Float32Array();
-    let lineColors: Float32Array = new Float32Array();
-
-    let pointAttr: THREE.BufferAttribute | null = null;
-    let lineAttr: THREE.BufferAttribute | null = null;
-    let pointMeta: PointMeta[] = [];
-    let edges: Edge[] = [];
-
-    const mouseTarget = new THREE.Vector2(0, 0);
-    const mouseCurrent = new THREE.Vector2(0, 0);
-    const clock = new THREE.Clock();
-
-    const clearObjects = () => {
-      if (points) {
-        cluster.remove(points);
-        points.geometry.dispose();
-        (points.material as THREE.Material).dispose();
-        points = null;
-      }
-      if (lines) {
-        cluster.remove(lines);
-        lines.geometry.dispose();
-        (lines.material as THREE.Material).dispose();
-        lines = null;
-      }
-      if (glowSprite) {
-        cluster.remove(glowSprite);
-        const glowMat = glowSprite.material as THREE.SpriteMaterial;
-        glowMat.map?.dispose();
-        glowMat.dispose();
-        glowSprite = null;
-      }
-    };
-
-    const buildNetwork = () => {
-      clearObjects();
-
-      const count = Math.max(minPointCount, Math.min(maxPointCount, Math.floor((width * height) / densityDivisor)));
-      const radius = Math.max(width, height) * 0.62;
-      const maxLinkDistance = radius * 0.24;
-      const maxLinkDistanceSq = maxLinkDistance * maxLinkDistance;
-
-      pointMeta = [];
-      edges = [];
-      pointPositions = new Float32Array(count * 3);
-      pointColors = new Float32Array(count * 3);
-      pointSizes = new Float32Array(count);
-      pointPhases = new Float32Array(count);
-
-      for (let i = 0; i < count; i++) {
-        const u = Math.random() * 2 - 1;
-        const theta = Math.random() * Math.PI * 2;
-        const shell = radius * (0.8 + Math.random() * 0.42);
-        const ring = Math.sqrt(1 - u * u);
-
-        const base = new THREE.Vector3(
-          ring * Math.cos(theta) * shell,
-          u * shell * 0.82,
-          ring * Math.sin(theta) * shell
-        );
-
-        const phase = Math.random() * Math.PI * 2;
-        const drift = 4 + Math.random() * 7;
-        pointMeta.push({ base, phase, drift });
-
-        pointPositions[i * 3] = base.x;
-        pointPositions[i * 3 + 1] = base.y;
-        pointPositions[i * 3 + 2] = base.z;
-
-        const c = palette[Math.floor(Math.random() * palette.length)].clone();
-        c.lerp(palette[(Math.floor(Math.random() * palette.length) + 1) % palette.length], Math.random() * 0.55);
-        pointColors[i * 3] = c.r;
-        pointColors[i * 3 + 1] = c.g;
-        pointColors[i * 3 + 2] = c.b;
-
-        pointSizes[i] = 4.2 + Math.random() * 5.2;
-        pointPhases[i] = phase;
-      }
-
-      const seenEdges = new Set<string>();
-      for (let i = 0; i < count; i++) {
-        let linked = 0;
-        let attempts = 0;
-        while (linked < linksPerNode && attempts < maxLinkAttempts) {
-          attempts++;
-          const j = (i + Math.floor(Math.random() * count)) % count;
-          if (i === j) continue;
-          const a = Math.min(i, j);
-          const b = Math.max(i, j);
-          const key = `${a}-${b}`;
-          if (seenEdges.has(key)) continue;
-          if (pointMeta[a].base.distanceToSquared(pointMeta[b].base) > maxLinkDistanceSq) continue;
-          seenEdges.add(key);
-          edges.push([a, b]);
-          linked++;
-        }
-      }
-
-      linePositions = new Float32Array(edges.length * 6);
-      lineColors = new Float32Array(edges.length * 6);
-      for (let i = 0; i < edges.length; i++) {
-        const [a, b] = edges[i];
-        const ax = pointPositions[a * 3];
-        const ay = pointPositions[a * 3 + 1];
-        const az = pointPositions[a * 3 + 2];
-        const bx = pointPositions[b * 3];
-        const by = pointPositions[b * 3 + 1];
-        const bz = pointPositions[b * 3 + 2];
-
-        const li = i * 6;
-        linePositions[li] = ax;
-        linePositions[li + 1] = ay;
-        linePositions[li + 2] = az;
-        linePositions[li + 3] = bx;
-        linePositions[li + 4] = by;
-        linePositions[li + 5] = bz;
-
-        lineColors[li] = pointColors[a * 3];
-        lineColors[li + 1] = pointColors[a * 3 + 1];
-        lineColors[li + 2] = pointColors[a * 3 + 2];
-        lineColors[li + 3] = pointColors[b * 3];
-        lineColors[li + 4] = pointColors[b * 3 + 1];
-        lineColors[li + 5] = pointColors[b * 3 + 2];
-      }
-
-      const pointGeometry = new THREE.BufferGeometry();
-      pointAttr = new THREE.BufferAttribute(pointPositions, 3);
-      pointGeometry.setAttribute('position', pointAttr);
-      pointGeometry.setAttribute('color', new THREE.BufferAttribute(pointColors, 3));
-      pointGeometry.setAttribute('aSize', new THREE.BufferAttribute(pointSizes, 1));
-      pointGeometry.setAttribute('aPhase', new THREE.BufferAttribute(pointPhases, 1));
-
-      const pointMaterial = new THREE.ShaderMaterial({
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.NormalBlending,
-        vertexColors: true,
-        uniforms: {
-          uTime: { value: 0 },
-        },
-        vertexShader: `
-          attribute float aSize;
-          attribute float aPhase;
-          uniform float uTime;
-          varying vec3 vColor;
-          void main() {
-            vec3 p = position;
-            float pulse = 1.0 + sin(uTime * 0.4 + aPhase) * 0.06;
-            p *= pulse;
-            vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
-            gl_PointSize = aSize * (320.0 / -mvPosition.z);
-            vColor = color;
-            gl_Position = projectionMatrix * mvPosition;
-          }
-        `,
-        fragmentShader: `
-          varying vec3 vColor;
-          void main() {
-            vec2 uv = gl_PointCoord - vec2(0.5);
-            float d = length(uv);
-            if (d > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.0, d);
-            gl_FragColor = vec4(vColor, alpha * 0.86);
-          }
-        `,
-      });
-
-      points = new THREE.Points(pointGeometry, pointMaterial);
-      cluster.add(points);
-
-      const lineGeometry = new THREE.BufferGeometry();
-      lineAttr = new THREE.BufferAttribute(linePositions, 3);
-      lineGeometry.setAttribute('position', lineAttr);
-      lineGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
-
-      const lineMaterial = new THREE.LineBasicMaterial({
-        transparent: true,
-        opacity: 0.27,
-        vertexColors: true,
-        depthWrite: false,
-        blending: THREE.NormalBlending,
-      });
-
-      lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-      cluster.add(lines);
-
-      const glowCanvas = document.createElement('canvas');
-      glowCanvas.width = 1024;
-      glowCanvas.height = 1024;
-      const glowCtx = glowCanvas.getContext('2d');
-      if (glowCtx) {
-        const gradient = glowCtx.createRadialGradient(512, 512, 0, 512, 512, 512);
-        gradient.addColorStop(0, 'rgba(59, 164, 255, 0.40)');
-        gradient.addColorStop(0.45, 'rgba(96, 193, 255, 0.19)');
-        gradient.addColorStop(1, 'rgba(96, 193, 255, 0)');
-        glowCtx.fillStyle = gradient;
-        glowCtx.fillRect(0, 0, 1024, 1024);
-      }
-      const glowTexture = new THREE.CanvasTexture(glowCanvas);
-      const glowMaterial = new THREE.SpriteMaterial({
-        map: glowTexture,
-        transparent: true,
-        opacity: 0.79,
-        depthWrite: false,
-        blending: THREE.NormalBlending,
-      });
-      glowSprite = new THREE.Sprite(glowMaterial);
-      glowSprite.position.set(0, 0, -350);
-      const glowSize = radius * 3.2;
-      glowSprite.scale.set(glowSize, glowSize, 1);
-      cluster.add(glowSprite);
-
-      cluster.scale.set(1.18, 1.18, 1.18);
-      camera.position.set(0, 0, Math.max(width, height) * 0.9);
-    };
-
-    const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height, false);
-      buildNetwork();
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (lowPowerMode) return;
-      mouseTarget.x = ((e.clientX / width) - 0.5) * 2;
-      mouseTarget.y = ((e.clientY / height) - 0.5) * 2;
-    };
-
-    let lastFrameAt = 0;
-    const render = (now = performance.now()) => {
-      frameId = requestAnimationFrame(render);
-      if (document.hidden) return;
-      if (now - lastFrameAt < frameIntervalMs) return;
-      lastFrameAt = now;
-
-      const t = clock.getElapsedTime();
-
-      mouseCurrent.lerp(mouseTarget, lowPowerMode ? 0.03 : 0.06);
-
-      for (let i = 0; i < pointMeta.length; i++) {
-        const meta = pointMeta[i];
-        const pulse = 1 + 0.055 * Math.sin(t * 0.36 + meta.phase);
-
-        const x = meta.base.x * pulse + Math.sin(t * 0.62 + meta.phase * 1.4) * meta.drift;
-        const y = meta.base.y * (1 + 0.04 * Math.cos(t * 0.41 + meta.phase)) + Math.cos(t * 0.57 + meta.phase * 1.1) * meta.drift * 0.65;
-        const z = meta.base.z * (1 + 0.03 * Math.sin(t * 0.48 + meta.phase * 0.7));
-
-        const pi = i * 3;
-        pointPositions[pi] = x;
-        pointPositions[pi + 1] = y;
-        pointPositions[pi + 2] = z;
-      }
-
-      for (let i = 0; i < edges.length; i++) {
-        const [a, b] = edges[i];
-        const li = i * 6;
-        const ai = a * 3;
-        const bi = b * 3;
-        linePositions[li] = pointPositions[ai];
-        linePositions[li + 1] = pointPositions[ai + 1];
-        linePositions[li + 2] = pointPositions[ai + 2];
-        linePositions[li + 3] = pointPositions[bi];
-        linePositions[li + 4] = pointPositions[bi + 1];
-        linePositions[li + 5] = pointPositions[bi + 2];
-      }
-
-      if (pointAttr) pointAttr.needsUpdate = true;
-      if (lineAttr) lineAttr.needsUpdate = true;
-      if (points) {
-        const mat = points.material as THREE.ShaderMaterial;
-        mat.uniforms.uTime.value = t;
-      }
-
-      cluster.rotation.y += lowPowerMode ? 0.00032 : 0.00062;
-      cluster.rotation.x = Math.sin(t * 0.22) * 0.05 + mouseCurrent.y * (lowPowerMode ? 0.06 : 0.1);
-      camera.position.x = mouseCurrent.x * (lowPowerMode ? 18 : 30);
-      camera.position.y = mouseCurrent.y * (lowPowerMode ? 14 : 22);
-      camera.lookAt(0, 0, 0);
-
-      renderer.render(scene, camera);
-    };
-
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    resize();
-    render();
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
-      clearObjects();
-      renderer.dispose();
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(242,242,242,0.4),rgba(255,255,255,0.92)_32%,#ffffff_72%)]" />
+      <div className="site-blobs absolute inset-0">
+        {blobs.map((blob) => (
+          <span
+            key={blob.className}
+            className={`site-blob ${blob.className}`}
+            style={blob.style}
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.18)_100%)]" />
+    </div>
+  );
 };
