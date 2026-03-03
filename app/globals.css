@@ -23,6 +23,8 @@
     --liquid-ripple-strong: rgba(242, 146, 22, 0.36);
     --liquid-ripple-blue: rgba(59, 141, 191, 0.16);
     --liquid-ripple-blue-strong: rgba(22, 95, 242, 0.22);
+    --liquid-button-ripple: rgba(59, 141, 191, 0.20);
+    --liquid-button-ripple-strong: rgba(22, 95, 242, 0.34);
     --liquid-glow: rgba(22, 95, 242, 0.18);
   }
 
@@ -234,8 +236,8 @@
   .btn-accent::after {
     border-radius: inherit;
     background:
-      radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), var(--liquid-ripple-strong) 0%, rgba(242, 146, 22, 0.14) 20%, rgba(242, 146, 22, 0.05) 40%, transparent 66%),
-      radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), var(--liquid-ripple-blue-strong) 0%, var(--liquid-ripple-blue) 28%, rgba(59, 141, 191, 0.03) 46%, transparent 72%);
+      radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), var(--liquid-button-ripple-strong) 0%, rgba(22, 95, 242, 0.16) 22%, rgba(22, 95, 242, 0.06) 42%, transparent 68%),
+      radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), var(--liquid-ripple-blue-strong) 0%, var(--liquid-button-ripple) 30%, rgba(59, 141, 191, 0.04) 48%, transparent 74%);
     opacity: 0;
     transform: scale(0.96);
     transition:
@@ -252,7 +254,7 @@
     border-color: rgba(242, 242, 242, 0.48);
     box-shadow:
       0 24px 44px rgba(2, 40, 115, 0.28),
-      0 0 0 1px rgba(59, 141, 191, 0.08),
+      0 0 0 1px rgba(22, 95, 242, 0.10),
       inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
 
@@ -272,7 +274,7 @@
   .btn-primary:focus-visible,
   .btn-primary-compact:focus-visible,
   .btn-accent:focus-visible {
-    outline: 2px solid rgba(242, 146, 22, 0.7);
+    outline: 2px solid rgba(22, 95, 242, 0.62);
     outline-offset: 3px;
   }
 
