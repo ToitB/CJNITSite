@@ -9,7 +9,7 @@ const blobs = [
       top: '-12rem',
       left: '-10rem',
       background:
-        'radial-gradient(circle at 40% 40%, rgba(59,141,191,0.14) 0%, rgba(59,141,191,0.08) 26%, rgba(59,141,191,0.03) 48%, transparent 72%)',
+        'radial-gradient(circle at 40% 40%, rgba(59,141,191,0.26) 0%, rgba(59,141,191,0.16) 24%, rgba(59,141,191,0.07) 46%, transparent 72%)',
     },
   },
   {
@@ -20,7 +20,7 @@ const blobs = [
       top: '12%',
       right: '-8rem',
       background:
-        'radial-gradient(circle at 45% 42%, rgba(3,49,140,0.12) 0%, rgba(3,49,140,0.07) 28%, rgba(3,49,140,0.03) 50%, transparent 72%)',
+        'radial-gradient(circle at 45% 42%, rgba(3,49,140,0.22) 0%, rgba(3,49,140,0.13) 28%, rgba(3,49,140,0.05) 50%, transparent 72%)',
     },
   },
   {
@@ -31,7 +31,7 @@ const blobs = [
       bottom: '-14rem',
       left: '10%',
       background:
-        'radial-gradient(circle at 50% 50%, rgba(22,95,242,0.11) 0%, rgba(22,95,242,0.06) 25%, rgba(22,95,242,0.025) 48%, transparent 72%)',
+        'radial-gradient(circle at 50% 50%, rgba(22,95,242,0.24) 0%, rgba(22,95,242,0.14) 24%, rgba(22,95,242,0.06) 46%, transparent 72%)',
     },
   },
   {
@@ -42,7 +42,7 @@ const blobs = [
       bottom: '6%',
       right: '12%',
       background:
-        'radial-gradient(circle at 50% 44%, rgba(68,83,115,0.10) 0%, rgba(68,83,115,0.05) 28%, rgba(68,83,115,0.02) 50%, transparent 74%)',
+        'radial-gradient(circle at 50% 44%, rgba(68,83,115,0.20) 0%, rgba(68,83,115,0.11) 28%, rgba(68,83,115,0.04) 50%, transparent 74%)',
     },
   },
   {
@@ -53,7 +53,7 @@ const blobs = [
       top: '38%',
       left: '38%',
       background:
-        'radial-gradient(circle at 50% 50%, rgba(2,40,115,0.08) 0%, rgba(2,40,115,0.04) 28%, rgba(2,40,115,0.015) 48%, transparent 72%)',
+        'radial-gradient(circle at 50% 50%, rgba(2,40,115,0.16) 0%, rgba(2,40,115,0.08) 28%, rgba(2,40,115,0.03) 48%, transparent 72%)',
     },
   },
 ];
@@ -61,7 +61,7 @@ const blobs = [
 export const BackgroundCanvas: React.FC = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(242,242,242,0.4),rgba(255,255,255,0.92)_32%,#ffffff_72%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(242,242,242,0.12),rgba(255,255,255,0.86)_34%,#ffffff_74%)]" />
       <div className="site-blobs absolute inset-0">
         {blobs.map((blob) => (
           <span
@@ -72,7 +72,7 @@ export const BackgroundCanvas: React.FC = () => {
           />
         ))}
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0.18)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.08)_100%)]" />
     </div>
   );
 };

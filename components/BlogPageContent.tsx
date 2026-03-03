@@ -27,7 +27,7 @@ const posts = [
 export function BlogPageContent() {
   return (
     <div className="relative min-h-screen bg-white text-brand-dark selection:bg-brand-orange selection:text-white">
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-70" style={{ filter: 'blur(1.8px)' }}>
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <BackgroundCanvas />
       </div>
 

@@ -98,8 +98,6 @@ export const Hero: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5">
                 <motion.a 
                     href="#services"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     className="cursor-hover btn-primary"
                 >
                     Book an IT Assessment
@@ -109,8 +107,6 @@ export const Hero: React.FC = () => {
                     href="http://898.tv/cjnit"
                     target="_blank"
                     rel="noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     className="cursor-hover btn-accent"
                 >
                     Get Support Now
@@ -118,8 +114,6 @@ export const Hero: React.FC = () => {
 
                 <motion.a
                     href="#contact"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     className="cursor-hover btn-primary"
                 >
                     Get In Touch
@@ -128,8 +122,6 @@ export const Hero: React.FC = () => {
                 <motion.button
                     type="button"
                     onClick={onChatClick}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     className="cursor-hover btn-primary inline-flex items-center gap-2"
                 >
                     <MessageCircle className="w-4 h-4" />
