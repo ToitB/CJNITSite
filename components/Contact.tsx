@@ -331,40 +331,43 @@ export const Contact: React.FC = () => {
             <div className="glass-card-strong rounded-[2rem] p-7 md:p-9">
                 <form className="space-y-6" onSubmit={onSubmit}>
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Name</label>
+                        <label htmlFor="contact-name" className="font-subheading text-xs uppercase tracking-widest text-slate-700 font-bold">Name</label>
                         <input
+                          id="contact-name"
                           type="text"
                           name="name"
                           value={formData.name}
                           onChange={onFieldChange}
                           required
-                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all"
                           placeholder="Enter your name"
                         />
                     </div>
                     
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Email</label>
+                        <label htmlFor="contact-email" className="font-subheading text-xs uppercase tracking-widest text-slate-700 font-bold">Email</label>
                         <input
+                          id="contact-email"
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={onFieldChange}
                           required
-                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all"
                           placeholder="your@email.com"
                         />
                     </div>
                     
                     <div className="space-y-2">
-                        <label className="font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Message</label>
+                        <label htmlFor="contact-message" className="font-subheading text-xs uppercase tracking-widest text-slate-700 font-bold">Message</label>
                         <textarea
+                          id="contact-message"
                           rows={3}
                           name="message"
                           value={formData.message}
                           onChange={onFieldChange}
                           required
-                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all resize-none"
+                          className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all resize-none"
                           placeholder="Tell us about your IT needs..."
                         />
                     </div>
@@ -391,7 +394,7 @@ export const Contact: React.FC = () => {
                 </form>
 
                 <div className="mt-10">
-                    <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Find Us</div>
+                    <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-700 font-bold">Find Us</div>
                     <div className="glass-card-strong relative w-full max-w-[430px] aspect-square rounded-2xl mx-auto lg:mx-0">
                         <iframe
                           title="CJN IT Solutions Location"
@@ -399,7 +402,9 @@ export const Contact: React.FC = () => {
                           className="h-full w-full border-0"
                           loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
-                          style={{ filter: 'saturate(0.42) hue-rotate(168deg) brightness(1.03) contrast(0.92)' }}
+                          allow=""
+                          sandbox="allow-scripts allow-same-origin"
+                          style={{ filter: 'saturate(0.55) hue-rotate(168deg) brightness(1.03) contrast(0.92)' }}
                         />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-sky-100/16 via-transparent to-blue-100/26" />
                     </div>
@@ -419,13 +424,6 @@ export const Contact: React.FC = () => {
             className="pointer-events-none absolute left-1/2 top-[102%] h-3 w-32 -translate-x-1/2 rounded-[999px] bg-sky-500/14 blur-[7px]"
           />
           <AnimatedGlobe size={200} className="relative z-10 scale-90 md:scale-100" />
-        </div>
-      </div>
-
-      <div className="relative z-10 mt-24 pt-8 border-t border-slate-200 flex justify-center md:justify-end items-center text-slate-600">
-        <div className="flex gap-8">
-          <a href="/privacy" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Privacy</a>
-          <a href="/terms" className="cursor-hover font-subheading text-xs uppercase tracking-widest hover:text-brand-blue">Terms</a>
         </div>
       </div>
 

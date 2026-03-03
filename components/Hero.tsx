@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown, MessageCircle } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { useSparkHighlights } from './useSparkHighlights';
 
 export const Hero: React.FC = () => {
@@ -83,7 +83,7 @@ export const Hero: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="flex flex-col items-center gap-6"
         >
-            <p className="font-sans text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="font-sans text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed">
                 Stop losing time to unpredictable tech issues. We engineer, manage, and secure your IT
                 infrastructure with fixed-cost support, ensuring your systems stay online, hardened against
                 attacks, and fully optimized.
@@ -98,29 +98,11 @@ export const Hero: React.FC = () => {
                 </motion.a>
 
                 <motion.a
-                    href="http://898.tv/cjnit"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-hover btn-accent"
-                >
-                    Get Support Now
-                </motion.a>
-
-                <motion.a
                     href="#contact"
-                    className="cursor-hover btn-primary"
+                    className="cursor-hover btn-accent"
                 >
                     Get In Touch
                 </motion.a>
-
-                <motion.button
-                    type="button"
-                    onClick={onChatClick}
-                    className="cursor-hover btn-primary inline-flex items-center gap-2"
-                >
-                    <MessageCircle className="w-4 h-4" />
-                    Chat with us
-                </motion.button>
             </div>
         </motion.div>
       </motion.div>
@@ -129,8 +111,10 @@ export const Hero: React.FC = () => {
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 text-brand-blue/50"
+        role="img"
+        aria-label="Scroll down to explore"
       >
-        <ArrowDown size={24} />
+        <ArrowDown size={24} aria-hidden="true" />
       </motion.div>
     </section>
   );

@@ -55,7 +55,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-white text-brand-dark selection:bg-brand-orange selection:text-white">
+    <div className="relative min-h-screen bg-white text-brand-dark">
       {/* Background Layer */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <BackgroundCanvas />

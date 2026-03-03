@@ -28,7 +28,12 @@ export const Footer: React.FC = () => {
           </div>
         </a>
 
-        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-[0.14em] text-slate-600">
+        <div className="flex items-center gap-6">
+          <a href="/privacy" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600 hover:text-brand-blue transition-colors">Privacy</a>
+          <a href="/terms" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600 hover:text-brand-blue transition-colors">Terms</a>
+        </div>
+
+        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600">
           © {year} CJN IT Solutions. All rights reserved.
         </div>
       </div>
