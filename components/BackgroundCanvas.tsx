@@ -9,7 +9,7 @@ const blobs = [
       top: '-12rem',
       left: '-10rem',
       background:
-        'radial-gradient(circle at 40% 40%, rgba(59,141,191,0.30) 0%, rgba(59,141,191,0.18) 24%, rgba(59,141,191,0.08) 46%, transparent 72%)',
+        'radial-gradient(circle at 40% 40%, rgba(59,141,191,0.34) 0%, rgba(59,141,191,0.22) 22%, rgba(59,141,191,0.12) 38%, rgba(59,141,191,0.05) 54%, transparent 66%)',
     },
   },
   {
@@ -20,7 +20,7 @@ const blobs = [
       top: '12%',
       right: '-8rem',
       background:
-        'radial-gradient(circle at 45% 42%, rgba(3,49,140,0.26) 0%, rgba(3,49,140,0.15) 28%, rgba(3,49,140,0.06) 50%, transparent 72%)',
+        'radial-gradient(circle at 45% 42%, rgba(3,49,140,0.30) 0%, rgba(3,49,140,0.18) 24%, rgba(3,49,140,0.10) 40%, rgba(3,49,140,0.04) 56%, transparent 68%)',
     },
   },
   {
@@ -31,7 +31,7 @@ const blobs = [
       bottom: '-14rem',
       left: '10%',
       background:
-        'radial-gradient(circle at 50% 50%, rgba(22,95,242,0.28) 0%, rgba(22,95,242,0.16) 24%, rgba(22,95,242,0.07) 46%, transparent 72%)',
+        'radial-gradient(circle at 50% 50%, rgba(22,95,242,0.32) 0%, rgba(22,95,242,0.20) 22%, rgba(22,95,242,0.11) 38%, rgba(22,95,242,0.05) 54%, transparent 66%)',
     },
   },
   {
@@ -42,7 +42,7 @@ const blobs = [
       bottom: '6%',
       right: '12%',
       background:
-        'radial-gradient(circle at 50% 44%, rgba(68,83,115,0.22) 0%, rgba(68,83,115,0.12) 28%, rgba(68,83,115,0.05) 50%, transparent 74%)',
+        'radial-gradient(circle at 50% 44%, rgba(68,83,115,0.26) 0%, rgba(68,83,115,0.15) 24%, rgba(68,83,115,0.08) 40%, rgba(68,83,115,0.04) 56%, transparent 68%)',
     },
   },
   {
@@ -53,7 +53,7 @@ const blobs = [
       top: '38%',
       left: '38%',
       background:
-        'radial-gradient(circle at 50% 50%, rgba(2,40,115,0.20) 0%, rgba(2,40,115,0.10) 28%, rgba(2,40,115,0.04) 48%, transparent 72%)',
+        'radial-gradient(circle at 50% 50%, rgba(2,40,115,0.24) 0%, rgba(2,40,115,0.13) 24%, rgba(2,40,115,0.07) 40%, rgba(2,40,115,0.03) 56%, transparent 68%)',
     },
   },
 ];

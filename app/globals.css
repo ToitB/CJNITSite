@@ -127,7 +127,7 @@
     position: absolute;
     display: block;
     border-radius: 999px;
-    filter: blur(58px);
+    filter: blur(40px);
     opacity: 1;
     will-change: transform;
   }
