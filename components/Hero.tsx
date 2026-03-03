@@ -47,13 +47,7 @@ export const Hero: React.FC = () => {
   };
   
   return (
-    <section ref={containerRef} className="min-h-screen w-full flex flex-col items-center justify-center pt-28 pb-24 md:pt-32 md:pb-28 relative overflow-hidden bg-white/78">
-      
-      {/* Background Gradient Mesh */}
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-brand-cyan/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-brand-blue/20 rounded-full blur-[100px]" />
-      </div>
+    <section ref={containerRef} className="min-h-screen w-full flex flex-col items-center justify-center pt-28 pb-24 md:pt-32 md:pb-28 relative overflow-hidden bg-white/34">
 
       <motion.div 
         style={{ y }}

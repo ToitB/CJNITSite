@@ -131,7 +131,7 @@ export const ServiceShowcase: React.FC = () => {
   };
 
   return (
-    <section id="services" ref={container} className="relative bg-slate-50/72 pt-24 pb-24 border-t border-slate-200">
+    <section id="services" ref={container} className="relative bg-white/28 pt-24 pb-24 border-t border-slate-200/70">
         {showQuickNav && (
           <div className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3">
             <button
