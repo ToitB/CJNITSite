@@ -1,0 +1,26 @@
+Blue shades dark to light
+
+#03318C
+#022873
+#165FF2
+#3B8DBF
+#F2F2F2
+
+
+Complementary shades
+
+Primary orange
+#F29216 
+
+Secondary orange
+#BF4904
+#BF5B04
+
+Other complementary
+Yellow
+#F2C916 
+
+Grey
+#445373
+
+

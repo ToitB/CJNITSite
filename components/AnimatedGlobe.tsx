@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
 
 type AnimatedGlobeProps = {
   size?: number;
@@ -10,14 +11,13 @@ type AnimatedGlobeProps = {
   ariaLabel?: string;
 };
 
-const HDRI_URL =
-  "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr";
+const HDRI_URL = "/studio_small_09_1k.hdr";
 
 const CORE_PALETTE = [
-  "#579AF6",
-  "#165EA8",
-  "#123D66",
-  "#165EA8",
+  "#3A72C4",
+  "#0D4280",
+  "#091E3A",
+  "#0D4280",
 ];
 
 export default function AnimatedGlobe({ size = 44, className = "", ariaLabel }: AnimatedGlobeProps) {
@@ -46,16 +46,26 @@ export default function AnimatedGlobe({ size = 44, className = "", ariaLabel }: 
     renderer.domElement.style.height = "100%";
     mount.appendChild(renderer.domElement);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    keyLight.position.set(4, 5, 4);
-    scene.add(keyLight);
+    // Initialise RectAreaLight support
+    RectAreaLightUniformsLib.init();
 
-    const rimLight = new THREE.SpotLight(0x005596, 5);
-    rimLight.position.set(-4, 3, -4);
-    rimLight.lookAt(0, 0, 0);
-    scene.add(rimLight);
+    // Top-left window reflection — soft sky-blue rectangle
+    const windowLightTL = new THREE.RectAreaLight(0xc8e0ff, 4.5, 2.8, 2.2);
+    windowLightTL.position.set(-4, 5, 5);
+    windowLightTL.lookAt(0, 0, 0);
+    scene.add(windowLightTL);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.85));
+    // Bottom-right window reflection — warm ice-blue rectangle
+    const windowLightBR = new THREE.RectAreaLight(0x7ab8e0, 3.8, 2.4, 1.8);
+    windowLightBR.position.set(5, -4, 4);
+    windowLightBR.lookAt(0, 0, 0);
+    scene.add(windowLightBR);
+
+    // Subtle fill — hint of blue
+    scene.add(new THREE.AmbientLight(0xdce8f5, 0.65));
+
+    // Rotate the environment map to shift HDRI reflections away from "eye" positions
+    scene.environmentRotation = new THREE.Euler(0.3, Math.PI * 0.65, 0.15);
 
     const liquidVertexShader = /* glsl */ `
       varying vec3 vWorldPosition;
@@ -133,18 +143,18 @@ export default function AnimatedGlobe({ size = 44, className = "", ariaLabel }: 
     const glassMaterial = new THREE.MeshPhysicalMaterial({
       color: new THREE.Color("#ffffff"),
       metalness: 0,
-      roughness: 0.15,
+      roughness: 0.3,
       transmission: 1,
       thickness: 1.5,
       ior: 1.52,
-      attenuationColor: new THREE.Color("#e0f2fe"),
-      attenuationDistance: 10,
+      attenuationColor: new THREE.Color("#b0cfe8"),
+      attenuationDistance: 6,
       sheen: 1,
-      sheenColor: new THREE.Color("#005596"),
-      sheenRoughness: 0.2,
-      clearcoat: 1,
-      clearcoatRoughness: 0.02,
-      envMapIntensity: 1,
+      sheenColor: new THREE.Color("#1a5c8a"),
+      sheenRoughness: 0.35,
+      clearcoat: 0.25,
+      clearcoatRoughness: 0.2,
+      envMapIntensity: 0.4,
       transparent: true,
       side: THREE.DoubleSide,
     });
