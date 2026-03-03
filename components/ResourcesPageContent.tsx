@@ -137,7 +137,7 @@ export function ResourcesPageContent() {
                 </a>
               </article>
 
-              <article className="glass-card rounded-2xl p-7">
+              <article className="glass-card-accent rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   General Repository
                 </h2>

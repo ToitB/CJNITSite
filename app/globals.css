@@ -3,11 +3,11 @@
 
 @layer base {
   :root {
-    --brand-blue: #005596;
-    --brand-cyan: #00aeef;
+    --brand-blue: #03318c;
+    --brand-cyan: #3b8dbf;
     --brand-dark: #020617;
-    --brand-orange: #ffaa40;
-    --brand-orange-highlight: #ff8c00;
+    --brand-orange: #f29216;
+    --brand-orange-highlight: #bf5b04;
     --liquid-blue-deep: #03318c;
     --liquid-blue-strong: #022873;
     --liquid-blue-core: #165ff2;
@@ -48,7 +48,7 @@
   }
 
   ::selection {
-    background: #00aeef;
+    background: #3b8dbf;
     color: #ffffff;
   }
 
@@ -475,7 +475,8 @@
   }
 
   .section-kicker {
-    @apply font-subheading text-sm md:text-base font-semibold uppercase tracking-[0.16em] text-[#0A4F8A];
+    @apply font-subheading text-sm md:text-base font-semibold uppercase tracking-[0.16em];
+    color: var(--brand-blue);
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
   }
@@ -506,8 +507,8 @@
     border-radius: 4px;
     background: linear-gradient(
       90deg,
-      rgb(255 170 64 / 0.38) 0%,
-      rgb(255 140 0 / 0.54) 100%
+      rgb(242 146 22 / 0.38) 0%,
+      rgb(191 91 4 / 0.54) 100%
     );
     z-index: -1;
   }

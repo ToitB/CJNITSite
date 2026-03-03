@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
           <div className="leading-tight">
             <div className="font-display font-bold text-xl tracking-tight text-brand-dark transition-colors">
               CJN IT <span className="text-slate-400">|</span>{' '}
-              <span className="text-[#C15F00]">Solutions</span>
+              <span className="text-brand-orangeHighlight">Solutions</span>
             </div>
             <div className="font-subheading text-xs tracking-wide text-slate-600">
               Structured IT, Seamless Business
@@ -131,7 +131,7 @@ export const Navbar: React.FC = () => {
                 <div className="leading-tight">
                   <div className="font-display font-bold text-xl tracking-tight text-brand-dark">
                     CJN IT <span className="text-slate-500">|</span>{' '}
-                    <span className="text-[#C15F00]">Solutions</span>
+                    <span className="text-brand-orangeHighlight">Solutions</span>
                   </div>
                   <div className="font-subheading text-xs tracking-wide text-slate-700">
                     Structured IT, Seamless Business
@@ -161,7 +161,7 @@ export const Navbar: React.FC = () => {
                     transition={{ delay: 0.2 + (index * 0.1), duration: 0.5 }}
                     className="group flex items-center gap-6 cursor-hover"
                   >
-                    <span className="font-display text-4xl md:text-6xl font-bold text-[#3f6a8f] group-hover:text-brand-blue transition-colors duration-300">
+                    <span className="font-display text-4xl md:text-6xl font-bold text-brand-cyan group-hover:text-brand-blue transition-colors duration-300">
                       {item.title}
                     </span>
                     <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-brand-cyan" />

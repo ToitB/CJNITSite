@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 
-const LIQUID_SELECTOR = '.liquid-button, .liquid-surface, .glass-dock-item';
+const LIQUID_SELECTOR =
+  '.liquid-button, .liquid-surface, .glass-dock-item, .glass-card, .glass-card-strong, .glass-card-accent';
 
 const resetLiquidTarget = (target: HTMLElement | null) => {
   if (!target) return;

@@ -15,11 +15,11 @@ const config: Config = {
       },
       colors: {
         brand: {
-          blue: '#005596',
-          cyan: '#00AEEF',
+          blue: '#03318C',
+          cyan: '#3B8DBF',
           dark: '#020617',
-          orange: '#ffaa40',
-          orangeHighlight: '#FF8C00',
+          orange: '#F29216',
+          orangeHighlight: '#BF5B04',
         },
       },
       cursor: {

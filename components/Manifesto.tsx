@@ -34,7 +34,7 @@ export const Manifesto: React.FC = () => {
           </span>
         </div>
 
-        <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-[#0A4F8A] italic">
+        <p className="mt-4 font-sans text-2xl md:text-3xl leading-relaxed max-w-4xl text-brand-blue italic">
           <mark className="hx hx-spark hx-body-copy !mr-0">
             Technology is your core operational asset. Relying on reactive repairs means accepting downtime and lost
             revenue. Since 2003, we have deployed structured, proactive IT management that neutralizes threats and

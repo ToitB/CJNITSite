@@ -229,7 +229,7 @@ export const Contact: React.FC = () => {
 
                 <div className="space-y-10">
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <MapPin size={20} />
                         </div>
                         <div>
@@ -242,7 +242,7 @@ export const Contact: React.FC = () => {
                     </div>
                     
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <Mail size={20} />
                         </div>
                         <div>
@@ -252,7 +252,7 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <Phone size={20} />
                         </div>
                         <div>
@@ -262,7 +262,7 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <Linkedin size={20} />
                         </div>
                         <div>
@@ -279,7 +279,7 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <XLogo className="w-5 h-5" />
                         </div>
                         <div>
@@ -296,7 +296,7 @@ export const Contact: React.FC = () => {
                     </div>
 
                     <div className="flex gap-6 items-start group">
-                        <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-brand-blue shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white transition-colors">
                             <Clock3 size={20} />
                         </div>
                         <div>
@@ -392,7 +392,7 @@ export const Contact: React.FC = () => {
 
                 <div className="mt-10">
                     <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-600 font-bold">Find Us</div>
-                    <div className="glass-card relative w-full max-w-[430px] aspect-square rounded-2xl mx-auto lg:mx-0">
+                    <div className="glass-card-strong relative w-full max-w-[430px] aspect-square rounded-2xl mx-auto lg:mx-0">
                         <iframe
                           title="CJN IT Solutions Location"
                           src="https://www.google.com/maps?q=Office+3,+Building+5,+Glen+Manor+Office+Park,+Pretoria,+0084&output=embed"
