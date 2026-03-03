@@ -1,3 +1,5 @@
+// Reference snippet only. Not imported by the app.
+export const morphReference = `
 import { GlassMorphCard } from "@/components/glass-morph-card"
 
 <GlassMorphCard>
@@ -6,3 +8,4 @@ import { GlassMorphCard } from "@/components/glass-morph-card"
     <p>Hover to see the 3D effect</p>
   </div>
 </GlassMorphCard>
+`;

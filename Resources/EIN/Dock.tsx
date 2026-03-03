@@ -1,3 +1,5 @@
+// Reference snippet only. Not imported by the app.
+export const dockReference = `
 import { GlassDock } from "@/components/glass-dock"
 
 const items = [
@@ -7,3 +9,4 @@ const items = [
 ]
 
 <GlassDock items={items} />
+`;

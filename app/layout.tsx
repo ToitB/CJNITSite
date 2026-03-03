@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
+import { LiquidEffects } from '../components/LiquidEffects';
 import './globals.css';
 
 const inter = Inter({
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth bg-white">
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+        <LiquidEffects />
         {children}
       </body>
     </html>

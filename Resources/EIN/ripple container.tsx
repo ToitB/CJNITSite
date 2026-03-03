@@ -1,3 +1,5 @@
+// Reference snippet only. Not imported by the app.
+export const rippleContainerReference = `
 import { GlassRipple } from "@/components/glass-ripple"
 
 <GlassRipple color="cyan" className="rounded-xl">
@@ -5,3 +7,4 @@ import { GlassRipple } from "@/components/glass-ripple"
     Click anywhere in this area
   </div>
 </GlassRipple>
+`;
