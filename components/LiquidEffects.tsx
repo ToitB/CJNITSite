@@ -3,12 +3,15 @@
 import { useEffect } from 'react';
 
 const LIQUID_SELECTOR =
-  '.liquid-button, .btn-primary, .btn-primary-compact, .btn-accent, .liquid-surface, .glass-dock-item, .glass-card, .glass-card-strong, .glass-card-accent';
+  '.liquid-button, .btn-primary, .btn-primary-compact, .btn-accent, .liquid-surface, .glass-dock-item, .glass-card, .glass-card-strong, .glass-card-accent, .morph-card';
 
 const resetLiquidTarget = (target: HTMLElement | null) => {
   if (!target) return;
   target.style.setProperty('--ripple-x', '50%');
   target.style.setProperty('--ripple-y', '50%');
+  target.style.setProperty('--morph-rotate-x', '0deg');
+  target.style.setProperty('--morph-rotate-y', '0deg');
+  target.style.setProperty('--morph-glow', '0');
 };
 
 export function LiquidEffects() {
@@ -23,6 +26,14 @@ export function LiquidEffects() {
 
       target.style.setProperty('--ripple-x', `${Math.max(0, Math.min(100, x))}%`);
       target.style.setProperty('--ripple-y', `${Math.max(0, Math.min(100, y))}%`);
+
+      const rotateY = ((x - 50) / 50) * 5.5;
+      const rotateX = ((50 - y) / 50) * 5.5;
+      const glow = Math.max(0.14, 1 - Math.min(1, Math.abs(50 - x) / 55 + Math.abs(50 - y) / 55));
+
+      target.style.setProperty('--morph-rotate-x', `${rotateX.toFixed(2)}deg`);
+      target.style.setProperty('--morph-rotate-y', `${rotateY.toFixed(2)}deg`);
+      target.style.setProperty('--morph-glow', glow.toFixed(3));
     };
 
     const onPointerLeave = (event: PointerEvent) => {

@@ -50,7 +50,7 @@ export function BlogPageContent() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <article key={post.title} className="glass-card rounded-2xl p-7">
+                <article key={post.title} className="glass-card morph-card rounded-2xl p-7">
                   <p className="font-subheading text-xs tracking-widest uppercase text-slate-500 mb-3">
                     {post.date}
                   </p>

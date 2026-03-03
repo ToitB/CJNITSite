@@ -107,7 +107,7 @@ export function ResourcesPageContent() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <article className="glass-card rounded-2xl p-7">
+              <article className="glass-card morph-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   IT Self-Assessment Tool
                 </h2>
@@ -122,7 +122,7 @@ export function ResourcesPageContent() {
                 </a>
               </article>
 
-              <article className="glass-card rounded-2xl p-7">
+              <article className="glass-card morph-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   Client Referral Form
                 </h2>
@@ -137,7 +137,7 @@ export function ResourcesPageContent() {
                 </a>
               </article>
 
-              <article className="glass-card-accent rounded-2xl p-7">
+              <article className="glass-card-accent morph-card rounded-2xl p-7">
                 <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                   General Repository
                 </h2>
