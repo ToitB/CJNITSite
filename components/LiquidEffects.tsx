@@ -16,7 +16,18 @@ const resetLiquidTarget = (target: HTMLElement | null) => {
 
 export function LiquidEffects() {
   useEffect(() => {
-    const onPointerMove = (event: PointerEvent) => {
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let rafId = 0;
+    let pendingEvent: PointerEvent | null = null;
+
+    const applyRipple = () => {
+      rafId = 0;
+      const event = pendingEvent;
+      if (!event) return;
+      pendingEvent = null;
+
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(LIQUID_SELECTOR);
       if (!target) return;
 
@@ -36,15 +47,23 @@ export function LiquidEffects() {
       target.style.setProperty('--morph-glow', glow.toFixed(3));
     };
 
+    const onPointerMove = (event: PointerEvent) => {
+      pendingEvent = event;
+      if (!rafId) {
+        rafId = requestAnimationFrame(applyRipple);
+      }
+    };
+
     const onPointerLeave = (event: PointerEvent) => {
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(LIQUID_SELECTOR) ?? null;
       resetLiquidTarget(target);
     };
 
-    document.addEventListener('pointermove', onPointerMove, true);
+    document.addEventListener('pointermove', onPointerMove, { capture: true, passive: true });
     document.addEventListener('pointerleave', onPointerLeave, true);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       document.removeEventListener('pointermove', onPointerMove, true);
       document.removeEventListener('pointerleave', onPointerLeave, true);
     };
