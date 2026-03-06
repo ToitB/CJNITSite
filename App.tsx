@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [lineDone, setLineDone] = useState(false);
   const [lineMetrics, setLineMetrics] = useState({ top: 0, stopWidth: 0, dotX: 0 });
   const loaderTextRef = useRef<HTMLDivElement>(null);
+  const lastSRef = useRef<HTMLSpanElement>(null);
 
   // Scroll-driven background tint: cool neutral → warm amber near bottom
   const { scrollYProgress: pageProgress } = useScroll();
@@ -25,14 +26,16 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const updateMetrics = () => {
-      const el = loaderTextRef.current;
-      if (!el) return;
+      const textEl = loaderTextRef.current;
+      const sEl = lastSRef.current;
+      if (!textEl || !sEl) return;
 
-      const rect = el.getBoundingClientRect();
+      const textRect = textEl.getBoundingClientRect();
+      const sRect = sEl.getBoundingClientRect();
       setLineMetrics({
-        top: rect.bottom + 12,
-        stopWidth: Math.max(180, rect.right - 16),
-        dotX: rect.right - 2,
+        top: textRect.bottom + 12,
+        stopWidth: Math.max(180, sRect.right),
+        dotX: sRect.left + sRect.width / 2 - 6,
       });
     };
 
@@ -58,7 +61,7 @@ const App: React.FC = () => {
 
     return () => {
       clearTimeout(safety);
-    }
+    };
   }, []);
 
   return (
@@ -85,39 +88,32 @@ const App: React.FC = () => {
         <Footer />
       </div>
 
-      {/* Loading Overlay */}
       <div className={`fixed inset-0 z-50 bg-white flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] pointer-events-none ${isLoaded ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div ref={loaderTextRef} className="relative inline-flex items-end pr-5">
-          <div className="text-6xl font-display font-bold text-brand-blue tracking-tighter">
-            CJN IT
-          </div>
-
-          <motion.span
-            className="absolute right-0 text-6xl font-display font-bold text-[#C15F00] leading-none"
-            initial={{ opacity: 0, scale: 0.2, y: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.26, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            .
-          </motion.span>
+        <div ref={loaderTextRef} className="relative inline-flex items-baseline">
+          <span className="text-5xl sm:text-6xl font-display font-bold text-brand-blue tracking-tighter">
+            CJN
+          </span>
+          <span className="text-5xl sm:text-6xl font-display font-bold mx-3 tracking-tighter" style={{ color: '#F29216' }}>
+            |
+          </span>
+          <span className="text-5xl sm:text-6xl font-display font-bold tracking-tighter" style={{ color: '#445373' }}>
+            IT&nbsp;Solution<span ref={lastSRef}>s</span>
+          </span>
         </div>
 
         {lineMetrics.stopWidth > 0 && (
-          <motion.div
-            className="fixed left-0 h-[4px] rounded-full bg-[#C15F00]"
-            style={{ top: `${lineMetrics.top}px` }}
-            initial={{ x: 0, width: 0, opacity: 1 }}
-            animate={{
-              x: [0, 0, 0, lineMetrics.dotX],
-              width: [0, lineMetrics.stopWidth, lineMetrics.stopWidth, 12],
-              opacity: [1, 1, 1, 0],
+          <div
+            className="fixed left-0 h-[4px] rounded-full bg-[#C15F00] will-change-transform"
+            style={{
+              top: `${lineMetrics.top}px`,
+              width: `${lineMetrics.stopWidth}px`,
+              transformOrigin: 'left center',
+              animation: `loader-grow 0.78s cubic-bezier(0.22,1,0.36,1) forwards,
+                         loader-collapse 0.48s cubic-bezier(0.55,0,1,0.45) 0.92s forwards`,
             }}
-            transition={{
-              duration: 1.42,
-              times: [0, 0.54, 0.82, 1],
-              ease: [0.22, 1, 0.36, 1],
+            onAnimationEnd={(e) => {
+              if (e.animationName === 'loader-collapse') setLineDone(true);
             }}
-            onAnimationComplete={() => setLineDone(true)}
           />
         )}
       </div>

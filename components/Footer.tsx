@@ -18,9 +18,10 @@ export const Footer: React.FC = () => {
             />
           </div>
           <div className="leading-tight">
-            <div className="font-display font-bold text-lg tracking-tight text-brand-dark">
-              CJN IT <span className="text-slate-400">|</span>{' '}
-              <span className="text-brand-orangeHighlight">Solutions</span>
+            <div className="font-display font-bold text-lg tracking-tight">
+              <span className="text-brand-blue">CJN</span>{' '}
+              <span className="text-brand-orange">|</span>{' '}
+              <span className="text-[#445373]">IT Solutions</span>
             </div>
             <div className="font-subheading text-xs tracking-wide text-slate-600">
               Structured IT, Seamless Business

@@ -93,9 +93,10 @@ export const Navbar: React.FC = () => {
         <a href="/" className="flex items-center gap-3 group cursor-hover">
           <AnimatedGlobe size={40} className="-translate-y-px" ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
           <div className="leading-tight">
-            <div className="font-display font-bold text-xl tracking-tight text-brand-dark transition-colors">
-              CJN IT <span className="text-slate-400">|</span>{' '}
-              <span className="text-brand-orangeHighlight">Solutions</span>
+            <div className="font-display font-bold text-xl tracking-tight transition-colors">
+              <span className="text-brand-blue">CJN</span>{' '}
+              <span className="text-brand-orange">|</span>{' '}
+              <span className="text-[#445373]">IT Solutions</span>
             </div>
             <div className="font-subheading text-xs tracking-wide text-slate-600">
               Structured IT, Seamless Business
@@ -170,9 +171,10 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-3">
                 <AnimatedGlobe size={34} ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
                 <div className="leading-tight">
-                  <div className="font-display font-bold text-xl tracking-tight text-brand-dark">
-                    CJN IT <span className="text-slate-500">|</span>{' '}
-                    <span className="text-brand-orangeHighlight">Solutions</span>
+                  <div className="font-display font-bold text-xl tracking-tight">
+                    <span className="text-brand-blue">CJN</span>{' '}
+                    <span className="text-brand-orange">|</span>{' '}
+                    <span className="text-[#445373]">IT Solutions</span>
                   </div>
                   <div className="font-subheading text-xs tracking-wide text-slate-700">
                     Structured IT, Seamless Business

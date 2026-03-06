@@ -344,7 +344,7 @@ export const Contact: React.FC = () => {
 
                 <div className="mt-10">
                     <div className="mb-3 font-subheading text-xs uppercase tracking-widest text-slate-700 font-bold">Find Us</div>
-                    <div className="glass-card-strong relative w-full max-w-[430px] aspect-square rounded-2xl mx-auto lg:mx-0">
+                    <div className="glass-card-strong relative w-full aspect-square rounded-2xl mx-auto lg:mx-0">
                         <iframe
                           title="CJN IT Solutions Location"
                           src="https://www.google.com/maps?q=Office+3,+Building+5,+Glen+Manor+Office+Park,+Pretoria,+0084&output=embed"
