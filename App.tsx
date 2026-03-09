@@ -102,18 +102,26 @@ const App: React.FC = () => {
         </div>
 
         {lineMetrics.stopWidth > 0 && (
-          <div
-            className="fixed left-0 h-[4px] rounded-full bg-[#C15F00] will-change-transform"
+          <motion.div
+            className="fixed left-0 h-[4px] rounded-full will-change-transform"
             style={{
               top: `${lineMetrics.top}px`,
               width: `${lineMetrics.stopWidth}px`,
+              background: '#C15F00',
               transformOrigin: 'left center',
-              animation: `loader-grow 0.78s cubic-bezier(0.22,1,0.36,1) forwards,
-                         loader-collapse 0.48s cubic-bezier(0.55,0,1,0.45) 0.92s forwards`,
             }}
-            onAnimationEnd={(e) => {
-              if (e.animationName === 'loader-collapse') setLineDone(true);
+            initial={{ scaleX: 0, x: 0, opacity: 1 }}
+            animate={{
+              scaleX: [0, 1, 1, 0.02],
+              x: [0, 0, 0, lineMetrics.dotX],
+              opacity: [1, 1, 1, 0],
             }}
+            transition={{
+              duration: 1.6,
+              times: [0, 0.5, 0.72, 1],
+              ease: 'easeInOut',
+            }}
+            onAnimationComplete={() => setLineDone(true)}
           />
         )}
       </div>
