@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, MapPin, Mail, Phone, Linkedin, Clock3, MessageCircle } from 'lucide-react';
-import AnimatedGlobe from './AnimatedGlobe';
 
 const XLogo: React.FC<{ className?: string }> = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
@@ -245,7 +244,7 @@ export const Contact: React.FC = () => {
                         initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
                         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                         viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.75, delay: 0.1 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
                         className="flex gap-6 items-start group"
                       >
                         <div className="liquid-surface liquid-surface-primary w-12 h-12 rounded-full flex items-center justify-center text-brand-blue shrink-0 group-hover:text-white group-hover:scale-105 transition-all duration-300">
@@ -359,20 +358,6 @@ export const Contact: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
-      </div>
-
-      <div className="relative z-10 mt-20 flex justify-center">
-        <div className="relative">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[104%] h-5 w-40 -translate-x-1/2 rounded-[999px] bg-slate-700/26 blur-[9px]"
-          />
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[102%] h-3 w-32 -translate-x-1/2 rounded-[999px] bg-sky-500/14 blur-[7px]"
-          />
-          <AnimatedGlobe size={200} className="relative z-10 scale-90 md:scale-100" />
         </div>
       </div>
 

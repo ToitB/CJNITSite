@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
-        display: ['var(--font-montserrat)', 'sans-serif'],
-        subheading: ['var(--font-inter)', 'sans-serif'],
+        sans: ['var(--font-dm-sans)', 'sans-serif'],
+        display: ['var(--font-sora)', 'sans-serif'],
+        subheading: ['var(--font-dm-sans)', 'sans-serif'],
       },
       colors: {
         brand: {

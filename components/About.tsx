@@ -40,14 +40,14 @@ export const About: React.FC = () => {
             <motion.p
               initial={{ x: -20, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               CJN IT Solutions is a leading IT company specializing in comprehensive and reliable IT services tailored for SMEs. With expertise in fixed-cost contractual support, same-day resolution, and cloud-based services, we drive business growth through technology.
             </motion.p>
             <motion.p
               initial={{ x: 20, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               Our vision is to empower small and medium businesses by making cutting-edge technology—previously accessible only to corporate entities—affordable and available to you. We pride ourselves on striving for excellence in all aspects of your IT environment.
             </motion.p>

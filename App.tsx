@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Manifesto } from './components/Manifesto';
@@ -10,12 +11,10 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BackgroundCanvas } from './components/BackgroundCanvas';
 
+const AnimatedGlobe = dynamic(() => import('./components/AnimatedGlobe'), { ssr: false });
+
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [lineDone, setLineDone] = useState(false);
-  const [lineMetrics, setLineMetrics] = useState({ top: 0, stopWidth: 0, dotX: 0 });
-  const loaderTextRef = useRef<HTMLDivElement>(null);
-  const lastSRef = useRef<HTMLSpanElement>(null);
 
   // Scroll-driven background tint: cool neutral → warm amber near bottom
   const { scrollYProgress: pageProgress } = useScroll();
@@ -25,43 +24,8 @@ const App: React.FC = () => {
   const bgColor = useMotionTemplate`hsl(${bgHue} ${bgSat}% ${bgLight}%)`;
 
   useEffect(() => {
-    const updateMetrics = () => {
-      const textEl = loaderTextRef.current;
-      const sEl = lastSRef.current;
-      if (!textEl || !sEl) return;
-
-      const textRect = textEl.getBoundingClientRect();
-      const sRect = sEl.getBoundingClientRect();
-      setLineMetrics({
-        top: textRect.bottom + 12,
-        stopWidth: Math.max(180, sRect.right),
-        dotX: sRect.left + sRect.width / 2 - 6,
-      });
-    };
-
-    const frame = requestAnimationFrame(updateMetrics);
-    window.addEventListener('resize', updateMetrics);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('resize', updateMetrics);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!lineDone) return;
-    const hold = setTimeout(() => setIsLoaded(true), 120);
-    return () => clearTimeout(hold);
-  }, [lineDone]);
-
-  useEffect(() => {
-    const safety = setTimeout(() => {
-      setLineDone(true);
-    }, 2500);
-
-    return () => {
-      clearTimeout(safety);
-    };
+    const timer = setTimeout(() => setIsLoaded(true), 2200);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -88,42 +52,24 @@ const App: React.FC = () => {
         <Footer />
       </div>
 
-      <div className={`fixed inset-0 z-50 bg-white flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] pointer-events-none ${isLoaded ? '-translate-y-full' : 'translate-y-0'}`}>
-        <div ref={loaderTextRef} className="relative inline-flex items-baseline">
-          <span className="text-5xl sm:text-6xl font-display font-bold text-brand-blue tracking-tighter">
-            CJN
-          </span>
-          <span className="text-5xl sm:text-6xl font-display font-bold mx-3 tracking-tighter" style={{ color: '#F29216' }}>
-            |
-          </span>
-          <span className="text-5xl sm:text-6xl font-display font-bold tracking-tighter" style={{ color: '#445373' }}>
-            IT&nbsp;Solution<span ref={lastSRef}>s</span>
-          </span>
-        </div>
-
-        {lineMetrics.stopWidth > 0 && (
-          <motion.div
-            className="fixed left-0 h-[4px] rounded-full will-change-transform"
-            style={{
-              top: `${lineMetrics.top}px`,
-              width: `${lineMetrics.stopWidth}px`,
-              background: '#C15F00',
-              transformOrigin: 'left center',
-            }}
-            initial={{ scaleX: 0, x: 0, opacity: 1 }}
-            animate={{
-              scaleX: [0, 1, 1, 0.02],
-              x: [0, 0, 0, lineMetrics.dotX],
-              opacity: [1, 1, 1, 0],
-            }}
-            transition={{
-              duration: 1.6,
-              times: [0, 0.5, 0.72, 1],
-              ease: 'easeInOut',
-            }}
-            onAnimationComplete={() => setLineDone(true)}
-          />
-        )}
+      <div className={`fixed inset-0 z-50 bg-white flex flex-col items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] pointer-events-none ${isLoaded ? '-translate-y-full' : 'translate-y-0'}`}>
+        <motion.div
+          initial={{ scale: 0.7, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <AnimatedGlobe size={140} ariaLabel="Loading CJN IT Solutions" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-6 flex items-baseline gap-3"
+        >
+          <span className="text-3xl sm:text-4xl font-display font-bold text-brand-blue tracking-tighter">CJN</span>
+          <span className="text-3xl sm:text-4xl font-display font-bold tracking-tighter" style={{ color: '#F29216' }}>|</span>
+          <span className="text-3xl sm:text-4xl font-display font-bold tracking-tighter" style={{ color: '#445373' }}>IT Solutions</span>
+        </motion.div>
       </div>
     </motion.div>
   );

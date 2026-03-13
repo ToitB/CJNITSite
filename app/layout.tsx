@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
-import { Inter, Montserrat } from 'next/font/google';
+import { DM_Sans, Sora } from 'next/font/google';
 import { LiquidEffects } from '../components/LiquidEffects';
 import './globals.css';
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
   display: 'swap',
 });
 
-const montserrat = Montserrat({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800', '900'],
-  variable: '--font-montserrat',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-sora',
   display: 'swap',
 });
 
@@ -36,7 +36,7 @@ export default function RootLayout({
           content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com; frame-src https://www.google.com; connect-src 'self' https://*.cjn.co.za; object-src 'none'; base-uri 'self'; form-action 'self' https://*.cjn.co.za; frame-ancestors 'none';"
         />
       </head>
-      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+      <body className={`${dmSans.variable} ${sora.variable} antialiased`}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-blue focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
