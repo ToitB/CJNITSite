@@ -56,7 +56,7 @@ export const Hero: React.FC = () => {
         <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="mb-6"
         >
             <span className="section-kicker inline-block py-1.5 px-4 rounded-full bg-slate-100 border border-slate-200 mb-6 shadow-sm">
@@ -67,7 +67,7 @@ export const Hero: React.FC = () => {
         <motion.h1 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-4xl md:text-6xl lg:text-7xl leading-[0.94] font-black tracking-tight text-brand-dark mb-8 max-w-6xl mx-auto"
         >
             Managed IT Services &amp;
@@ -80,7 +80,7 @@ export const Hero: React.FC = () => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            transition={{ delay: 0.6, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-6"
         >
             <p className="font-sans text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed">

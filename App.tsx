@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const bgColor = useMotionTemplate`hsl(${bgHue} ${bgSat}% ${bgLight}%)`;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 2200);
+    const timer = setTimeout(() => setIsLoaded(true), 3200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,7 +39,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className={`relative z-10 transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`relative z-10 transition-opacity duration-[1400ms] ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <Navbar />
         
         <main id="main-content">

@@ -218,14 +218,14 @@ export const Contact: React.FC = () => {
                     initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
                     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                     className="font-display text-6xl md:text-7xl font-bold tracking-tighter mb-8 text-brand-dark"
                 >
                     Ready to Modernize<br/>
                     <span className="text-brand-blue">Your Infrastructure?</span>
                 </motion.h2>
                 
-                <p className="text-lg text-slate-600 mb-12 max-w-md">
+                <p className="text-lg text-slate-700 mb-12 max-w-md">
                     Our capable team is ready to analyze your current environment, plan your evolution, and execute a
                     modernisation plan with precision. Let&apos;s build a system that works as hard as you do.
                 </p>

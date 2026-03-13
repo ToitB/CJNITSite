@@ -36,7 +36,7 @@ export const About: React.FC = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 text-slate-400 text-lg leading-relaxed">
+        <div className="grid md:grid-cols-2 gap-12 text-slate-300 text-lg leading-relaxed">
             <motion.p
               initial={{ x: -20, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}

@@ -98,7 +98,7 @@ export const Navbar: React.FC = () => {
               <span className="text-brand-orange">|</span>{' '}
               <span className="text-[#445373]">IT Solutions</span>
             </div>
-            <div className="font-subheading text-xs tracking-wide text-slate-600">
+            <div className="font-subheading text-xs tracking-wide text-slate-700">
               Structured IT, Seamless Business
             </div>
           </div>
@@ -107,19 +107,19 @@ export const Navbar: React.FC = () => {
         <div className="glass-dock">
           <a
             href="/"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
           >
             Home
           </a>
           <a
             href="/resources"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
           >
             Resources
           </a>
           <a
             href="/blog"
-            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline"
+            className="glass-dock-item hidden sm:inline-flex items-center font-subheading text-xs uppercase tracking-widest text-slate-700 px-4 py-2.5 hover:text-brand-blue transition-colors nav-link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
           >
             Blog
           </a>
@@ -127,7 +127,7 @@ export const Navbar: React.FC = () => {
             href="https://898.tv/cjnit"
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-dock-item liquid-surface hidden sm:inline-flex items-center gap-2 font-subheading text-xs uppercase tracking-widest text-brand-blue hover:text-brand-dark px-4 py-2.5 transition-colors cursor-hover"
+            className="glass-dock-item liquid-surface hidden sm:inline-flex items-center gap-2 font-subheading text-xs uppercase tracking-widest text-brand-blue hover:text-brand-dark px-4 py-2.5 transition-colors cursor-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
           >
             <Headset className="w-4 h-4" />
             Get Support

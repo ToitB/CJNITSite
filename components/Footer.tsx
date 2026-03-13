@@ -23,18 +23,18 @@ export const Footer: React.FC = () => {
               <span className="text-brand-orange">|</span>{' '}
               <span className="text-[#445373]">IT Solutions</span>
             </div>
-            <div className="font-subheading text-xs tracking-wide text-slate-600">
+            <div className="font-subheading text-xs tracking-wide text-slate-700">
               Structured IT, Seamless Business
             </div>
           </div>
         </a>
 
         <div className="flex items-center gap-6">
-          <a href="/privacy" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600 hover:text-brand-blue transition-colors">Privacy</a>
-          <a href="/terms" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600 hover:text-brand-blue transition-colors">Terms</a>
+          <a href="/privacy" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-700 hover:text-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2">Privacy</a>
+          <a href="/terms" className="cursor-hover font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-700 hover:text-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2">Terms</a>
         </div>
 
-        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-600">
+        <div className="font-subheading text-[11px] md:text-xs uppercase tracking-widest text-slate-700">
           © {year} CJN IT Solutions. All rights reserved.
         </div>
       </div>
