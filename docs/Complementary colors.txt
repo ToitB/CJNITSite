@@ -1,4 +1,4 @@
-Blue shades dark to light
+Canonical brand blues and frost
 
 #03318C
 #022873
@@ -7,20 +7,98 @@ Blue shades dark to light
 #F2F2F2
 
 
-Complementary shades
+Globe-derived blues currently used in `components/GlobeShaderMaterial.ts`
+
+Deep shadow blue
+#000F54
+
+Inner deep blue
+#001A66
+
+Inner refraction cyan
+#0099E6
+
+Surface cyan
+#00BAFF
+
+Caustic highlight blue
+#3399FF
+
+Caustic highlight cyan
+#66CCFF
+
+Bottom glow cyan
+#66E6FF
+
+Reflection blue
+#66A8FF
+
+Mid reflection blue
+#4D99E6
+
+Edge reflection blue
+#3380CC
+
+Soft glint blue
+#B3E6FF
+
+Halo blue
+#80D9FF
+
+Cool fringe blue
+#99D1FF
+
+Electric glint cyan
+#7AF0FF
+
+Outer glint blue
+#4DB8FF
+
+
+White and near-white hues relevant to the site
+
+Pure white
+#FFFFFF
+
+Liquid white / frost
+#F2F2F2
+
+Cool reflected white
+#CCE6FF
+
+Cool glint white
+#F5FAFF
+
+Warm glint white
+#FFFDFC
+
+Scrollbar track
+#F1F5F9
+
+Scrollbar thumb
+#CBD5E1
+
+Scrollbar thumb hover
+#94A3B8
+
+
+Complementary warm accents and grounding tones
 
 Primary orange
-#F29216 
+#F29216
+
+CTA orange base
+#C15F00
 
 Secondary orange
 #BF4904
 #BF5B04
 
-Other complementary
-Yellow
-#F2C916 
+Yellow accent
+#F2C916
 
-Grey
+Slate
 #445373
 
-
+Brand dark
+#020617

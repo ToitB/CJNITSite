@@ -1,13 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import * as THREE from "three";
 
-import {
-  DEFAULT_GLOBE_CONFIG,
-  addAnimatedGlobeLights,
-  createAnimatedGlobeScene,
-} from "@/components/animatedGlobeScene.js";
+import GlobeCanvas from "@/components/GlobeCanvas";
 
 const PREVIEW_SIZE = 600;
 
@@ -17,170 +12,71 @@ const RESOLUTIONS: Record<string, number> = {
   "4096 x 4096 (4K)": 4096,
 };
 
-type ExportSceneState = {
-  renderer: THREE.WebGLRenderer;
-  scene: THREE.Scene;
-  camera: THREE.PerspectiveCamera;
-  globe: {
-    update: (time: number) => void;
-    dispose: () => void;
-  };
-  lights: {
-    dispose: () => void;
-  };
-};
+const waitForNextFrame = () =>
+  new Promise<void>((resolve) => {
+    requestAnimationFrame(() => resolve());
+  });
 
 export default function ExportGlobePage() {
   const mountRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<ExportSceneState | null>(null);
-  const animFrameRef = useRef(0);
   const timeRef = useRef(0);
 
   const [paused, setPaused] = useState(false);
   const [time, setTime] = useState(0);
   const [resolution, setResolution] = useState(2048);
   const [transparentBg, setTransparentBg] = useState(true);
-  const [sceneReady, setSceneReady] = useState(false);
 
   useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      DEFAULT_GLOBE_CONFIG.cameraFov,
-      1,
-      0.1,
-      100
-    );
-    camera.position.set(0, 0, DEFAULT_GLOBE_CONFIG.cameraZ);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      preserveDrawingBuffer: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setPixelRatio(1);
-    renderer.setClearColor(0x000000, 0);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.domElement.style.display = "block";
-    renderer.domElement.style.width = "100%";
-    renderer.domElement.style.height = "100%";
-    mount.appendChild(renderer.domElement);
-
-    const lights = addAnimatedGlobeLights(scene);
-    const globe = createAnimatedGlobeScene(scene, { shellSegments: 128 });
-
-    renderer.setSize(PREVIEW_SIZE, PREVIEW_SIZE, false);
-    camera.aspect = 1;
-    camera.updateProjectionMatrix();
-
-    sceneRef.current = {
-      renderer,
-      scene,
-      camera,
-      globe,
-      lights,
-    };
-    setSceneReady(true);
-
-    return () => {
-      cancelAnimationFrame(animFrameRef.current);
-      setSceneReady(false);
-      globe.dispose();
-      lights.dispose();
-
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement);
-      }
-
-      renderer.dispose();
-      sceneRef.current = null;
-    };
-  }, []);
-
-  const renderAtTime = useCallback((nextTime: number) => {
-    const currentScene = sceneRef.current;
-    if (!currentScene) return;
-
-    currentScene.globe.update(nextTime);
-    currentScene.renderer.render(currentScene.scene, currentScene.camera);
-  }, []);
-
-  useEffect(() => {
+    let animationFrameId = 0;
     let lastTimestamp: number | null = null;
 
     const tick = (timestamp: number) => {
-      animFrameRef.current = requestAnimationFrame(tick);
+      animationFrameId = requestAnimationFrame(tick);
 
-      if (!paused) {
-        if (lastTimestamp !== null) {
-          const dt = (timestamp - lastTimestamp) / 1000;
-          timeRef.current += dt;
-          setTime(timeRef.current);
-        }
-        lastTimestamp = timestamp;
-        renderAtTime(timeRef.current);
-      } else {
+      if (paused) {
         lastTimestamp = null;
-        renderAtTime(timeRef.current);
+        return;
       }
+
+      if (lastTimestamp !== null) {
+        const dt = (timestamp - lastTimestamp) / 1000;
+        timeRef.current += dt;
+        setTime(timeRef.current);
+      }
+
+      lastTimestamp = timestamp;
     };
 
-    animFrameRef.current = requestAnimationFrame(tick);
+    animationFrameId = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(animFrameRef.current);
-  }, [paused, renderAtTime]);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [paused]);
 
   const handleTimeChange = (value: number) => {
     timeRef.current = value;
     setTime(value);
-    renderAtTime(value);
   };
 
-  const exportPNG = useCallback(() => {
-    const currentScene = sceneRef.current;
-    if (!currentScene) return;
+  const exportPNG = useCallback(async () => {
+    const canvas = mountRef.current?.querySelector("canvas");
+    if (!canvas) return;
 
-    const { renderer, scene, camera, globe } = currentScene;
-    const previousSize = renderer.getSize(new THREE.Vector2());
+    await waitForNextFrame();
 
-    renderer.setSize(resolution, resolution, false);
-    camera.aspect = 1;
-    camera.updateProjectionMatrix();
-    renderer.setClearColor(transparentBg ? 0x000000 : 0xffffff, transparentBg ? 0 : 1);
-
-    globe.update(timeRef.current);
-    renderer.render(scene, camera);
-
-    const dataUrl = renderer.domElement.toDataURL("image/png");
-
-    renderer.setSize(previousSize.x, previousSize.y, false);
-    renderer.setClearColor(0x000000, 0);
-    camera.updateProjectionMatrix();
-    renderAtTime(timeRef.current);
-
+    const dataUrl = canvas.toDataURL("image/png");
     const anchor = document.createElement("a");
     anchor.href = dataUrl;
     anchor.download = `cjn-globe-${resolution}px${transparentBg ? "-transparent" : ""}.png`;
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
-  }, [renderAtTime, resolution, transparentBg]);
+  }, [resolution, transparentBg]);
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-center gap-8 p-8">
       <h1 className="text-2xl font-semibold tracking-tight">
         Globe Export &mdash; High-Res PNG
       </h1>
-
-      {!sceneReady && (
-        <p className="text-amber-400 text-sm animate-pulse">
-          Preparing the shared globe scene&hellip;
-        </p>
-      )}
 
       <div
         ref={mountRef}
@@ -192,7 +88,16 @@ export default function ExportGlobePage() {
             ? "repeating-conic-gradient(#222 0% 25%, #333 0% 50%) 0 0 / 20px 20px"
             : "#ffffff",
         }}
-      />
+      >
+        <GlobeCanvas
+          preserveDrawingBuffer
+          showControls
+          transparentBackground={transparentBg}
+          time={time}
+          cameraZ={5.8}
+          className="h-full w-full"
+        />
+      </div>
 
       <div className="flex flex-col gap-4 w-full max-w-[600px]">
         <div className="flex items-center gap-3">
@@ -247,8 +152,7 @@ export default function ExportGlobePage() {
 
         <button
           onClick={exportPNG}
-          disabled={!sceneReady}
-          className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-wait transition font-semibold text-base"
+          className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition font-semibold text-base"
         >
           Download PNG ({resolution} &times; {resolution})
         </button>

@@ -1,6 +1,6 @@
 # CJN IT Solutions Design System: Fonts and Colors
 
-**Last Updated:** March 4, 2026
+**Last Updated:** March 12, 2026
 
 ## Canonical Sources
 
@@ -10,7 +10,7 @@ The current design system should be derived from implementation, not older refer
 - Primary color token sources: `app/globals.css`, `tailwind.config.ts`
 - Implementation-specific color references: `components/BackgroundCanvas.tsx`, `components/AnimatedGlobe.tsx`, `app/export-globe/page.tsx`
 
-`docs/Complementary colors.txt` still matches the main palette, but the real source of truth is the code listed above.
+`docs/complementary colors.txt` now records both the canonical site palette and the globe shader's derived component colors, but the real source of truth is still the code listed above.
 
 ---
 
@@ -124,6 +124,14 @@ These colors are not all formal brand tokens, but they are part of the live visu
 | Selection text | `#FFFFFF` |
 
 The browser selection state currently uses the warm brand orange rather than cyan.
+
+### Additional Implementation Colors Worth Tracking
+
+These values are already live in the site, even though they are not yet formal CSS variables.
+
+| Color | Hex | RGB | Current Usage |
+| --- | --- | --- | --- |
+| CTA Orange Base | `#C15F00` | `rgb(193, 95, 0)` | Hero/marketing CTA button base in `App.tsx` |
 
 ---
 
@@ -253,38 +261,56 @@ The card system uses the same structural language across `.liquid-surface`, `.gl
 
 ## 6. Three.js Globe Color System
 
-The globe does not use the same exact flat brand tokens as the rest of the UI. It uses its own tightly related blue family for depth, refraction, and material behavior.
+The globe does not use the same exact five-color blue palette as the rest of the UI. It stays adjacent to the brand palette, but it expands into extra derived blues and whites for refraction, bloom, shell highlights, and glint depth.
+
+### Palette Conformity Check
+
+The answer is: not strictly.
+
+- The globe still lives in the same general family as `#03318C`, `#022873`, `#165FF2`, `#3B8DBF`, and `#F2F2F2`.
+- The shader introduces darker blues than the canonical palette for depth and several brighter cyans/lighter reflective blues that do not exist as top-level brand tokens.
+- Those extra hues should be treated as component-specific implementation colors, not replacements for the canonical site palette.
 
 ### Core Globe Palette
 
 | Role | Hex | RGB | Notes |
 | --- | --- | --- | --- |
-| Globe Core 1 | `#3A72C4` | `rgb(58, 114, 196)` | Main deep liquid blue |
-| Globe Core 2 | `#0D4280` | `rgb(13, 66, 128)` | Medium-dark rotational blend color |
-| Globe Core 3 | `#091E3A` | `rgb(9, 30, 58)` | Deepest fresnel/shadow tone |
-| Globe Core 4 | `#0D4280` | `rgb(13, 66, 128)` | Repeated to smooth the loop cycle |
+| Deep shadow blue | `#000F54` | `rgb(0, 15, 84)` | Darker than the canonical palette; used for globe depth and shadow mass |
+| Inner deep blue | `#001A66` | `rgb(0, 26, 102)` | Internal refraction base on the dark side of the globe |
+| Surface cyan | `#00BAFF` | `rgb(0, 186, 255)` | Brighter than `#3B8DBF`; main lit side blend color |
+| Inner refraction cyan | `#0099E6` | `rgb(0, 153, 230)` | Internal blue-cyan light transmitted through the globe |
+| Reflection blue | `#66A8FF` | `rgb(102, 168, 255)` | Bright reflected blue used in the top shell reflections |
+| Mid reflection blue | `#4D99E6` | `rgb(77, 153, 230)` | Secondary reflection fill on the left-hand side |
+| Edge reflection blue | `#3380CC` | `rgb(51, 128, 204)` | Cooler right-edge reflection tone |
+| Caustic highlight blue | `#3399FF` | `rgb(51, 153, 255)` | High-energy internal highlight |
+| Caustic highlight cyan | `#66CCFF` | `rgb(102, 204, 255)` | Brighter internal cyan flare |
+| Bottom glow cyan | `#66E6FF` | `rgb(102, 230, 255)` | Cyan lift at the bottom of the globe |
 
 ### Globe Shell and Material Colors
 
 | Material Part | Hex | RGB | Notes |
 | --- | --- | --- | --- |
 | Shell base color | `#FFFFFF` | `rgb(255, 255, 255)` | Physical glass shell base |
-| Attenuation color | `#B0CFE8` | `rgb(176, 207, 232)` | Cool glass tint through thickness |
-| Sheen color | `#1A5C8A` | `rgb(26, 92, 138)` | Surface sheen accent |
+| Liquid white / frost | `#F2F2F2` | `rgb(242, 242, 242)` | Shared frosted highlight family used across the site and globe |
+| Cool reflected white | `#CCE6FF` | `rgb(204, 230, 255)` | Small shell reflection dots and cool reflection cues |
+| Warm glint white | `#FFFDFC` | `rgb(255, 253, 252)` | Hottest inner glint core |
+| Cool glint white | `#F5FAFF` | `rgb(245, 250, 255)` | Slightly cooler outer glint core |
 
-### Globe Lighting Colors
+### Globe Lighting and Glint Accent Colors
 
-These values are expressed as hexadecimal numbers in Three.js light definitions:
-
-| Light | Hex | RGB | Notes |
+| Accent | Hex | RGB | Notes |
 | --- | --- | --- | --- |
-| Top-left rect light | `#C8E0FF` | `rgb(200, 224, 255)` | Sky-reflection light |
-| Bottom-right rect light | `#7AB8E0` | `rgb(122, 184, 224)` | Cooler/warmer ice-blue counter light |
-| Ambient light | `#DCE8F5` | `rgb(220, 232, 245)` | Low-intensity fill |
+| Soft glint blue | `#B3E6FF` | `rgb(179, 230, 255)` | Outer glint softness |
+| Halo blue | `#80D9FF` | `rgb(128, 217, 255)` | Bloom shoulder around the glint |
+| Cool fringe blue | `#99D1FF` | `rgb(153, 209, 255)` | Chromatic fringe used to keep the glint from reading as flat white |
+| Electric glint cyan | `#7AF0FF` | `rgb(122, 240, 255)` | Bright electric glint energy |
+| Outer glint blue | `#4DB8FF` | `rgb(77, 184, 255)` | Cooler trailing edge of the glint |
 
 ### Globe Usage Notes
 
 - The globe palette should be treated as a component-specific system, not a replacement for the main brand palette.
+- The canonical site blues remain `#03318C`, `#022873`, `#165FF2`, `#3B8DBF`, and `#F2F2F2`.
+- The current shader adds darker and brighter derived hues because the globe is simulating depth, refraction, reflections, and glint behavior rather than flat UI fills.
 - The relationship is still coherent: the globe stays in the blue/cyan family while the rest of the site uses orange as the warm counterweight.
 - `app/export-globe/page.tsx` mirrors the same globe color system for export rendering.
 
@@ -320,10 +346,9 @@ These values are expressed as hexadecimal numbers in Three.js light definitions:
 
 ### Primary Brand Palette
 
-`#03318C`, `#022873`, `#165FF2`, `#3B8DBF`, `#020617`, `#F29216`, `#BF4904`, `#BF5B04`, `#F2C916`, `#445373`, `#F2F2F2`, `#FFFFFF`
+`#03318C`, `#022873`, `#165FF2`, `#3B8DBF`, `#020617`, `#F29216`, `#C15F00`, `#BF4904`, `#BF5B04`, `#F2C916`, `#445373`, `#F2F2F2`, `#FFFFFF`
 
 ### Current Font Pairing
 
 - `Inter`: body, UI, secondary headings
 - `Montserrat`: major headings and display emphasis
-
