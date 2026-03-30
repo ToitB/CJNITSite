@@ -55,7 +55,9 @@ export function LiquidEffects() {
     };
 
     const onPointerLeave = (event: PointerEvent) => {
-      const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(LIQUID_SELECTOR) ?? null;
+      const el = event.target;
+      if (!(el instanceof Element)) return;
+      const target = el.closest<HTMLElement>(LIQUID_SELECTOR) ?? null;
       resetLiquidTarget(target);
     };
 

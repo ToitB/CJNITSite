@@ -161,6 +161,21 @@
     .blob-five {
       animation: none;
     }
+
+    .globe-logo-lines {
+      animation: none !important;
+    }
+  }
+
+  /* Lightweight SVG globe rotation */
+  @keyframes globe-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .globe-logo-lines {
+    animation: globe-spin 18s linear infinite;
+    transform-origin: 50% 50%;
   }
 }
 

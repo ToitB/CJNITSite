@@ -3,7 +3,8 @@
 import React, { useEffect, useRef } from "react";
 import { Canvas, extend, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
+import { Color, Mesh } from "three";
+import type { Mesh as MeshType } from "three";
 
 import { GlobeMaterial } from "./GlobeShaderMaterial";
 
@@ -24,7 +25,7 @@ type GlobeCanvasProps = {
 
 const GlobeMesh = ({ time }: GlobeMeshProps) => {
   const materialRef = useRef<any>(null);
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<MeshType>(null);
 
   useFrame((state) => {
     const currentTime = typeof time === "number" ? time : state.clock.elapsedTime;
@@ -39,7 +40,7 @@ const GlobeMesh = ({ time }: GlobeMeshProps) => {
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[2, 64, 64]} />
+      <sphereGeometry args={[2, 32, 32]} />
       {/* @ts-ignore */}
       <globeMaterial ref={materialRef} />
     </mesh>
@@ -55,7 +56,7 @@ const GlobeClearColor = ({
 
   useEffect(() => {
     gl.setClearColor(
-      transparentBackground ? new THREE.Color(0x000000) : new THREE.Color(0xffffff),
+      transparentBackground ? new Color(0x000000) : new Color(0xffffff),
       transparentBackground ? 0 : 1
     );
   }, [gl, transparentBackground]);

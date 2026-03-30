@@ -1,35 +1,37 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Manifesto } from './components/Manifesto';
-import { ServiceShowcase } from './components/ServiceShowcase';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
 import { BackgroundCanvas } from './components/BackgroundCanvas';
+
+const Manifesto = dynamic(() => import('./components/Manifesto').then(m => ({ default: m.Manifesto })), { ssr: false });
+const ServiceShowcase = dynamic(() => import('./components/ServiceShowcase').then(m => ({ default: m.ServiceShowcase })), { ssr: false });
+const Contact = dynamic(() => import('./components/Contact').then(m => ({ default: m.Contact })), { ssr: false });
+const Footer = dynamic(() => import('./components/Footer').then(m => ({ default: m.Footer })), { ssr: false });
 
 const AnimatedGlobe = dynamic(() => import('./components/AnimatedGlobe'), { ssr: false });
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Scroll-driven background tint: cool neutral → warm amber near bottom
-  const { scrollYProgress: pageProgress } = useScroll();
+  const { scrollYProgress: pageProgress } = useScroll({ container: containerRef });
   const bgHue = useTransform(pageProgress, [0, 0.7, 1], [220, 38, 30]);
   const bgSat = useTransform(pageProgress, [0, 0.7, 1], [8, 14, 18]);
   const bgLight = useTransform(pageProgress, [0, 1], [99, 98]);
   const bgColor = useMotionTemplate`hsl(${bgHue} ${bgSat}% ${bgLight}%)`;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 800);
+    const timer = setTimeout(() => setIsLoaded(true), 400);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <motion.div style={{ backgroundColor: bgColor }} className="relative min-h-screen text-brand-dark">
+    <motion.div ref={containerRef} style={{ backgroundColor: bgColor }} className="relative h-screen overflow-y-auto text-brand-dark">
       {/* Scroll Progress Bar */}
       <ScrollProgressBar />
 

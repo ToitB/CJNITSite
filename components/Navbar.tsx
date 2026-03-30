@@ -3,9 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X, ArrowUpRight, Headset } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-const AnimatedGlobe = dynamic(() => import('./AnimatedGlobe'), { ssr: false });
+import GlobeLogo from './GlobeLogo';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,7 +91,7 @@ export const Navbar: React.FC = () => {
       <nav className="fixed top-0 left-0 right-0 z-40 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center">
 
         <a href="/" className="flex items-center gap-3 group cursor-hover">
-          <AnimatedGlobe size={40} className="-translate-y-px" ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
+          <GlobeLogo size={40} className="-translate-y-px" ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
           <div className="leading-tight">
             <div className="font-display font-bold text-xl tracking-tight transition-colors">
               <span className="text-brand-blue">CJN</span>{' '}
@@ -171,7 +169,7 @@ export const Navbar: React.FC = () => {
             {/* Header inside Menu */}
             <div className="relative px-6 py-6 md:px-12 md:py-8 flex justify-between items-center border-b border-white/45 bg-[rgba(242,242,242,0.16)] backdrop-blur-xl">
               <div className="flex items-center gap-3">
-                <AnimatedGlobe size={34} ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
+                <GlobeLogo size={34} ariaLabel="Animated globe symbolizing resilient IT infrastructure" />
                 <div className="leading-tight">
                   <div className="font-display font-bold text-xl tracking-tight">
                     <span className="text-brand-blue">CJN</span>{' '}

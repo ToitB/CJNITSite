@@ -1,7 +1,5 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const AnimatedGlobe = dynamic(() => import('./AnimatedGlobe'), { ssr: false });
+import GlobeLogo from './GlobeLogo';
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -11,7 +9,7 @@ export const Footer: React.FC = () => {
       <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 md:py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <a href="/" className="flex items-center gap-3 group cursor-hover">
           <div className="relative">
-            <AnimatedGlobe
+            <GlobeLogo
               size={34}
               className="relative z-10 -translate-y-px"
               ariaLabel="Animated globe symbolizing resilient IT infrastructure"
