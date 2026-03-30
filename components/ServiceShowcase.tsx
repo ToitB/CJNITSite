@@ -62,7 +62,7 @@ const Card: React.FC<{
   });
 
   const scale = useTransform(progress, range, [1, targetScale]);
-  const cardOpacity = useTransform(progress, range, [1, 0.55]);
+  const cardOpacity = useTransform(progress, range, [1, 0.35]);
   const imageClip = useTransform(scrollYProgress, [0.15, 0.6], ['inset(40% 0 0 0)', 'inset(0% 0 0 0)']);
   
   return (
@@ -72,7 +72,7 @@ const Card: React.FC<{
         className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden glass-card-strong origin-top"
       >
         {/* Content Side */}
-        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-white/85 backdrop-blur-xl">
+        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-white backdrop-blur-xl">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg" style={{ backgroundColor: item.color }}>
                 <item.icon className="w-8 h-8" />
             </div>
@@ -89,7 +89,7 @@ const Card: React.FC<{
         {/* Image Side */}
         <motion.div
           style={{ clipPath: imageClip }}
-          className="flex-1 relative overflow-hidden h-full bg-slate-100"
+          className="flex-1 relative overflow-hidden h-full bg-slate-200"
         >
             <Image 
                 src={item.image} 
