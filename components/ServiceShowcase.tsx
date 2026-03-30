@@ -68,7 +68,7 @@ const Card: React.FC<{
   return (
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0 px-6">
       <motion.div 
-        style={{ scale, opacity: cardOpacity, top: `calc(-5% + ${index * 25}px)` }}
+        style={{ scale, opacity: cardOpacity, top: `calc(-5% + ${index * 25}px)`, background: '#ffffff', backdropFilter: 'none', WebkitBackdropFilter: 'none' }}
         className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden glass-card-strong origin-top"
       >
         {/* Content Side */}
