@@ -3,6 +3,8 @@ import { DM_Sans, Sora } from 'next/font/google';
 import { LiquidEffects } from '../components/LiquidEffects';
 import './globals.css';
 
+const SITE_URL = 'https://cjn.co.za';
+
 const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -18,9 +20,49 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: 'Managed IT Services & Cyber Security | CJN IT Solutions',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Managed IT Services & Cyber Security | CJN IT Solutions',
+    template: '%s | CJN IT Solutions',
+  },
   description:
-    "Managed IT services, cyber security, cloud support, and business continuity for South African small businesses.",
+    'Managed IT services, cyber security, cloud support, and business continuity for South African small businesses.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_ZA',
+    url: SITE_URL,
+    siteName: 'CJN IT Solutions',
+    title: 'Managed IT Services & Cyber Security | CJN IT Solutions',
+    description:
+      'Fixed-cost managed IT, cyber security, Microsoft 365 cloud ecosystems, and backup solutions for South African businesses.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'CJN IT Solutions – Managed IT Services & Cyber Security',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@cjnit',
+    title: 'Managed IT Services & Cyber Security | CJN IT Solutions',
+    description:
+      'Fixed-cost managed IT, cyber security, Microsoft 365 cloud ecosystems, and backup solutions for South African businesses.',
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

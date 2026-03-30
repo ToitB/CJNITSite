@@ -235,8 +235,8 @@ export const Contact: React.FC = () => {
                       { icon: <MapPin size={20} />, title: 'Visit HQ', content: <p className="text-slate-700 leading-relaxed">Office 3, Building 5, Glen Manor Office Park<br/>138 Frikkie De Beer St, Pretoria, 0084</p> },
                       { icon: <Mail size={20} />, title: 'Email Us', content: <a href="mailto:sales@cjn.co.za" className="text-slate-700 hover:text-brand-orange transition-colors">sales@cjn.co.za</a> },
                       { icon: <Phone size={20} />, title: 'Call Us', content: <a href="tel:0878093516" className="text-slate-700 hover:text-brand-orange transition-colors">087 809 3516</a> },
-                      { icon: <Linkedin size={20} />, title: 'LinkedIn', content: <a href="https://www.linkedin.com/company/cjnitsolutions" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">linkedin.com/company/cjnitsolutions</a> },
-                      { icon: <XLogo className="w-5 h-5" />, title: 'X.com', content: <a href="https://x.com/cjnit" target="_blank" rel="noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">x.com/cjnit</a> },
+                      { icon: <Linkedin size={20} />, title: 'LinkedIn', content: <a href="https://www.linkedin.com/company/cjnitsolutions" target="_blank" rel="noopener noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">linkedin.com/company/cjnitsolutions</a> },
+                      { icon: <XLogo className="w-5 h-5" />, title: 'X.com', content: <a href="https://x.com/cjnit" target="_blank" rel="noopener noreferrer" className="text-slate-700 hover:text-brand-orange transition-colors">x.com/cjnit</a> },
                       { icon: <Clock3 size={20} />, title: 'Working hours', content: <p className="text-slate-700 leading-relaxed">Mondays - Fridays: 08:00 - 17:00<br />Weekends / Public Holidays: Closed</p> },
                     ].map((item, i) => (
                       <motion.div
