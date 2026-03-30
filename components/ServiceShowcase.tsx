@@ -68,11 +68,13 @@ const Card: React.FC<{
   return (
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0 px-6">
       <motion.div 
-        style={{ scale, opacity: cardOpacity, top: `calc(-5% + ${index * 25}px)`, background: '#ffffff', backdropFilter: 'none', WebkitBackdropFilter: 'none' }}
+        style={{ scale, opacity: cardOpacity, top: `calc(-5% + ${index * 25}px)` }}
         className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden glass-card-strong origin-top"
       >
+        {/* Opaque backdrop to prevent stacked card bleed-through — sits behind glass pseudo-elements */}
+        <div className="absolute inset-0 bg-white rounded-3xl" style={{ zIndex: -3 }} />
         {/* Content Side */}
-        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-white backdrop-blur-xl">
+        <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg" style={{ backgroundColor: item.color }}>
                 <item.icon className="w-8 h-8" />
             </div>
@@ -173,13 +175,15 @@ export const ServiceShowcase: React.FC = () => {
 
       {services.map((service, i) => {
         const targetScale = 1 - ( (services.length - i) * 0.05);
+        const rangeStart = i * (1 / services.length);
+        const rangeEnd = Math.min(rangeStart + (1 / services.length), 1);
         return (
           <Card 
             key={i} 
             item={service} 
             index={i} 
             progress={scrollYProgress}
-            range={[i * 0.25, 1]}
+            range={[rangeStart, rangeEnd]}
             targetScale={targetScale}
           />
         );
