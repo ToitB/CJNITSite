@@ -1,0 +1,16 @@
+{
+  "name": "CJN IT Solutions",
+  "short_name": "CJN IT",
+  "description": "Managed IT services, cyber security, and cloud support for South African businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#03318C",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

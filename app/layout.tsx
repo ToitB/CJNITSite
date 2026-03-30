@@ -77,6 +77,35 @@ export default function RootLayout({
           httpEquiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com; frame-src https://www.google.com; connect-src 'self' https://*.cjn.co.za; object-src 'none'; base-uri 'self'; form-action 'self' https://*.cjn.co.za; frame-ancestors 'none';"
         />
+        <link rel="manifest" href="/site.webmanifest" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LocalBusiness',
+              name: 'CJN IT Solutions',
+              url: 'https://cjn.co.za',
+              logo: 'https://cjn.co.za/favicon.svg',
+              description:
+                'Managed IT services, cyber security, cloud support, and business continuity for South African businesses.',
+              telephone: '+27878093516',
+              email: 'sales@cjn.co.za',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Office 3, Building 5, Glen Manor Office Park, 138 Frikkie De Beer St',
+                addressLocality: 'Pretoria',
+                postalCode: '0084',
+                addressCountry: 'ZA',
+              },
+              openingHours: 'Mo-Fr 08:00-17:00',
+              sameAs: [
+                'https://www.linkedin.com/company/cjnitsolutions',
+                'https://x.com/cjnit',
+              ],
+            }),
+          }}
+        />
       </head>
       <body className={`${dmSans.variable} ${sora.variable} antialiased`}>
         <a

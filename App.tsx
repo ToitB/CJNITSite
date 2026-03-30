@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const bgColor = useMotionTemplate`hsl(${bgHue} ${bgSat}% ${bgLight}%)`;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 3200);
+    const timer = setTimeout(() => setIsLoaded(true), 800);
     return () => clearTimeout(timer);
   }, []);
 

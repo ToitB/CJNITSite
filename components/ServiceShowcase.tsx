@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { Cloud, Shield, Wrench, Server, HardDrive, ChevronUp, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import { useSparkHighlights } from './useSparkHighlights';
 
 const services = [
@@ -90,12 +91,10 @@ const Card: React.FC<{
           style={{ clipPath: imageClip }}
           className="flex-1 relative overflow-hidden h-full bg-slate-100"
         >
-            <img 
+            <Image 
                 src={item.image} 
                 alt={item.title} 
                 loading="lazy"
-                decoding="async"
-                fetchPriority="low"
                 width={700}
                 height={500}
                 sizes="(max-width: 768px) 100vw, 50vw"

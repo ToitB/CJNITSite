@@ -76,11 +76,13 @@ export const Contact: React.FC = () => {
     name: '',
     email: '',
     message: '',
+    website: '', // honeypot field — bots fill this, humans won't see it
   });
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [submitFeedback, setSubmitFeedback] = useState<string | null>(null);
   const [submitReference, setSubmitReference] = useState<string | null>(null);
   const [chatFeedback, setChatFeedback] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const canLoadTeamsWidget = Boolean(
     TEAMS_SCRIPT_URL && TEAMS_APP_ID && TEAMS_ORG_ID && TEAMS_ORG_URL
@@ -109,12 +111,42 @@ export const Contact: React.FC = () => {
   ) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => ({ ...prev, [name]: '' }));
+  };
+
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {};
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (!name || name.length < 2) errors.name = 'Name must be at least 2 characters.';
+    if (name.length > 200) errors.name = 'Name is too long.';
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailPattern.test(email)) errors.email = 'Please enter a valid email address.';
+    if (email.length > 320) errors.email = 'Email is too long.';
+
+    if (!message || message.length < 10) errors.message = 'Message must be at least 10 characters.';
+    if (message.length > 5000) errors.message = 'Message is too long (max 5 000 characters).';
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitFeedback(null);
     setSubmitReference(null);
+
+    // Honeypot check — if filled, silently "succeed" to fool bots
+    if (formData.website) {
+      setSubmitState('success');
+      setSubmitFeedback('Message sent successfully. We will contact you shortly.');
+      return;
+    }
+
+    if (!validateForm()) return;
 
     if (!CONTACT_API_URL) {
       setSubmitState('error');
@@ -169,6 +201,7 @@ export const Contact: React.FC = () => {
         name: '',
         email: '',
         message: '',
+        website: '',
       });
     } catch (error) {
       window.clearTimeout(requestTimeout);
@@ -287,9 +320,11 @@ export const Contact: React.FC = () => {
                           value={formData.name}
                           onChange={onFieldChange}
                           required
+                          maxLength={200}
                           className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all"
                           placeholder="Enter your name"
                         />
+                        {fieldErrors.name && <p className="text-xs text-rose-600">{fieldErrors.name}</p>}
                     </div>
                     
                     <div className="space-y-2">
@@ -301,9 +336,11 @@ export const Contact: React.FC = () => {
                           value={formData.email}
                           onChange={onFieldChange}
                           required
+                          maxLength={320}
                           className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all"
                           placeholder="your@email.com"
                         />
+                        {fieldErrors.email && <p className="text-xs text-rose-600">{fieldErrors.email}</p>}
                     </div>
                     
                     <div className="space-y-2">
@@ -315,8 +352,24 @@ export const Contact: React.FC = () => {
                           value={formData.message}
                           onChange={onFieldChange}
                           required
+                          maxLength={5000}
                           className="cursor-hover w-full bg-white border border-slate-200 rounded-lg px-4 py-4 text-brand-dark font-medium focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue focus:shadow-[0_0_0_4px_rgba(3,49,140,0.08)] transition-all resize-none"
                           placeholder="Tell us about your IT needs..."
+                        />
+                        {fieldErrors.message && <p className="text-xs text-rose-600">{fieldErrors.message}</p>}
+                    </div>
+
+                    {/* Honeypot — invisible to humans, traps bots */}
+                    <div aria-hidden="true" className="absolute -left-[9999px] -top-[9999px]">
+                        <label htmlFor="contact-website">Website</label>
+                        <input
+                          id="contact-website"
+                          type="text"
+                          name="website"
+                          value={formData.website}
+                          onChange={onFieldChange}
+                          tabIndex={-1}
+                          autoComplete="off"
                         />
                     </div>
 
