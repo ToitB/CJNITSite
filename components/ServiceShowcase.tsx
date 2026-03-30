@@ -72,7 +72,7 @@ const Card: React.FC<{
         className="relative flex flex-col md:flex-row w-full max-w-6xl h-[65vh] rounded-3xl overflow-hidden glass-card-strong origin-top"
       >
         {/* Opaque backdrop to prevent stacked card bleed-through — sits behind glass pseudo-elements */}
-        <div className="absolute inset-0 bg-white rounded-3xl" style={{ zIndex: -3 }} />
+        <div className="absolute inset-0 rounded-3xl" style={{ zIndex: -3, background: 'linear-gradient(145deg, #e8f0fb, #edf2fa 52%, #eaecf2 100%)' }} />
         {/* Content Side */}
         <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg" style={{ backgroundColor: item.color }}>
