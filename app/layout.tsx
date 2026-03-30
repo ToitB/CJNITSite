@@ -75,7 +75,7 @@ export default function RootLayout({
       <head>
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com; frame-src https://www.google.com; connect-src 'self' https://*.cjn.co.za; object-src 'none'; base-uri 'self'; form-action 'self' https://*.cjn.co.za; frame-ancestors 'none';"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://*.dynamics.com https://*.microsoft.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com; frame-src https://www.google.com; connect-src 'self' https://*.cjn.co.za https://*.dynamics.com https://*.microsoft.com; object-src 'none'; base-uri 'self'; form-action 'self' https://*.cjn.co.za; frame-ancestors 'none';"
         />
         <link rel="manifest" href="/site.webmanifest" />
         <script

@@ -99,6 +99,7 @@ export const Contact: React.FC = () => {
     script.src = TEAMS_SCRIPT_URL;
     script.async = true;
     script.defer = true;
+    script.crossOrigin = 'anonymous';
     script.setAttribute('data-app-id', TEAMS_APP_ID);
     script.setAttribute('data-org-id', TEAMS_ORG_ID);
     script.setAttribute('data-org-url', TEAMS_ORG_URL);

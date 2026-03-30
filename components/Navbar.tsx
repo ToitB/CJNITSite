@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Menu, X, ArrowUpRight, Headset } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

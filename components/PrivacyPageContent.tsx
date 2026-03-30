@@ -1,5 +1,3 @@
-'use client';
-
 import { BackgroundCanvas } from './BackgroundCanvas';
 import { Navbar } from './Navbar';
 
