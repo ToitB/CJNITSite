@@ -1,6 +1,6 @@
 # CJN IT Solutions Design System: Fonts and Colors
 
-**Last Updated:** March 12, 2026
+**Last Updated:** June 2025
 
 ## Canonical Sources
 
@@ -22,23 +22,23 @@ The site currently uses two Google fonts via Next.js `next/font/google`.
 
 | Role | Font | Weights Loaded | Subset | Loading Strategy | CSS Variable |
 | --- | --- | --- | --- | --- | --- |
-| Primary UI and body font | `Inter` | `400`, `500`, `600`, `700` | `latin` | `display: 'swap'` | `--font-inter` |
-| Display and major heading font | `Montserrat` | `500`, `600`, `700`, `800`, `900` | `latin` | `display: 'swap'` | `--font-montserrat` |
+| Primary UI and body font | `DM Sans` | `400`, `500`, `600`, `700` | `latin` | `display: 'swap'` | `--font-dm-sans` |
+| Display and major heading font | `Sora` | `500`, `600`, `700`, `800` | `latin` | `display: 'swap'` | `--font-sora` |
 
 ### Current Font Configuration
 
 ```tsx
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
   display: 'swap',
 });
 
-const montserrat = Montserrat({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800', '900'],
-  variable: '--font-montserrat',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-sora',
   display: 'swap',
 });
 ```
@@ -47,16 +47,20 @@ const montserrat = Montserrat({
 
 | UI Element | Current Font |
 | --- | --- |
-| `body` default text | `Inter` |
-| `h1`, `h2` | `Montserrat` |
-| `h3`, `h4`, `h5`, `h6` | `Inter` |
-| UI controls and utility text | Mostly `Inter` unless explicitly styled otherwise |
-| Hero/display emphasis | `Montserrat` |
+| `body` default text | `DM Sans` |
+| `h1`, `h2` | `Sora` |
+| `h3`, `h4`, `h5`, `h6` | `DM Sans` |
+| Brand wordmark ("CJN \| IT Solutions") | `Sora` (bold, xl tracking-tight) |
+| Brand tagline ("Structured IT, Seamless Business") | `DM Sans` (xs, tracking-wide) |
+| Navigation menu items | `Sora` (bold, 4xl–6xl in expanded menu) |
+| Navbar dock links | `DM Sans` (xs, uppercase, tracking-widest) |
+| UI controls and utility text | Mostly `DM Sans` unless explicitly styled otherwise |
+| Hero/display emphasis | `Sora` |
 
 ### Practical Typography Guidance
 
-- Use `Montserrat` where the page needs visual authority or brand presence.
-- Use `Inter` for readability, UI density, and most interface copy.
+- Use `Sora` where the page needs visual authority or brand presence. Sora's geometric, tech-forward character reinforces the brand's identity as a modern IT solutions provider.
+- Use `DM Sans` for readability, UI density, and most interface copy. DM Sans offers excellent legibility at small sizes with a clean, contemporary feel.
 - Do not introduce additional font families without a deliberate design-system update.
 - `display: swap` is part of the current implementation and should remain the baseline unless typography loading strategy changes intentionally.
 
@@ -149,6 +153,18 @@ These variables are part of the interaction system rather than the flat palette.
 | `--liquid-button-ripple` | `rgba(59, 141, 191, 0.20)` | Button interaction bloom |
 | `--liquid-button-ripple-strong` | `rgba(22, 95, 242, 0.34)` | Button highlight energy |
 | `--liquid-glow` | `rgba(22, 95, 242, 0.18)` | General cool glow support |
+
+### Glassmorphism Parameters
+
+The glassmorphism system relies on `backdrop-filter` for blur and saturation plus layered frost highlights. These are the current canonical values applied via CSS component classes in `globals.css`.
+
+| Class | Blur | Saturate | Frost Highlight Base | Notes |
+| --- | --- | --- | --- | --- |
+| `.glass-card` | `28px` | `145%` | `rgba(255, 255, 255, 0.18)` | Default card surface |
+| `.glass-card-strong` | `32px` | `150%` | `rgba(255, 255, 255, 0.19)` | Elevated / hero-level card |
+| `.glass-card-accent` | `22px` | `140%` | Warm `rgba(255, 247, 236, 0.25)` | Accent surfaces with orange warmth |
+| `.glass-dock` | `28px` | `148%` | `rgba(255, 255, 255, 0.18)` | Navigation dock / navbar |
+| `.liquid-surface` | `28px` | `145%` | `rgba(255, 255, 255, 0.18)` | General liquid card surface |
 
 ---
 
@@ -320,8 +336,8 @@ The answer is: not strictly.
 
 ### Typography Rules
 
-- Keep `Montserrat` reserved for high-importance display content.
-- Keep `Inter` for readable UI and running copy.
+- Keep `Sora` reserved for high-importance display content.
+- Keep `DM Sans` for readable UI and running copy.
 - Avoid introducing additional display fonts without revisiting the entire system.
 
 ### Color Rules
@@ -350,5 +366,5 @@ The answer is: not strictly.
 
 ### Current Font Pairing
 
-- `Inter`: body, UI, secondary headings
-- `Montserrat`: major headings and display emphasis
+- `DM Sans`: body, UI, secondary headings
+- `Sora`: major headings and display emphasis

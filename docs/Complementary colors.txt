@@ -7,6 +7,21 @@ Canonical brand blues and frost
 #F2F2F2
 
 
+Brand Font Pairing
+
+Display / Headings: Sora (weights 500–800, CSS var --font-sora)
+Body / UI text: DM Sans (weights 400–700, CSS var --font-dm-sans)
+
+
+Glassmorphism Parameters
+
+glass-card: blur 28px, saturate 145%
+glass-card-strong: blur 32px, saturate 150%
+glass-card-accent: blur 22px, saturate 140%
+glass-dock: blur 28px, saturate 148%
+liquid-surface: blur 28px, saturate 145%
+
+
 Globe-derived blues currently used in `components/GlobeShaderMaterial.ts`
 
 Deep shadow blue
