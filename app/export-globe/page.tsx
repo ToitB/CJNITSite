@@ -19,9 +19,16 @@ const RECORDING_DURATIONS: Record<string, number> = {
   "30 seconds": 30,
 };
 
-const waitForNextFrame = () =>
+/** Wait for N animation frames so React + R3F fully render before capture. */
+const waitFrames = (count = 1) =>
   new Promise<void>((resolve) => {
-    requestAnimationFrame(() => resolve());
+    let remaining = count;
+    const step = () => {
+      remaining--;
+      if (remaining <= 0) resolve();
+      else requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   });
 
 /* ------------------------------------------------------------------ */
@@ -126,7 +133,7 @@ export default function ExportGlobePage() {
     const canvas = mountRef.current?.querySelector("canvas");
     if (!canvas) return;
 
-    await waitForNextFrame();
+    await waitFrames(2);
 
     const dataUrl = canvas.toDataURL("image/png");
     const anchor = document.createElement("a");
@@ -186,21 +193,30 @@ export default function ExportGlobePage() {
     }
   }, []);
 
-  /* ---- Tar frame export (captures PNG frames into a .tar archive) ---- */
+  /* ---- Tar frame export (deterministic time-stepped PNG capture) ---- */
   const exportTar = useCallback(async () => {
     const canvas = mountRef.current?.querySelector("canvas");
     if (!canvas) return;
 
-    setPaused(false);
-    setRecording(true);
-
     const fps = 30;
     const totalFrames = recordDuration * fps;
     const files: { name: string; data: Uint8Array }[] = [];
+    const startTime = timeRef.current;
+
+    // Pause the real-time animation so we control time precisely
+    setPaused(true);
+    setRecording(true);
 
     for (let i = 0; i < totalFrames; i++) {
+      // Advance time deterministically: exactly 1/fps per frame
+      const frameTime = startTime + i / fps;
+      timeRef.current = frameTime;
+      setTime(frameTime);
+
+      // Wait 3 frames: React re-render → R3F useFrame → GPU flush
+      await waitFrames(3);
+
       setRecordingProgress(`Capturing frame ${i + 1}/${totalFrames}…`);
-      await waitForNextFrame();
 
       const dataUrl = canvas.toDataURL("image/png");
       const resp = await fetch(dataUrl);
@@ -210,13 +226,15 @@ export default function ExportGlobePage() {
     }
 
     setRecordingProgress("Building tar archive…");
-    await waitForNextFrame();
+    await waitFrames(1);
 
     const tarBlob = buildTar(files);
     downloadBlob(tarBlob, `cjn-globe-frames-${recordDuration}s-${fps}fps.tar`);
 
+    // Resume playback from where we left off
     setRecording(false);
     setRecordingProgress("");
+    setPaused(false);
   }, [recordDuration]);
 
   return (
