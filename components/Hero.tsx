@@ -64,10 +64,7 @@ export const Hero: React.FC = () => {
             </span>
         </motion.div>
 
-        <motion.h1 
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <h1
             className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.12] md:leading-[1.1] lg:leading-[1.08] font-black tracking-tight text-brand-dark mb-8 max-w-6xl mx-auto"
         >
             Managed IT Services &amp;
@@ -75,7 +72,7 @@ export const Hero: React.FC = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-cyan">Cyber Security for South African</span>
             <br />
             Businesses.
-        </motion.h1>
+        </h1>
 
         <motion.div
             initial={{ opacity: 0 }}
