@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
-import { Cloud, Shield, Wrench, Server, HardDrive, ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useSparkHighlights } from './useSparkHighlights';
 
@@ -9,7 +9,7 @@ const services = [
     id: "01",
     title: "Fully Managed IT Support",
     description: "The Backbone of Your Operations. Eliminate unpredictable IT costs. We provide comprehensive, fixed-rate managed services that act as your dedicated off-site IT department. From rapid helpdesk support to routine system patching, we ensure your team stays productive without the overhead of internal IT staff.",
-    icon: Server,
+    badge: "/Badges/optimized/support.png",
     color: "#03318C", 
     image: "/managed.webp"
   },
@@ -17,7 +17,7 @@ const services = [
     id: "02",
     title: "Business Continuity & Backup",
     description: "Data Resilience You Can Trust. Your data is your most valuable asset. We offer hybrid backup solutions integrating local and cloud-based redundancy using enterprise-grade software like Acronis. Whether you're a boutique firm or a large-scale enterprise, our recovery protocols ensure your business stays online, no matter what.",
-    icon: HardDrive,
+    badge: "/Badges/optimized/backup.png",
     color: "#445373",
     image: "/backup.webp"
   },
@@ -25,7 +25,7 @@ const services = [
     id: "03",
     title: "Cyber Security & Defense",
     description: "Hardening Your Digital Perimeter. In an era of evolving threats, we deploy multi-layered defense strategies. Leveraging industry-leading platforms like Trend Micro (Worry-Free & XDR) and Microsoft Defender, we provide centrally managed protection that anticipates and neutralizes vulnerabilities before they impact your business.",
-    icon: Shield,
+    badge: "/Badges/optimized/cybersec.png",
     color: "#165FF2", 
     image: "/security.webp"
   },
@@ -33,7 +33,7 @@ const services = [
     id: "04",
     title: "Cloud Ecosystems",
     description: "Seamless Transitions to a Modern Workspace. Scale with confidence. We specialize in migrating legacy systems to high-performance cloud environments, including Microsoft 365, SharePoint, Teams, and Exchange Online. From initial planning to post-migration support, we help you leverage the world’s most robust cloud infrastructure.",
-    icon: Cloud,
+    badge: "/Badges/optimized/clouds.png",
     color: "#F29216", 
     image: "/cloud.webp"
   },
@@ -41,7 +41,7 @@ const services = [
     id: "05",
     title: "Strategic Hardware Procurement",
     description: "Optimized Assets for Peak Performance. Hardware should not be an afterthought. We facilitate the strategic sourcing of high-performance laptops, servers, and networking equipment. By partnering with South Africa's premier importers, we deliver enterprise-grade hardware tailored to your technical requirements and budget.",
-    icon: Wrench,
+    badge: "/Badges/optimized/procurement.png",
     color: "#022873", 
     image: "/procurement.webp"
   }
@@ -75,8 +75,15 @@ const Card: React.FC<{
         <div className="absolute inset-0 rounded-3xl" style={{ zIndex: -3, background: 'linear-gradient(145deg, #e8f0fb, #edf2fa 52%, #eaecf2 100%)' }} />
         {/* Content Side */}
         <div className="flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg" style={{ backgroundColor: item.color }}>
-                <item.icon className="w-8 h-8" />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 overflow-hidden p-1 shadow-lg" style={{ backgroundColor: item.color }}>
+                <Image
+                    src={item.badge}
+                    alt={`${item.title} badge`}
+                    width={56}
+                    height={56}
+                    sizes="56px"
+                    className="h-full w-full rounded-[0.875rem] object-cover"
+                />
             </div>
             
             <div className="font-subheading text-xs uppercase tracking-widest text-slate-600 mb-4">Capability {item.id}</div>

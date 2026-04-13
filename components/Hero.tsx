@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl leading-[0.94] font-black tracking-tight text-brand-dark mb-8 max-w-6xl mx-auto"
+            className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.12] md:leading-[1.1] lg:leading-[1.08] font-black tracking-tight text-brand-dark mb-8 max-w-6xl mx-auto"
         >
             Managed IT Services &amp;
             <br />

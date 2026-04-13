@@ -23,9 +23,12 @@ export function TermsPageContent() {
               bound by the following terms and conditions.
             </p>
 
-            <ol className="list-decimal pl-6 space-y-8 font-sans text-slate-700 leading-relaxed">
+            <ol className="list-none pl-0 space-y-8 font-sans text-slate-700 leading-relaxed">
               <li>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark mb-3">Professional Services</h2>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span aria-hidden="true" className="font-display text-2xl md:text-3xl font-bold text-brand-dark shrink-0">1.</span>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark">Professional Services</h2>
+                </div>
                 <p>
                   The content on this website is for general information purposes only. While we strive for
                   &quot;Invisible Reliability,&quot; CJN IT Solutions provides services based on specific Service Level
@@ -34,7 +37,10 @@ export function TermsPageContent() {
                 </p>
               </li>
               <li>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark mb-3">Intellectual Property</h2>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span aria-hidden="true" className="font-display text-2xl md:text-3xl font-bold text-brand-dark shrink-0">2.</span>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark">Intellectual Property</h2>
+                </div>
                 <p>
                   All content, 3D assets, logos, and engineered solutions displayed on this site are the property of
                   CJN IT Solutions or its licensors. Unauthorized reproduction or use of these materials is strictly
@@ -42,7 +48,10 @@ export function TermsPageContent() {
                 </p>
               </li>
               <li>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark mb-3">Limitation of Liability</h2>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span aria-hidden="true" className="font-display text-2xl md:text-3xl font-bold text-brand-dark shrink-0">3.</span>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark">Limitation of Liability</h2>
+                </div>
                 <p>
                   To the extent permitted by the Electronic Communications and Transactions Act (ECT Act), CJN IT
                   Solutions shall not be liable for any damage, loss, or liability of any nature incurred by the use
@@ -50,7 +59,10 @@ export function TermsPageContent() {
                 </p>
               </li>
               <li>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark mb-3">Jurisdiction</h2>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span aria-hidden="true" className="font-display text-2xl md:text-3xl font-bold text-brand-dark shrink-0">4.</span>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark">Jurisdiction</h2>
+                </div>
                 <p>
                   These terms are governed by and interpreted in accordance with the laws of the Republic of South
                   Africa. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the
@@ -58,7 +70,10 @@ export function TermsPageContent() {
                 </p>
               </li>
               <li>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark mb-3">Service Availability</h2>
+                <div className="flex items-baseline gap-2 mb-3">
+                  <span aria-hidden="true" className="font-display text-2xl md:text-3xl font-bold text-brand-dark shrink-0">5.</span>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-brand-dark">Service Availability</h2>
+                </div>
                 <p>
                   While we aim for maximum uptime, we do not guarantee that the website will be available at all times
                   without interruption. We reserve the right to modify or withdraw services or content without notice.

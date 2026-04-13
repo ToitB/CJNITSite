@@ -1,5 +1,0 @@
-{
-  "name": "Animated 3D Globe",
-  "description": "A fully procedural, animated 3D recreation of a stylized globe illustration using Three.js and custom shaders.",
-  "requestFramePermissions": []
-}
