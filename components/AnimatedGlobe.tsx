@@ -13,13 +13,24 @@ export default function AnimatedGlobe({
   className = "",
   ariaLabel,
 }: AnimatedGlobeProps) {
+  if (ariaLabel) {
+    return (
+      <div
+        className={`shrink-0 flex items-center justify-center leading-none ${className}`}
+        style={{ width: `${size}px`, height: `${size}px` }}
+        role="img"
+        aria-label={ariaLabel}
+      >
+        <GlobeCanvas transparentBackground cameraZ={5.8} />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`shrink-0 flex items-center justify-center leading-none ${className}`}
       style={{ width: `${size}px`, height: `${size}px` }}
-      aria-hidden={ariaLabel ? undefined : "true"}
-      role={ariaLabel ? "img" : undefined}
-      aria-label={ariaLabel}
+      aria-hidden="true"
     >
       <GlobeCanvas transparentBackground cameraZ={5.8} />
     </div>

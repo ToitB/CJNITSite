@@ -197,8 +197,8 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     color: white;
-    backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
     box-shadow:
       0 20px 36px rgba(2, 40, 115, 0.22),
       inset 0 1px 0 rgba(255, 255, 255, 0.22);
@@ -316,8 +316,8 @@
     background:
       linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(242, 242, 242, 0.10) 28%, transparent 62%),
       linear-gradient(145deg, rgba(59, 141, 191, 0.26), rgba(3, 49, 140, 0.18) 55%, rgba(68, 83, 115, 0.16) 100%);
-    backdrop-filter: blur(28px) saturate(145%);
     -webkit-backdrop-filter: blur(28px) saturate(145%);
+    backdrop-filter: blur(28px) saturate(145%);
     box-shadow:
       0 20px 52px rgba(2, 40, 115, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.52),
@@ -393,8 +393,8 @@
   }
 
   .liquid-surface-strong {
-    backdrop-filter: blur(26px) saturate(136%);
     -webkit-backdrop-filter: blur(26px) saturate(136%);
+    backdrop-filter: blur(26px) saturate(136%);
     box-shadow:
       0 24px 58px rgba(2, 40, 115, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.5),
@@ -408,8 +408,8 @@
     isolation: isolate;
     overflow: hidden;
     border: 1px solid var(--liquid-glass-border);
-    backdrop-filter: blur(28px) saturate(145%);
     -webkit-backdrop-filter: blur(28px) saturate(145%);
+    backdrop-filter: blur(28px) saturate(145%);
     box-shadow:
       0 20px 52px rgba(2, 40, 115, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.52),
@@ -492,8 +492,8 @@
     background:
       linear-gradient(165deg, rgba(255, 255, 255, 0.22), rgba(242, 242, 242, 0.10) 28%, transparent 62%),
       linear-gradient(145deg, rgba(22, 95, 242, 0.22), rgba(2, 40, 115, 0.22) 52%, rgba(68, 83, 115, 0.14) 100%);
-    backdrop-filter: blur(32px) saturate(150%);
     -webkit-backdrop-filter: blur(32px) saturate(150%);
+    backdrop-filter: blur(32px) saturate(150%);
     box-shadow:
       0 24px 58px rgba(2, 40, 115, 0.18),
       inset 0 1px 0 rgba(255, 255, 255, 0.58),
@@ -504,8 +504,8 @@
     background:
       linear-gradient(165deg, rgba(255, 247, 236, 0.28), rgba(255, 255, 255, 0.10) 30%, transparent 60%),
       linear-gradient(145deg, rgba(242, 146, 22, 0.26), rgba(191, 91, 4, 0.22) 52%, rgba(68, 83, 115, 0.14) 100%);
-    backdrop-filter: blur(32px) saturate(150%);
     -webkit-backdrop-filter: blur(32px) saturate(150%);
+    backdrop-filter: blur(32px) saturate(150%);
     box-shadow:
       0 24px 58px rgba(2, 40, 115, 0.18),
       inset 0 1px 0 rgba(255, 255, 255, 0.58),
@@ -575,8 +575,8 @@
     background:
       linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(242, 242, 242, 0.10) 30%, transparent 64%),
       linear-gradient(145deg, rgba(59, 141, 191, 0.20), rgba(3, 49, 140, 0.20));
-    backdrop-filter: blur(28px) saturate(148%);
     -webkit-backdrop-filter: blur(28px) saturate(148%);
+    backdrop-filter: blur(28px) saturate(148%);
     box-shadow:
       0 18px 46px rgba(2, 40, 115, 0.16),
       inset 0 1px 0 rgba(255, 255, 255, 0.50);
@@ -590,8 +590,8 @@
     background:
       linear-gradient(160deg, rgba(242, 242, 242, 0.22), rgba(242, 242, 242, 0.06) 36%, transparent 70%),
       linear-gradient(145deg, rgba(59, 141, 191, 0.16), rgba(68, 83, 115, 0.12));
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     transition:
       transform 220ms ease,
       border-color 220ms ease,

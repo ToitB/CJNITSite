@@ -135,17 +135,31 @@ export const Navbar: React.FC = () => {
             <Headset className="w-4 h-4" />
             Get Support
           </a>
-          <button 
-            ref={menuButtonRef}
-            onClick={() => setIsOpen(true)} 
-            aria-label="Open site navigation menu"
-            aria-expanded={isOpen}
-            aria-controls="site-navigation-overlay"
-            className="glass-dock-item flex items-center gap-3 group cursor-hover px-4 py-2.5 text-slate-700 transition-colors"
-          >
-            <span className="hidden md:block font-subheading text-xs uppercase tracking-widest text-slate-700 group-hover:text-brand-blue transition-colors">Menu</span>
-            <Menu className="w-5 h-5 text-brand-dark group-hover:text-brand-blue transition-colors" />
-          </button>
+          {isOpen ? (
+            <button
+              ref={menuButtonRef}
+              onClick={() => setIsOpen(true)}
+              aria-label="Open site navigation menu"
+              aria-expanded="true"
+              aria-controls="site-navigation-overlay"
+              className="glass-dock-item flex items-center gap-3 group cursor-hover px-4 py-2.5 text-slate-700 transition-colors"
+            >
+              <span className="hidden md:block font-subheading text-xs uppercase tracking-widest text-slate-700 group-hover:text-brand-blue transition-colors">Menu</span>
+              <Menu className="w-5 h-5 text-brand-dark group-hover:text-brand-blue transition-colors" />
+            </button>
+          ) : (
+            <button
+              ref={menuButtonRef}
+              onClick={() => setIsOpen(true)}
+              aria-label="Open site navigation menu"
+              aria-expanded="false"
+              aria-controls="site-navigation-overlay"
+              className="glass-dock-item flex items-center gap-3 group cursor-hover px-4 py-2.5 text-slate-700 transition-colors"
+            >
+              <span className="hidden md:block font-subheading text-xs uppercase tracking-widest text-slate-700 group-hover:text-brand-blue transition-colors">Menu</span>
+              <Menu className="w-5 h-5 text-brand-dark group-hover:text-brand-blue transition-colors" />
+            </button>
+          )}
         </div>
       </nav>
 
