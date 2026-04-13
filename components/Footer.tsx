@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobeLogo from './GlobeLogo';
+import Image from 'next/image';
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -8,11 +8,14 @@ export const Footer: React.FC = () => {
     <footer className="relative z-10 glass-card-strong rounded-none border-x-0 border-b-0">
       <div className="mx-auto max-w-7xl px-6 py-6 md:px-12 md:py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <a href="/" className="flex items-center gap-3 group cursor-hover">
-          <div className="relative">
-            <GlobeLogo
-              size={34}
-              className="relative z-10 -translate-y-px"
-              ariaLabel="Animated globe symbolizing resilient IT infrastructure"
+          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
+            <Image
+              src="/cjn-globe-4096px-transparent.png"
+              alt="CJN globe symbolizing resilient IT infrastructure"
+              width={40}
+              height={40}
+              sizes="40px"
+              className="h-10 w-10 object-contain"
             />
           </div>
           <div className="leading-tight">
