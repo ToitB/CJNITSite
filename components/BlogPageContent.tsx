@@ -1,26 +1,6 @@
 import { Navbar } from './Navbar';
 import { BackgroundCanvas } from './BackgroundCanvas';
-
-const posts = [
-  {
-    title: 'How to Build a Resilient SME IT Stack',
-    date: 'January 12, 2026',
-    excerpt:
-      'A practical blueprint for uptime-focused infrastructure, from endpoint control to backup strategy.',
-  },
-  {
-    title: '5 Security Gaps We See in Growing Businesses',
-    date: 'December 9, 2025',
-    excerpt:
-      'Common vulnerabilities and fast remediation steps that reduce risk without major disruption.',
-  },
-  {
-    title: 'Microsoft 365 Migration: What to Plan First',
-    date: 'November 3, 2025',
-    excerpt:
-      'Key planning checkpoints to keep collaboration, mail, and file migration smooth.',
-  },
-];
+import { blogPosts } from '../lib/blog';
 
 export function BlogPageContent() {
   return (
@@ -47,18 +27,18 @@ export function BlogPageContent() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
+              {blogPosts.map((post) => (
                 <article key={post.title} className="glass-card morph-card rounded-2xl p-7">
                   <p className="font-subheading text-xs tracking-widest uppercase text-slate-500 mb-3">
-                    {post.date}
+                    {post.displayDate} · {post.category} · {post.readTime}
                   </p>
                   <h2 className="font-display text-2xl font-bold text-brand-dark mb-3">
                     {post.title}
                   </h2>
                   <p className="font-sans text-slate-600 mb-6">{post.excerpt}</p>
-                  <button className="btn-primary-compact rounded-xl">
+                  <a href={`/blog/${post.slug}`} className="btn-primary-compact rounded-xl">
                     Read Article
-                  </button>
+                  </a>
                 </article>
               ))}
             </div>
