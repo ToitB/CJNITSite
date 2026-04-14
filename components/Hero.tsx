@@ -13,6 +13,8 @@ export const Hero: React.FC = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const teamsFallbackUrl = process.env.NEXT_PUBLIC_TEAMS_CHAT_FALLBACK_URL?.trim() ?? '';
+  const assessmentMailto =
+    'mailto:info@cjn.co.za?subject=IT%20Assessment%20Request&body=Hi%20CJN%20IT%20Solutions%2C%0A%0AI%20would%20like%20to%20book%20an%20IT%20assessment%20for%20my%20business.%0A%0ACompany%20name%3A%0AContact%20number%3A%0APreferred%20date%2Ftime%3A%0AKey%20IT%20concerns%3A%0A';
 
   const onChatClick = async () => {
     const sdk = (window as Window & {
@@ -88,7 +90,7 @@ export const Hero: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5">
                 <motion.a 
-                    href="#services"
+                    href={assessmentMailto}
                     className="cursor-hover btn-primary"
                 >
                     Book an IT Assessment

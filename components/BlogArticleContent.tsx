@@ -6,6 +6,9 @@ type BlogArticleContentProps = {
   post: BlogPost;
 };
 
+const assessmentMailto =
+  'mailto:info@cjn.co.za?subject=IT%20Assessment%20Request&body=Hi%20CJN%20IT%20Solutions%2C%0A%0AI%20would%20like%20to%20book%20an%20IT%20assessment%20for%20my%20business.%0A%0ACompany%20name%3A%0AContact%20number%3A%0APreferred%20date%2Ftime%3A%0AKey%20IT%20concerns%3A%0A';
+
 export function BlogArticleContent({ post }: BlogArticleContentProps) {
   return (
     <div className="relative min-h-screen bg-white text-brand-dark selection:bg-brand-orange selection:text-white">
@@ -90,7 +93,7 @@ export function BlogArticleContent({ post }: BlogArticleContentProps) {
                 security, cloud readiness, and continuity risks before they become
                 operational problems.
               </p>
-              <a href="/#contact" className="btn-accent mt-6 rounded-xl px-6 py-3">
+              <a href={assessmentMailto} className="btn-accent mt-6 rounded-xl px-6 py-3">
                 Book an IT Assessment
               </a>
             </section>
