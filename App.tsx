@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BackgroundCanvas } from './components/BackgroundCanvas';
+import { CookieConsent } from './components/CookieConsent';
 
 const Manifesto = dynamic(() => import('./components/Manifesto').then(m => ({ default: m.Manifesto })), { ssr: false });
 const ServiceShowcase = dynamic(() => import('./components/ServiceShowcase').then(m => ({ default: m.ServiceShowcase })), { ssr: false });
@@ -45,6 +46,8 @@ const App: React.FC = () => {
 
         <Footer />
       </div>
+
+      <CookieConsent />
     </motion.div>
   );
 };
