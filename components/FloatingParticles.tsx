@@ -26,17 +26,18 @@ function createParticle(width: number, height: number): Particle {
   const colorIndex = Math.random() < 0.08
     ? ORANGE_INDEX
     : Math.floor(Math.random() * ORANGE_INDEX);
+  const baseRadius = Math.min(Math.max(width * 0.075, 90), 170);
 
   return {
     x: Math.random() * width,
     y: Math.random() * height,
-    // Larger particles allow a much lower count while remaining visible.
-    radius: Math.random() * 5.5 + 5.5,
-    speedX: Math.random() * 0.11 - 0.055,
-    speedY: Math.random() * 0.12 + 0.035,
+    // Large atmospheric blooms match the marked-up reference and keep count low.
+    radius: Math.random() * baseRadius * 0.65 + baseRadius * 0.72,
+    speedX: Math.random() * 0.045 - 0.0225,
+    speedY: Math.random() * 0.04 + 0.012,
     opacity: colorIndex === ORANGE_INDEX
-      ? Math.random() * 0.07 + 0.08
-      : Math.random() * 0.12 + 0.12,
+      ? Math.random() * 0.035 + 0.04
+      : Math.random() * 0.07 + 0.085,
     color: PARTICLE_COLORS[colorIndex],
   };
 }
@@ -77,7 +78,7 @@ export default function FloatingParticles() {
 
       // REVERSAL NOTE: this whole layer can be removed by deleting the
       // <FloatingParticles /> line in BackgroundCanvas.
-      const particleCount = Math.min(Math.floor(width / 76), 22);
+      const particleCount = Math.min(Math.max(Math.floor(width / 360), 3), 7);
       particles = Array.from({ length: particleCount }, () => createParticle(width, height));
     };
 
@@ -111,15 +112,15 @@ export default function FloatingParticles() {
           0,
           particle.x,
           particle.y,
-          particle.radius * 2.35,
+          particle.radius * 1.45,
         );
         gradient.addColorStop(0, `rgba(${particle.color}, ${particle.opacity})`);
-        gradient.addColorStop(0.36, `rgba(${particle.color}, ${particle.opacity * 0.5})`);
+        gradient.addColorStop(0.42, `rgba(${particle.color}, ${particle.opacity * 0.44})`);
         gradient.addColorStop(1, `rgba(${particle.color}, 0)`);
 
         context.fillStyle = gradient;
         context.beginPath();
-        context.arc(particle.x, particle.y, particle.radius * 2.35, 0, Math.PI * 2);
+        context.arc(particle.x, particle.y, particle.radius * 1.45, 0, Math.PI * 2);
         context.fill();
       }
     };
@@ -152,7 +153,7 @@ export default function FloatingParticles() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-90 mix-blend-multiply"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-95 mix-blend-multiply"
     />
   );
 }
