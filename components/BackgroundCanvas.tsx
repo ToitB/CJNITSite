@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FloatingParticles from './FloatingParticles';
+
 const blobs = [
   {
     className: 'blob-one',
@@ -62,7 +64,7 @@ export const BackgroundCanvas: React.FC = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(242,242,242,0.08),rgba(255,255,255,0.82)_34%,#ffffff_74%)]" />
-      <div className="site-blobs absolute inset-0">
+      <div className="site-blobs absolute inset-0 opacity-70">
         {blobs.map((blob) => (
           <span
             key={blob.className}
@@ -72,6 +74,8 @@ export const BackgroundCanvas: React.FC = () => {
           />
         ))}
       </div>
+      {/* REVERSAL NOTE: remove this line and the import above to disable the particle experiment. */}
+      <FloatingParticles />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(255,255,255,0.08)_100%)]" />
     </div>
   );
