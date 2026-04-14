@@ -20,6 +20,7 @@ To remove the experiment:
 - Particle count is capped at 7, with roughly 3-7 blooms depending on viewport width.
 - Large viewport-scaled blooms are used so fewer particles are needed.
 - Animation is capped near 30fps.
+- Drift speed is intentionally adjusted through particle velocity, not frame rate or particle count.
 - The animation pauses when the page is hidden.
 - The layer is disabled for `prefers-reduced-motion: reduce`.
 - The layer is disabled on devices reporting 4GB memory or less.

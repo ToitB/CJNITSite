@@ -33,8 +33,8 @@ function createParticle(width: number, height: number): Particle {
     y: Math.random() * height,
     // Large atmospheric blooms match the marked-up reference and keep count low.
     radius: Math.random() * baseRadius * 0.65 + baseRadius * 0.72,
-    speedX: Math.random() * 0.045 - 0.0225,
-    speedY: Math.random() * 0.04 + 0.012,
+    speedX: Math.random() * 0.18 - 0.09,
+    speedY: Math.random() * 0.16 + 0.06,
     opacity: colorIndex === ORANGE_INDEX
       ? Math.random() * 0.035 + 0.04
       : Math.random() * 0.07 + 0.085,
