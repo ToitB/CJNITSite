@@ -17,8 +17,8 @@ To remove the experiment:
 
 ## Performance Guardrails
 
-- Particle count is capped at 46.
-- Larger particles are used so fewer particles are needed.
+- Particle count is capped at 22.
+- Larger, stronger particles are used so fewer particles are needed.
 - Animation is capped near 30fps.
 - The animation pauses when the page is hidden.
 - The layer is disabled for `prefers-reduced-motion: reduce`.

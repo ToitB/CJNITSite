@@ -30,13 +30,13 @@ function createParticle(width: number, height: number): Particle {
   return {
     x: Math.random() * width,
     y: Math.random() * height,
-    // Larger particles allow a lower count while still breaking up the flat background.
-    radius: Math.random() * 2.4 + 1.8,
-    speedX: Math.random() * 0.16 - 0.08,
-    speedY: Math.random() * 0.18 + 0.05,
+    // Larger particles allow a much lower count while remaining visible.
+    radius: Math.random() * 5.5 + 5.5,
+    speedX: Math.random() * 0.11 - 0.055,
+    speedY: Math.random() * 0.12 + 0.035,
     opacity: colorIndex === ORANGE_INDEX
-      ? Math.random() * 0.04 + 0.035
-      : Math.random() * 0.08 + 0.045,
+      ? Math.random() * 0.07 + 0.08
+      : Math.random() * 0.12 + 0.12,
     color: PARTICLE_COLORS[colorIndex],
   };
 }
@@ -77,7 +77,7 @@ export default function FloatingParticles() {
 
       // REVERSAL NOTE: this whole layer can be removed by deleting the
       // <FloatingParticles /> line in BackgroundCanvas.
-      const particleCount = Math.min(Math.floor(width / 34), 46);
+      const particleCount = Math.min(Math.floor(width / 76), 22);
       particles = Array.from({ length: particleCount }, () => createParticle(width, height));
     };
 
@@ -111,15 +111,15 @@ export default function FloatingParticles() {
           0,
           particle.x,
           particle.y,
-          particle.radius * 2.8,
+          particle.radius * 2.35,
         );
         gradient.addColorStop(0, `rgba(${particle.color}, ${particle.opacity})`);
-        gradient.addColorStop(0.42, `rgba(${particle.color}, ${particle.opacity * 0.42})`);
+        gradient.addColorStop(0.36, `rgba(${particle.color}, ${particle.opacity * 0.5})`);
         gradient.addColorStop(1, `rgba(${particle.color}, 0)`);
 
         context.fillStyle = gradient;
         context.beginPath();
-        context.arc(particle.x, particle.y, particle.radius * 2.8, 0, Math.PI * 2);
+        context.arc(particle.x, particle.y, particle.radius * 2.35, 0, Math.PI * 2);
         context.fill();
       }
     };
@@ -152,7 +152,7 @@ export default function FloatingParticles() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-70 mix-blend-multiply"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-90 mix-blend-multiply"
     />
   );
 }
